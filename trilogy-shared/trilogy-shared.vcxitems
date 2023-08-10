@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{29954653-8b50-42fe-b25d-0a9fc9a99f0f}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)definitions.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)networking\packets\packet_player_sync_data.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)utilities\ida.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)utilities\logging.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)utilities\singleton.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\enet.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\librg.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\librg_limiter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\stb_image.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\stb_rect_pack.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\stb_truetype.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\zpl.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\zpl_cull.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\zpl_image.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\zpl_math.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\zpl_opengl.h" />
+  </ItemGroup>
+</Project>

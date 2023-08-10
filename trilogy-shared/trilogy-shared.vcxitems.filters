@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{60f84bab-51b9-4dbc-a0c8-be9cc63ec152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\librg">
+      <UniqueIdentifier>{2927514f-58e6-4f7b-8363-9a251ba96af6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utilities">
+      <UniqueIdentifier>{4105909a-b9c1-4e0e-8d42-0f970bd54238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="networking">
+      <UniqueIdentifier>{8f1d57a5-7060-4ab4-bd29-9c4871e94713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="networking\packets">
+      <UniqueIdentifier>{9b282945-4d47-443e-88d0-ad46b1e72ee0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\stb_image.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\stb_rect_pack.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\stb_truetype.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\zpl.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\zpl_cull.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\zpl_image.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\zpl_math.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\zpl_opengl.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\enet.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\librg.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\librg_limiter.h">
+      <Filter>vendor\librg</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)definitions.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)utilities\singleton.hpp">
+      <Filter>utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)utilities\logging.hpp">
+      <Filter>utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)utilities\ida.hpp">
+      <Filter>utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)networking\packets\packet_player_sync_data.hpp">
+      <Filter>networking\packets</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

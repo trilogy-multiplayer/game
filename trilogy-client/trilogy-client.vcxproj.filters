@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\vendor">
+      <UniqueIdentifier>{b75b82e9-d03a-497f-a49a-b0def1157e2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sdk">
+      <UniqueIdentifier>{76c99cfc-8cd6-4504-9850-cdb0726140b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scripting">
+      <UniqueIdentifier>{68dff6e5-0c93-422d-a69b-9f9c3e271a2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\memory">
+      <UniqueIdentifier>{cea175e9-a77a-488e-998f-2ac5e0c195ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{875161ea-ef0a-497f-aa15-ebc43a00a223}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vendor\minhook">
+      <UniqueIdentifier>{1e90cd72-a7b4-4ab6-9e8b-5dc64b59afa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sdk">
+      <UniqueIdentifier>{578949be-ac57-4f9e-90be-41aea01b173a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scripting">
+      <UniqueIdentifier>{5cf304ac-0784-4c28-8db7-08797cb59b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\memory">
+      <UniqueIdentifier>{333e7b75-b744-4788-b4eb-059f8cb1992d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{24b1c4be-1c58-4313-ac96-05305580d1c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\networking">
+      <UniqueIdentifier>{6f1bad33-f917-4b45-a88d-4b5d411e992b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\networking">
+      <UniqueIdentifier>{a93b41a8-067a-4721-934f-e5590e7008a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\networking\entities">
+      <UniqueIdentifier>{7ef6dabe-b28b-47fd-b05b-06b4716ad801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\networking\entities">
+      <UniqueIdentifier>{2add8809-8440-458f-be8b-a0863bd1dfae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hooking">
+      <UniqueIdentifier>{7e2ac680-d326-41f0-ae1f-cdf9fe724a80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hooking\hooks">
+      <UniqueIdentifier>{e579bb7e-38ee-4c65-a45c-9f25f9add8b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\hooking">
+      <UniqueIdentifier>{04a21a35-9ea5-4aeb-8a21-792fcc88c6fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\hooking\hooks">
+      <UniqueIdentifier>{01142154-2c33-44da-99f3-9d79048308d1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\core.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="memory\module.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="memory\patterns.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="memory\memory.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="scripting\scripting.hpp">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk_running_script.hpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk_script_commands.hpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk_vector.hpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk.hpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\minhook\minhook.hpp">
+      <Filter>Header Files\vendor\minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\networking.hpp">
+      <Filter>Header Files\networking</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk_pool.hpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk_ped.hpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk_physical.hpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk_entity.hpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk_placable.hpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\entities\client_entity.hpp">
+      <Filter>Header Files\networking\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\entities\player_entity.hpp">
+      <Filter>Header Files\networking\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="hooking\hooks\hook_crashfix.hpp">
+      <Filter>Header Files\hooking\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="hooking\hooking.hpp">
+      <Filter>Header Files\hooking</Filter>
+    </ClInclude>
+    <ClInclude Include="hooking\hooks\hook_disable_npc.hpp">
+      <Filter>Header Files\hooking\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="hooking\hooks\hook_game.hpp">
+      <Filter>Header Files\hooking\hooks</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\sdk_running_script.cpp">
+      <Filter>Source Files\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="scripting\scripting.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="memory\memory.cpp">
+      <Filter>Source Files\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="core\core.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\networking.cpp">
+      <Filter>Source Files\networking</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\entities\player_entity.cpp">
+      <Filter>Source Files\networking\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="hooking\hooking.cpp">
+      <Filter>Source Files\hooking</Filter>
+    </ClCompile>
+    <ClCompile Include="hooking\hooks\hook_crashfix.cpp">
+      <Filter>Source Files\hooking\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="hooking\hooks\hook_disable_npc.cpp">
+      <Filter>Source Files\hooking\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="hooking\hooks\hook_game.cpp">
+      <Filter>Source Files\hooking\hooks</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

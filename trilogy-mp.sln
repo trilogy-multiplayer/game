@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "trilogy-client", "trilogy-client\trilogy-client.vcxproj", "{C5A12CA0-516E-4CB2-A1E4-64918363370A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "trilogy-server", "trilogy-server\trilogy-server.vcxproj", "{CB200F85-C61C-4D7E-AEBE-B856DA16F74C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "trilogy-shared", "trilogy-shared\trilogy-shared.vcxitems", "{29954653-8B50-42FE-B25D-0A9FC9A99F0F}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		trilogy-shared\trilogy-shared.vcxitems*{29954653-8b50-42fe-b25d-0a9fc9a99f0f}*SharedItemsImports = 9
+		trilogy-shared\trilogy-shared.vcxitems*{c5a12ca0-516e-4cb2-a1e4-64918363370a}*SharedItemsImports = 4
+		trilogy-shared\trilogy-shared.vcxitems*{cb200f85-c61c-4d7e-aebe-b856da16f74c}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5A12CA0-516E-4CB2-A1E4-64918363370A}.Debug|x64.ActiveCfg = Debug|x64
+		{C5A12CA0-516E-4CB2-A1E4-64918363370A}.Debug|x64.Build.0 = Debug|x64
+		{C5A12CA0-516E-4CB2-A1E4-64918363370A}.Debug|x86.ActiveCfg = Debug|Win32
+		{C5A12CA0-516E-4CB2-A1E4-64918363370A}.Debug|x86.Build.0 = Debug|Win32
+		{C5A12CA0-516E-4CB2-A1E4-64918363370A}.Release|x64.ActiveCfg = Release|x64
+		{C5A12CA0-516E-4CB2-A1E4-64918363370A}.Release|x64.Build.0 = Release|x64
+		{C5A12CA0-516E-4CB2-A1E4-64918363370A}.Release|x86.ActiveCfg = Release|Win32
+		{C5A12CA0-516E-4CB2-A1E4-64918363370A}.Release|x86.Build.0 = Release|Win32
+		{CB200F85-C61C-4D7E-AEBE-B856DA16F74C}.Debug|x64.ActiveCfg = Debug|x64
+		{CB200F85-C61C-4D7E-AEBE-B856DA16F74C}.Debug|x64.Build.0 = Debug|x64
+		{CB200F85-C61C-4D7E-AEBE-B856DA16F74C}.Debug|x86.ActiveCfg = Debug|Win32
+		{CB200F85-C61C-4D7E-AEBE-B856DA16F74C}.Debug|x86.Build.0 = Debug|Win32
+		{CB200F85-C61C-4D7E-AEBE-B856DA16F74C}.Release|x64.ActiveCfg = Release|x64
+		{CB200F85-C61C-4D7E-AEBE-B856DA16F74C}.Release|x64.Build.0 = Release|x64
+		{CB200F85-C61C-4D7E-AEBE-B856DA16F74C}.Release|x86.ActiveCfg = Release|Win32
+		{CB200F85-C61C-4D7E-AEBE-B856DA16F74C}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EC806EE3-4837-408E-8F6F-4E7AEAE3852F}
+	EndGlobalSection
+EndGlobal
