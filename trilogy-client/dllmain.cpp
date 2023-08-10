@@ -8,27 +8,6 @@
 #include <definitions.hpp>
 #include <sdk/sdk.hpp>
 
-class hid_mapping;
-class hid_mapping_state;
-
-class hid_mapping_state
-{
-public:
-	__int16 m_cur_state; //0x0000 
-	__int8 N0000010D; //0x0002 
-	__int8 N00000110; //0x0003 
-
-}; //Size=0x0004
-
-class hid_mapping
-{
-public:
-	hid_mapping_state m_states[102]; //0x0000 
-	char pad_0x0198[0x674]; //0x0198
-
-}; //Size=0x080C
-
-
 uintptr_t init_main(const HMODULE h_module)
 {
 	auto core = c_core::instance();
@@ -46,7 +25,7 @@ uintptr_t init_main(const HMODULE h_module)
 		if (GetAsyncKeyState(VK_INSERT) & 0x8000) break;
 		//}
 
-		if (GetAsyncKeyState(VK_BACK) & 0x1) {
+		if (GetAsyncKeyState(VK_BACK) & 0x8000) {
 			//sdk_player_ped* ped = (sdk_player_ped*)c_memory::instance()->sdk_find_player_ped(0);
 			//ped->m_matrix->set_position(sdk_vec3_t(SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z));
 			//c_log::Info(ped, ped->m_matrix);
@@ -56,6 +35,10 @@ uintptr_t init_main(const HMODULE h_module)
 			//c_log::Info("Ped pool", c_memory::instance()->sdk_ped_pool);
 			//c_log::Info("Ped pool", c_memory::instance()->sdk_ped_pool->GetAt(0));
 
+			for (int i = 0; i < 102; i++) {
+				if (c_memory::instance()->sdk_hid_mapping->m_states[i].m_cur_state == e_hid_mapping_current_state::PRESSED)
+					c_log::Info("Current pressed button:", i);
+			}
 		}
 
 		if (GetAsyncKeyState(VK_ADD) & 0x1) {
@@ -66,7 +49,7 @@ uintptr_t init_main(const HMODULE h_module)
 			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_CHAR_COORDINATES, game_id,
 				&x, &y, &z);
 
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_CREATE_CHAR, 4, 0, x, y, z, &player_handle);
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_CREATE_PLAYER, player_id, x, y, z, &player_handle);
 
 			std::stringstream debug_message_stream;
 			debug_message_stream << "(trilogy:debug) ";
@@ -75,10 +58,10 @@ uintptr_t init_main(const HMODULE h_module)
 			debug_message_stream << ".";
 			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_PRINT_HELP, debug_message_stream.str().c_str());
 
-			auto ped_ptr = *(_QWORD*)*c_memory::instance()->sdk_ped_pool + 2712 * ((__int64)player_handle >> 8);
-			auto ped = (sdk_ped*)ped_ptr;
+			//auto ped_ptr = *(_QWORD*)*c_memory::instance()->sdk_ped_pool + 2712 * ((__int64)player_handle >> 8);
+			//auto ped = (sdk_ped*)ped_ptr;
 
-			ped->update_position(sdk_vec3_t(x + 3.0f + (player_id * 0.2f), y, z), *c_memory::instance()->time_step);
+			//ped->update_position(sdk_vec3_t(x + 3.0f + (player_id * 0.2f), y, z), *c_memory::instance()->time_step);
 
 			player_id = player_id + 1;
 		}

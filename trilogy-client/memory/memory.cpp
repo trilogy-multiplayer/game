@@ -57,12 +57,11 @@ void c_memory::initialize()
 	sdk_find_player_ped = memory::find_pattern<sdk_find_player_ped_t>(base_module, "c_memory::sdk_find_player_ped", "85 C9 79 ? 0F B6 0D ? ? ? ? 48 63 C1 48 8D 0D ? ? ? ?");
 	MH_CreateHook(sdk_find_player_ped, h_sdk_find_player_ped, reinterpret_cast<void**>(&o_sdk_find_player_ped));
 	MH_EnableHook(sdk_find_player_ped);
-	// increase_pool_size()
 
 	c_hooking::instance()->initialize();
 
 	sdk_player_in_focus = memory::as_relative<int8_t*>(memory::find_pattern(base_module, "player_in_focus", "44 88 2D ? ? ? ? 66 0F 1F 44 00 00"));
-	sdk_player_pad = memory::as_relative<CPad*>(memory::find_pattern(base_module, "player_pad", "48 8D 05 ? ? ? ? F3 0F 5C 05 ? ? ? ?"));
+	//sdk_player_pad = memory::as_relative<CPad*>(memory::find_pattern(base_module, "player_pad", "48 8D 05 ? ? ? ? F3 0F 5C 05 ? ? ? ?"));
 
 	auto pad = memory::as_relative<int64_t*>(memory::find_pattern(base_module, "player_pad2", "48 8B 14 C3 48 85 D2 74 ? 48 8B 02 48 8B CA FF 50 30 48 8B 0D ? ? ? ? 85 C0 74 ? 83 79 10 ? 75 ? 48 8B 05 ? ? ? ? 48 85 C0 74 ? 80 78 68 ? 0F 85 ? ? ? ?"));
 
@@ -70,4 +69,6 @@ void c_memory::initialize()
 
 	sdk_ped_pool_padding = memory::find_pattern<int32_t*>(base_module, "sdk_ped_pool_padding", "48 69 C0 ? ? ? ? 49 03 00 48 8B 5C 24 08 C3 48 8B C3 48 8B 5C 24 08 C3 CC CC CC CC CC CC CC CC CC CC CC CC CC CC 48 83 EC ?", 3);
 	sdk_ped_pool = memory::as_relative<int64_t*>(memory::find_pattern(base_module, "pool", "48 8B 0D ? ? ? ? 44 8B 0D ? ? ? ?"));
+
+	sdk_hid_mapping = memory::as_relative<hid_mapping*>(memory::find_pattern(base_module, "pad_state", "8B 05 ? ? ? ? 83 C0 ? 83 F8 ? 0F 86 ? ? ? ?"), 2);
 }
