@@ -91,6 +91,5 @@ bool c_hook_game::hook()
 		hook_result = MH_EnableHook(sdk_thescripts_initialize) == MH_OK;
 	}
 
-
 	return hook_result;
 }
