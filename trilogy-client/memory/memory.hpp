@@ -16,7 +16,40 @@
 class c_memory : public c_singleton<c_memory> {
 private:
 	using sdk_find_player_ped_t = int64_t(*)(int32_t player_id);
+	using sdk_calc_screen_coords_t = bool(*)(const sdk_vec3_t& in, sdk_vec3_t* out, float* outw, float* outh, bool farclip, bool unk);
 public:
+
+	class sdk_camera
+	{
+	public:
+		char pad_0x0000[0x198]; //0x0000
+		float camera_heading; //0x0198 
+	}; //Size=0x019C
+
+	class sdk_camera_data_front
+	{
+	public:
+		float offset_pos_x; //0x0000 
+		float offset_pos_y; //0x0004 
+		float offset_pos_z; //0x0008 
+		float pos_x; //0x000C 
+		float pos_y; //0x0010 
+		float pos_z; //0x0014 
+		float unk_pos_x; //0x0018 
+		float unk_pos_y; //0x001C 
+		float unk_pos_z; //0x0020 
+		float unk_offset_pos_x; //0x0024 
+		float unk_offset_pos_y; //0x0028 
+		float unk_offset_pos_z; //0x002C 
+		char pad_0x0030[0x10]; //0x0030
+
+	public:
+		sdk_vec3_t get_offset_pos() {
+			return sdk_vec3_t(offset_pos_x, offset_pos_y, offset_pos_z);
+		}
+	}; //Size=0x0040
+
+
 	sdk_find_player_ped_t o_sdk_find_player_ped;
 	sdk_find_player_ped_t sdk_find_player_ped;
 	int8_t* sdk_player_in_focus;
@@ -27,6 +60,10 @@ public:
 	int64_t* sdk_ped_pool;
 
     hid_mapping* sdk_hid_mapping;
+	sdk_camera* sdk_current_camera;
+	sdk_camera_data_front* sdk_current_camera_data_front;
+
+	sdk_calc_screen_coords_t sdk_calc_screen_coords;
 
 	void initialize();
 };

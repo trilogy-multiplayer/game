@@ -25,6 +25,12 @@ uintptr_t init_main(const HMODULE h_module)
 		if (GetAsyncKeyState(VK_INSERT) & 0x8000) break;
 		//}
 
+		if (GetAsyncKeyState(VK_DIVIDE) & 0x1) {
+			int char_id;
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, 0, &char_id);
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GIVE_WEAPON_TO_CHAR, char_id, 24, 100);
+		}
+
 		if (GetAsyncKeyState(VK_BACK) & 0x8000) {
 			//sdk_player_ped* ped = (sdk_player_ped*)c_memory::instance()->sdk_find_player_ped(0);
 			//ped->m_matrix->set_position(sdk_vec3_t(SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z));
@@ -36,9 +42,36 @@ uintptr_t init_main(const HMODULE h_module)
 			//c_log::Info("Ped pool", c_memory::instance()->sdk_ped_pool->GetAt(0));
 
 			for (int i = 0; i < 102; i++) {
-				if (c_memory::instance()->sdk_hid_mapping->m_states[i].m_cur_state == e_hid_mapping_current_state::PRESSED)
+				if (c_memory::instance()->sdk_hid_mapping->m_keyboard_states[i].m_cur_state == e_hid_mapping_current_state::PRESSED)
 					c_log::Info("Current pressed button:", i);
 			}
+
+			for (int i = 0; i < 3; i++) {
+				if (c_memory::instance()->sdk_hid_mapping->m_mouse_states[i].m_cur_state == e_hid_mapping_current_state::PRESSED)
+					c_log::Info("Current pressed mouse:", i);
+			}
+
+			// sdk_ped* ped = (sdk_ped*)c_memory::instance()->sdk_find_player_ped(0);
+			// F3 0F 10 84 31 98 6B EB 04 0F 57 05 ? ? ? ?
+			// F3 0F 10 8C 31 9C 6B EB 04
+			// static auto dword_144EB6B98 = memory::find_pattern(memory::module_t(), "dword_144EB6B98", "48 8D 0D ? ? ? ? F3 0F 10 54 0A 04");
+			// static auto dword_144EB6B9C = memory::find_pattern(memory::module_t(), "dword_144EB6B9C", "F3 0F 10 8C 31 9C 6B EB 04");
+
+			// dword_144EB6B9C[110 * (unsigned __int8)TheCamera_ActiveCamera]
+
+			//c_log::Info(ped);/*
+			//ped->m_matrix->set_position(sdk_vec3_t(SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z));
+			
+			/*sdk_vec3_t screen_coords; float w, h;
+			c_memory::instance()->sdk_calc_screen_coords(
+				sdk_vec3_t(ped->m_matrix->pos_x, ped->m_matrix->pos_y, ped->m_matrix->pos_z + 1.25f),
+				&screen_coords,
+				&w,
+				&h,
+				true, true
+			);
+
+			c_log::Info("sdk_calc_screen_coords", screen_coords.x, screen_coords.y, screen_coords.z, w, h);*/
 		}
 
 		if (GetAsyncKeyState(VK_ADD) & 0x1) {

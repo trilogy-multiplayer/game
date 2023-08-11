@@ -31,7 +31,7 @@ static void on_connect_requesting(librg_event_t* event)
 
 void on_connect_accepted(librg_event_t* event)
 {
-	event->entity->type = e_entity_types::PLAYER;
+	event->entity->type = (int)e_entity_types::PLAYER;
 
 	auto player = new c_server_entity(event->entity->id, "unknown", event->entity->client_peer);
 	player->player_sync_data = new packet_player_sync_data();
@@ -50,7 +50,7 @@ void on_entity_update(librg_event_t* event)
 	if (!event->entity->user_data)
 		return;
 
-	if (event->entity->type == e_entity_types::PLAYER)
+	if (event->entity->type == (int)e_entity_types::PLAYER)
 	{
 		c_server_entity* player = (c_server_entity*)event->entity->user_data;
 		librg_data_wptr(event->data, player->player_sync_data, sizeof(packet_player_sync_data));
@@ -67,10 +67,10 @@ void on_stream_update(librg_event_t* event)
 	if (!event->entity->user_data)
 		return;
 
-	if (event->entity->type == e_entity_types::PLAYER) {
+	if (event->entity->type == (int)e_entity_types::PLAYER) {
 		c_server_entity* player = (c_server_entity*)event->entity->user_data;
 
-		c_log::Info("Incoming sync from:", player->network_id);
+		// c_log::Info("Incoming sync from:", player->network_id);
 		librg_data_rptr(event->data, player->player_sync_data, sizeof(packet_player_sync_data));
 		//auto onfoot = player->player_sync_data->controls.onFootKeys;
 

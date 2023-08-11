@@ -1,5 +1,4 @@
 #include "sdk_running_script.hpp"
-#include <Windows.h>
 #include "memory/module.hpp"
 #include "memory/patterns.hpp"
 
