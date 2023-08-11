@@ -2,104 +2,118 @@
 #include <cstring> 
 #include <cstdint>
 #include <vendor/librg/zpl/zpl_math.h>
+#include "../../../trilogy-client/sdk/sdk_vector.hpp"
 
-class CGtaControls
+enum class e_hid_mapping_current_state : int16_t {
+	JUST_RELEASED,
+	NOT_PRESSED,
+	PRESSED = 3
+};
+
+enum e_hid_mapping : int16_t {
+	WALK_FORWARD = 29,
+	WALK_LEFT = 42,
+	WALK_RIGHT = 44,
+	WALK_BACKWARD = 43,
+
+	JUMP = 68,
+	SPRINT = 54,
+	CROUCH = 57,
+	SNEAK = 66,
+
+	MOUSE_ATTACK = 0,
+	MOUSE_AIM = 1,
+	MOUSE_MIDDLE = 2,
+};
+
+class hid_mapping_state
 {
 public:
-	int16_t LeftStickX; // move/steer left (-128?)/right (+128)
-	int16_t LeftStickY; // move back(+128)/forwards(-128?)
-	int16_t RightStickX; // numpad 6(+128)/numpad 4(-128?)
-	int16_t RightStickY;
+	e_hid_mapping_current_state m_cur_state; //0x0000 
+	__int8 N0000010D; //0x0002 
+	__int8 N00000110; //0x0003 
+}; //Size=0x0004
 
-	int16_t LeftShoulder1;
-	int16_t LeftShoulder2;
-	int16_t RightShoulder1; // target / hand brake
-	int16_t RightShoulder2;
-
-	int16_t DPadUp; // radio change up           Next radio station / Call gang forward/Recruit gang member
-	int16_t DPadDown; // radio change down       Previous radio station / Gang stay back/Release gang (hold)
-	int16_t DPadLeft; //                         Skip trip/Action / Negative talk reply
-	int16_t DPadRight; //                        Next user MP3 track / Positive talk reply
-
-	int16_t Start;                             //Pause
-	int16_t Select;                            //Camera modes
-
-	int16_t ButtonSquare; // jump / reverse      Break/Reverse / Jump/Climb
-	int16_t ButtonTriangle; // get in/out        Exit vehicle / Enter veihcle
-	int16_t ButtonCross; // sprint / accelerate  Accelerate / Sprint/Swim
-	int16_t ButtonCircle; // fire                Fire weapon
-
-	int16_t ShockButtonL;
-	int16_t ShockButtonR; // look behind
-
-	int16_t m_bChatIndicated;
-	int16_t m_bPedWalk;
-	int16_t m_bVehicleMouseLook;
-	int16_t m_bRadioTrackSkip;
-};
-
-struct CCompressedControls
+class hid_mapping
 {
-	struct
-	{
-		uint8_t bAnalogLeft : 1;
-		uint8_t bAnalogRight : 1;
-		uint8_t bAnalogUp : 1;
-		uint8_t bAnalogDown : 1;
-		//uint8_t bDuck : 1;
-		uint8_t bMelee : 1;
-		uint8_t bSprint : 1;
-		uint8_t bJump : 1;
-		uint8_t bWalk : 1;
-		uint8_t bAim : 1;
-		uint8_t bEnterVeh : 1;
-	} onFootKeys;
+public:
+	hid_mapping_state m_keyboard_states[103]; //0x0000 
+	char pad_0x019C[0x148]; //0x019C
+	__int16 N000000F8; //0x02E4 
+	__int16 N00000100; //0x02E6 
+	hid_mapping_state m_mouse_states[3]; //0x02E8 
+}; //Size=0x02F4
 
-	void ToOnfootGtaControls(CGtaControls* pGtaControls)
-	{
-		memset(pGtaControls, 0, sizeof(CGtaControls)); // we are already zeroing all members so we don't have to check for zero conditions
 
-		if (onFootKeys.bAnalogLeft)         pGtaControls->LeftStickX = -128;
-		else if (onFootKeys.bAnalogRight)   pGtaControls->LeftStickX = 128;
+class hid_compressed_mapping {
+public:
+	hid_mapping_state key_walk_forward;
+	hid_mapping_state key_walk_left;
+	hid_mapping_state key_walk_right;
+	hid_mapping_state key_walk_backward;
 
-		if (onFootKeys.bAnalogUp)           pGtaControls->LeftStickY = -128;
-		else if (onFootKeys.bAnalogDown)    pGtaControls->LeftStickY = 128;
+	hid_mapping_state key_jump;
+	hid_mapping_state key_sprint;
+	hid_mapping_state key_crouch;
+	hid_mapping_state key_sneak;
 
-		if (onFootKeys.bMelee)  pGtaControls->ButtonCircle = 128;
-		if (onFootKeys.bAim)    pGtaControls->RightShoulder1 = 128;
-		if (onFootKeys.bSprint) pGtaControls->ButtonCross = 128;
-		if (onFootKeys.bJump)   pGtaControls->ButtonSquare = 128;
-		if (onFootKeys.bWalk)   pGtaControls->m_bPedWalk = 128;
-		if (onFootKeys.bEnterVeh)   pGtaControls->ButtonTriangle = 128;
-	}
+	hid_mapping_state mouse_attack;
+	hid_mapping_state mouse_aim;
 
-	void FromOnfootGtaControls(CGtaControls* pGtaControls)
-	{
-		memset(this, 0, sizeof(CCompressedControls));
-		if (pGtaControls->LeftStickX < 0)   onFootKeys.bAnalogLeft = true;
-		if (pGtaControls->LeftStickX > 0)   onFootKeys.bAnalogRight = true;
-		if (pGtaControls->LeftStickY < 0)   onFootKeys.bAnalogUp = true;
-		if (pGtaControls->LeftStickY > 0)   onFootKeys.bAnalogDown = true;
+	bool is_empty() {
+		return key_walk_forward.m_cur_state == e_hid_mapping_current_state::NOT_PRESSED &&
+			key_walk_left.m_cur_state == e_hid_mapping_current_state::NOT_PRESSED &&
+			key_walk_right.m_cur_state == e_hid_mapping_current_state::NOT_PRESSED &&
+			key_walk_backward.m_cur_state == e_hid_mapping_current_state::NOT_PRESSED &&
 
-		//if (pGtaControls->ShockButtonL > 0) onFootKeys.bDuck = true;
-		if (pGtaControls->ButtonCircle > 0) onFootKeys.bMelee = true;
-		if (pGtaControls->ButtonCross > 0) {
-			onFootKeys.bSprint = true;
-			//c_log::Info("bSprint");
-		}
-		if (pGtaControls->ButtonSquare > 0) {
-			onFootKeys.bJump = true;
-			//c_log::Info("bJump");
-		}
-		if (pGtaControls->m_bPedWalk > 0)   onFootKeys.bWalk = true;
-		if (pGtaControls->RightShoulder1 > 0) onFootKeys.bAim = true;
-		if (pGtaControls->ButtonTriangle > 0) onFootKeys.bEnterVeh = true;
+			key_jump.m_cur_state == e_hid_mapping_current_state::NOT_PRESSED &&
+			key_sprint.m_cur_state == e_hid_mapping_current_state::NOT_PRESSED &&
+			key_crouch.m_cur_state == e_hid_mapping_current_state::NOT_PRESSED &&
+			key_sneak.m_cur_state == e_hid_mapping_current_state::NOT_PRESSED &&
+
+			mouse_attack.m_cur_state == e_hid_mapping_current_state::NOT_PRESSED &&
+			mouse_aim.m_cur_state == e_hid_mapping_current_state::NOT_PRESSED;
 	}
 };
+
+inline hid_compressed_mapping compress_mapping(hid_mapping input_mapping) {
+	hid_compressed_mapping compressed_mapping;
+	compressed_mapping.key_walk_forward = input_mapping.m_keyboard_states[e_hid_mapping::WALK_FORWARD];
+	compressed_mapping.key_walk_left = input_mapping.m_keyboard_states[e_hid_mapping::WALK_LEFT];
+	compressed_mapping.key_walk_right = input_mapping.m_keyboard_states[e_hid_mapping::WALK_RIGHT];
+	compressed_mapping.key_walk_backward = input_mapping.m_keyboard_states[e_hid_mapping::WALK_BACKWARD];
+
+	compressed_mapping.key_jump = input_mapping.m_keyboard_states[e_hid_mapping::JUMP];
+	compressed_mapping.key_sprint = input_mapping.m_keyboard_states[e_hid_mapping::SPRINT];
+	compressed_mapping.key_crouch = input_mapping.m_keyboard_states[e_hid_mapping::CROUCH];
+	compressed_mapping.key_sneak = input_mapping.m_keyboard_states[e_hid_mapping::SNEAK];
+
+	compressed_mapping.mouse_attack = input_mapping.m_mouse_states[e_hid_mapping::MOUSE_ATTACK];
+	compressed_mapping.mouse_aim = input_mapping.m_mouse_states[e_hid_mapping::MOUSE_AIM];
+
+	return compressed_mapping;
+}
+
+inline hid_mapping decompress_mapping(hid_compressed_mapping compressed_mapping, hid_mapping input_mapping) {
+	input_mapping.m_keyboard_states[e_hid_mapping::WALK_FORWARD] = compressed_mapping.key_walk_forward;
+	input_mapping.m_keyboard_states[e_hid_mapping::WALK_LEFT] = compressed_mapping.key_walk_left;
+	input_mapping.m_keyboard_states[e_hid_mapping::WALK_RIGHT] = compressed_mapping.key_walk_right;
+	input_mapping.m_keyboard_states[e_hid_mapping::WALK_BACKWARD] = compressed_mapping.key_walk_backward;
+
+	input_mapping.m_keyboard_states[e_hid_mapping::JUMP] = compressed_mapping.key_jump;
+	input_mapping.m_keyboard_states[e_hid_mapping::SPRINT] = compressed_mapping.key_sprint;
+	input_mapping.m_keyboard_states[e_hid_mapping::CROUCH] = compressed_mapping.key_crouch;
+	input_mapping.m_keyboard_states[e_hid_mapping::SNEAK] = compressed_mapping.key_sneak;
+
+	input_mapping.m_mouse_states[e_hid_mapping::MOUSE_ATTACK] = compressed_mapping.mouse_attack;
+	input_mapping.m_mouse_states[e_hid_mapping::MOUSE_AIM] = compressed_mapping.mouse_aim;
+
+	return input_mapping;
+}
 
 class packet_player_sync_data {
 public:
-	float current_rotation;
+	/*float current_rotation;
 	float current_heading;
 
 	zplm_vec3_t move_speed;
@@ -109,5 +123,12 @@ public:
 	uint8_t weapon_id;
 
 	uint8_t health;
-	uint8_t armour;
+	uint8_t armour;*/
+
+	sdk_vec3_t camera_front;
+	int16_t ped_state;
+	float current_rotation;
+
+	sdk_vec3_t move_speed;
+	hid_compressed_mapping mapping;
 };

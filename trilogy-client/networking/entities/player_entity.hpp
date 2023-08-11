@@ -16,7 +16,6 @@ public:
 	e_entity_types entity_type;
 	int32_t network_id;
 
-	sdk_ped* ped = nullptr;
 	int char_id = 0; // 0x32
 	int player_id = 0; // 0x32
 

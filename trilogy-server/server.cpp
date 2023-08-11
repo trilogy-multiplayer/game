@@ -22,8 +22,8 @@
 #include "networking/entities/server_entity.hpp"
 
 librg_ctx_t m_ctx;
-std::vector<c_server_entity*> players = {};
 
+std::vector<c_server_entity*> players = {};
 static void on_connect_requesting(librg_event_t* event)
 {
 	c_log::Info("Networking", ">>", "Connecting from", librg_data_rstr(event->data));
@@ -31,7 +31,7 @@ static void on_connect_requesting(librg_event_t* event)
 
 void on_connect_accepted(librg_event_t* event)
 {
-	event->entity->type = e_entity_types::PLAYER;
+	event->entity->type = (int)e_entity_types::PLAYER;
 
 	auto player = new c_server_entity(event->entity->id, "unknown", event->entity->client_peer);
 	player->player_sync_data = new packet_player_sync_data();
@@ -47,12 +47,13 @@ void on_connect_accepted(librg_event_t* event)
 
 void on_entity_update(librg_event_t* event)
 {
-
 	if (!event->entity->user_data)
 		return;
 
-	if (event->entity->type == e_entity_types::PLAYER)
+	if (event->entity->type == (int)e_entity_types::PLAYER)
 	{
+		c_server_entity* player = (c_server_entity*)event->entity->user_data;
+		librg_data_wptr(event->data, player->player_sync_data, sizeof(packet_player_sync_data));
 	}
 }
 
@@ -66,19 +67,17 @@ void on_stream_update(librg_event_t* event)
 	if (!event->entity->user_data)
 		return;
 
-	if (event->entity->type == e_entity_types::PLAYER) {
+	if (event->entity->type == (int)e_entity_types::PLAYER) {
 		c_server_entity* player = (c_server_entity*)event->entity->user_data;
 
-		//c_log::Info("Incoming sync from:", player->network_id);
-
-		//librg_data_rptr(event->data, &player->player_sync_data, sizeof(packet_player_sync_data));
-
+		// c_log::Info("Incoming sync from:", player->network_id);
+		librg_data_rptr(event->data, player->player_sync_data, sizeof(packet_player_sync_data));
 		//auto onfoot = player->player_sync_data->controls.onFootKeys;
 
 		//c_log::Info("Received sync", onfoot.bJump == true);
 	}
 	// c_log::Info("Received sync", player->player_sync_data->controls.onFootKeys.bJump, player->player_sync_data->controls.onFootKeys.bSprint);
-	// librg_data_rptr(event->data, player->syncData, size);
+	//librg_data_rptr(event->data, player->syncData, size);
 }
 
 
@@ -86,7 +85,7 @@ int main()
 {
 	m_ctx.world_size = zpl_vec3f(5000.0f, 5000.0f, 5000.0f);
 	m_ctx.mode = LIBRG_MODE_SERVER;
-	m_ctx.tick_delay = 16;
+	m_ctx.tick_delay = 32;
 	m_ctx.max_connections = (MAX_PLAYERS * 2);
 	m_ctx.max_entities = (MAX_ENTITIES + MAX_PLAYERS);
 	librg_init(&m_ctx);

@@ -12,7 +12,7 @@ enum e_network_events : int8_t {
 	SPAWN_PLAYER
 };
 
-enum e_entity_types {
+enum class e_entity_types {
 	PLAYER,
 	VEHICLE,
 };

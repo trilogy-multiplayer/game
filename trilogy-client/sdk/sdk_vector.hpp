@@ -3,6 +3,8 @@
 struct sdk_vec3_t {
 	float x, y, z;
 
+	sdk_vec3_t() : x(0), y(0), z(0) {}
+
 	sdk_vec3_t(float _x, float _y, float _z) 
 		: x(_x), y(_y), z(_z) 
 	{ 
