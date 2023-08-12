@@ -17,6 +17,8 @@
 #include "memory/module.hpp"
 #include "utilities/logging.hpp"
 
+#pragma warning(disable: 26451)
+
 namespace memory
 {
 	inline bool correlate(std::uint8_t* target, const std::optional<std::uint8_t>* sig, std::size_t length)

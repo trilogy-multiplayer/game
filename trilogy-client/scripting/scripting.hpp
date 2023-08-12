@@ -16,14 +16,14 @@ class c_script
 public:
 	struct script_global_var_t
 	{
-		short val;
-		script_global_var_t(short val) { this->val = val * 4; }
+		size_t val;
+		script_global_var_t(size_t val) { this->val = val * 4; }
 	};
 
 	struct script_local_var_t
 	{
-		short val;
-		script_local_var_t(short val) { this->val = val; }
+		size_t val;
+		script_local_var_t(size_t val) { this->val = val; }
 	};
 
 public:

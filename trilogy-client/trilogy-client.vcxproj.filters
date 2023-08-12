@@ -141,9 +141,6 @@
     <ClInclude Include="sdk\sdk_placable.hpp">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
-    <ClInclude Include="networking\entities\client_entity.hpp">
-      <Filter>Header Files\networking\entities</Filter>
-    </ClInclude>
     <ClInclude Include="networking\entities\player_entity.hpp">
       <Filter>Header Files\networking\entities</Filter>
     </ClInclude>
@@ -191,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="vendor\imgui\imgui_stdlib.h">
       <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\entities\network_entity.hpp">
+      <Filter>Header Files\networking\entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

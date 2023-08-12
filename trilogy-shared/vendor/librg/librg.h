@@ -137,7 +137,9 @@
 
 // disable asserts for release build
 #if !defined(LIBRG_DEBUG) || defined(LIBRG_NO_ASSERT)
+#ifndef ZPL_ASSERT_MSG
 #define ZPL_ASSERT_MSG(cond, msg, ...)
+#endif
 #endif
 
 /* include definitions */
@@ -212,6 +214,7 @@
 extern "C" {
 #endif
 
+#pragma warning(disable : 4190)
 
 // =======================================================================//
 // !

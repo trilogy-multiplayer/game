@@ -433,8 +433,15 @@ _In_ int nCmdShow)
 
 #if !defined(ZPL_NO_WINDOWS_H)
 #define NOMINMAX 1
+
+#ifndef WIN32_LEAN_AND_MEAN 
 #define WIN32_LEAN_AND_MEAN 1
+#endif
+
+#ifndef WIN32_MEAN_AND_LEAN 
 #define WIN32_MEAN_AND_LEAN 1
+#endif
+
 #define VC_EXTRALEAN 1
 #include <windows.h>
 #undef NOMINMAX

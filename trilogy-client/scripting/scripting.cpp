@@ -39,7 +39,7 @@ void c_script::store_parameters(sdk_running_script* script)
 void c_script::operator << (const char* str)
 {
     unsigned char typeId = 0xE;
-    unsigned char len = strlen(str);
+    size_t len = strlen(str);
 
     append(&typeId, 1);
     append(&len, 1);

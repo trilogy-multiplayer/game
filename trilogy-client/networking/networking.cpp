@@ -188,25 +188,15 @@ static void on_connect_disconnect(librg_event_t* event)
 
 void on_client_streamer_update(librg_event_t* event)
 {
-	if (event->entity->type == (int)e_entity_types::PLAYER)
-	{
-		c_player_entity* player = (c_player_entity*)event->entity->user_data;
-		sdk_ped* player_ped = (sdk_ped*)c_memory::instance()->sdk_find_player_ped(0);
+	if (!event->entity->user_data) return;
 
-		if (player == nullptr || player_ped == nullptr) return;
-
-		player->player_sync_data = new packet_player_sync_data();
-		player->player_sync_data->mapping = compress_mapping(*c_memory::instance()->sdk_hid_mapping);
-		player->player_sync_data->move_speed = sdk_vec3_t(player_ped->m_vec_speed_x, player_ped->m_vec_speed_y, player_ped->m_vec_speed_z);
-		player->player_sync_data->camera_front = c_memory::instance()->sdk_current_camera_data_front->get_offset_pos();
-
-		player->player_sync_data->ped_state = *(_DWORD*)((__int64)player_ped + 1428);
-		player->player_sync_data->current_rotation = *(float*)((__int64)player_ped + 1820);
-
-		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_CHAR_COORDINATES, player->char_id,
-			&event->entity->position.x, &event->entity->position.y, &event->entity->position.z);
-
-		librg_data_wptr(event->data, player->player_sync_data, sizeof(packet_player_sync_data));
+	c_network_entity* network_entity = (c_network_entity*)event->entity->user_data;
+	
+	switch (network_entity->entity_type) {
+	case e_entity_types::PLAYER:
+		c_player_entity* player = (c_player_entity*)network_entity;
+		player->on_client_stream(event);
+		break;
 	}
 }
 

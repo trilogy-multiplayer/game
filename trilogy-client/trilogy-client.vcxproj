@@ -163,7 +163,7 @@
     <ClInclude Include="memory\memory.hpp" />
     <ClInclude Include="memory\module.hpp" />
     <ClInclude Include="memory\patterns.hpp" />
-    <ClInclude Include="networking\entities\client_entity.hpp" />
+    <ClInclude Include="networking\entities\network_entity.hpp" />
     <ClInclude Include="networking\entities\player_entity.hpp" />
     <ClInclude Include="networking\networking.hpp" />
     <ClInclude Include="renderer\renderer.hpp" />

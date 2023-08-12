@@ -84,7 +84,7 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 	return renderer->o_present(dxgi_swapchain, sync_interval, flags);
 }
 
-HRESULT h_renderer_resize(IDXGISwapChain* dxgi_swapchain, UINT buffer_count, UINT width, UINT height, DXGI_FORMAT new_format, UINT swapchain_flags)
+HRESULT h_renderer_resize(IDXGISwapChain* dxgi_swapchain, UINT buffer_count, FLOAT width, FLOAT height, DXGI_FORMAT new_format, UINT swapchain_flags)
 {
 	static c_renderer* renderer = c_renderer::instance();
 
