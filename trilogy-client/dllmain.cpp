@@ -1,5 +1,6 @@
 #include "common.hpp"
 
+#include "renderer/renderer.hpp"
 #include "memory/memory.hpp"
 #include "core/core.hpp"
 
@@ -18,6 +19,9 @@ uintptr_t init_main(const HMODULE h_module)
 	auto memory = c_memory::instance();
 	memory->initialize();
 
+	auto renderer = c_renderer::instance();
+	renderer->initialize();
+	
 	int player_id = 2;
 	int player_handle;
 
@@ -26,9 +30,10 @@ uintptr_t init_main(const HMODULE h_module)
 		//}
 
 		if (GetAsyncKeyState(VK_DIVIDE) & 0x1) {
-			int char_id;
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, 0, &char_id);
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GIVE_WEAPON_TO_CHAR, char_id, 24, 100);
+			//int char_id;
+			//c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, 0, &char_id);
+			//c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GIVE_WEAPON_TO_CHAR, char_id, 24, 100);
+
 		}
 
 		if (GetAsyncKeyState(VK_BACK) & 0x8000) {
@@ -61,7 +66,7 @@ uintptr_t init_main(const HMODULE h_module)
 
 			//c_log::Info(ped);/*
 			//ped->m_matrix->set_position(sdk_vec3_t(SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z));
-			
+
 			/*sdk_vec3_t screen_coords; float w, h;
 			c_memory::instance()->sdk_calc_screen_coords(
 				sdk_vec3_t(ped->m_matrix->pos_x, ped->m_matrix->pos_y, ped->m_matrix->pos_z + 1.25f),

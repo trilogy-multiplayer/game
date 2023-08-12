@@ -27,6 +27,7 @@
 #include <optional>
 #include <intrin.h>
 #include <iostream>
+#include <mutex>
 
 #include "utilities/singleton.hpp"
 #include "utilities/logging.hpp"

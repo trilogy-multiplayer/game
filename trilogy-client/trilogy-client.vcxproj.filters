@@ -67,6 +67,27 @@
     <Filter Include="Source Files\hooking\hooks">
       <UniqueIdentifier>{01142154-2c33-44da-99f3-9d79048308d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\renderer">
+      <UniqueIdentifier>{a0287880-a41f-4803-97e0-f59a5cacb65e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vendor\kiero">
+      <UniqueIdentifier>{ca041276-2a8f-435a-906f-8ee063fb70c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vendor\imgui">
+      <UniqueIdentifier>{d69b61d3-5adb-4cf6-a73b-7e3176b7b7d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor">
+      <UniqueIdentifier>{e2a1d16c-75d6-40e8-9231-c5e9e3a1f2a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor\kiero">
+      <UniqueIdentifier>{0e5eea5e-f6bf-4cae-aef2-7e0476332d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor\imgui">
+      <UniqueIdentifier>{dafa7ee4-1b2d-46f5-9f7d-78b2e62e7ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer">
+      <UniqueIdentifier>{7e7c8826-758e-4a74-925a-2cd7032d202e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp">
@@ -138,6 +159,39 @@
     <ClInclude Include="hooking\hooks\hook_game.hpp">
       <Filter>Header Files\hooking\hooks</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_internal.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_textedit.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_truetype.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imconfig.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_impl_dx11.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_impl_win32.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\kiero\kiero.h">
+      <Filter>Header Files\vendor\kiero</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\renderer.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_stdlib.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -172,6 +226,33 @@
     </ClCompile>
     <ClCompile Include="hooking\hooks\hook_game.cpp">
       <Filter>Source Files\hooking\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_impl_dx11.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_impl_win32.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\kiero\kiero.cpp">
+      <Filter>Source Files\vendor\kiero</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\renderer.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_stdlib.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
