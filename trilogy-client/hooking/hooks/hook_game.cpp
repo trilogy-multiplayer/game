@@ -14,8 +14,9 @@ int8_t h_sdk_runningscript_process(int64_t this_ptr, int64_t unk, int64_t unk1) 
 	std::call_once(instance_hook_game->initialize_game_time, [&] {
 		instance_hook_game->last_game_tick = std::time(0);
 
-		c_log::Info("(trilogy:mp) loading game files...");
-
+		c_log::Debug(c_log::LBlue, "(TRILOGY:MP):",
+			c_log::LWhite, "Loading game-files/assets...");
+		
 		auto networking = c_networking::instance();
 		networking->initialize();
 		networking->connect_to("80.240.19.147", 1337);
@@ -32,7 +33,8 @@ int8_t h_sdk_runningscript_process(int64_t this_ptr, int64_t unk, int64_t unk1) 
 	if ((std::time(0) - instance_hook_game->last_game_tick) >= 3)
 	{
 		std::call_once(instance_hook_game->initialize_game_time_after, [&] {
-			c_log::Info("(trilogy:mp) loaded game files! connecting to dev server");
+			c_log::Debug(c_log::LBlue, "(TRILOGY:MP):",
+				c_log::LWhite, "Loaded game-files/assets! Due to debug mode, connecting to the dev-server.");
 
 			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_FADING_COLOUR, 208, 196, 171);
 			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 4500, 1);

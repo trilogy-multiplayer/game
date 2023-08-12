@@ -166,7 +166,7 @@ static void on_connect_accepted(librg_event_t* event)
 	
 	c_log::Info(c_log::LGreen, "(c_networking::on_connect_accepted):", 
 		c_log::LWhite, "Connected!", 
-		c_log::LCyan, "(char_id:", player->char_id, ", player_id:", player->player_id, ")");
+		c_log::LCyan, "(char_id:", player->char_id, "- player_id:", player->player_id, ")");
 
 	event->entity->type = (int)player->entity_type;
 	event->entity->user_data = player;
@@ -222,7 +222,7 @@ void on_client_entity_create(librg_event_t* event)
 
 	c_log::Info(c_log::LGreen, "(c_networking::on_client_entity_create):",
 		c_log::LWhite, "Creating entity:",
-		c_log::LCyan, "(network_id:", event->entity->id, ", player_id : ", player->player_id, ")");
+		c_log::LCyan, "(network_id:", event->entity->id, "- player_id : ", player->player_id, ")");
 }
 
 

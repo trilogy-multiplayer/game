@@ -71,7 +71,6 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 			imgui_inline_text("(librg): Buffer size:", std::to_string(networking->m_ctx.buffer_size));
 			imgui_inline_text("(networking): Free player id", std::to_string(networking->player_id));
 			imgui_inline_text("(networking): Player count", std::to_string(networking->m_players.size()));
-
 		}
 	}
 	ImGui::End();
