@@ -149,7 +149,13 @@ static void on_connect_requesting(librg_event_t* event)
 	auto instance = c_networking::instance();
 	librg_data_wstr(event->data, instance->m_client_name);
 
-	c_log::Info("Networking", ">>", "Connecting to @::", instance->m_address.port, "as", instance->m_client_name);
+	std::stringstream server_ip_with_port;
+	server_ip_with_port << instance->m_address.host;
+	server_ip_with_port << ":";
+	server_ip_with_port << instance->m_address.port;
+
+	c_log::Info(c_log::LGreen, "(c_networking::on_connect_requesting):", 
+		c_log::LWhite, "Connecting to", server_ip_with_port.str(), "as", instance->m_client_name);
 }
 
 static void on_connect_accepted(librg_event_t* event)
@@ -157,20 +163,27 @@ static void on_connect_accepted(librg_event_t* event)
 	auto instance = c_networking::instance();
 
 	auto player = new c_player_entity(event->entity->id, instance->m_client_name, true, sdk_vec3_t(SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z));
-	c_log::Info("Networking", ">>", "Connected - (char_id:", player->char_id, ", player_id:", player->player_id, ")");
+	
+	c_log::Info(c_log::LGreen, "(c_networking::on_connect_accepted):", 
+		c_log::LWhite, "Connected!", 
+		c_log::LCyan, "(char_id:", player->char_id, "- player_id:", player->player_id, ")");
 
 	event->entity->type = (int)player->entity_type;
 	event->entity->user_data = player;
+
+	instance->m_is_connected = true;
 }
 
 static void on_connect_refuse(librg_event_t* event)
 {
-	c_log::Info("Networking", ">>", "Refuse");
+	c_log::Info(c_log::LGreen, "(c_networking::on_connect_refuse):",
+		c_log::LWhite, "Connection refused!");
 }
 
 static void on_connect_disconnect(librg_event_t* event)
 {
-	c_log::Info("Networking", ">>", "Disconnect");
+	c_log::Info(c_log::LGreen, "(c_networking::on_connect_disconnect):",
+		c_log::LWhite, "Connection disconnected!");
 }
 
 void on_client_streamer_update(librg_event_t* event)
@@ -207,7 +220,9 @@ void on_client_entity_create(librg_event_t* event)
 	auto pos = event->entity->position;
 	auto player = new c_player_entity(event->entity->id, "unknown", false, sdk_vec3_t(pos.x, pos.y, pos.z));
 
-	c_log::Info("Entity-Create (network_id:", event->entity->id, "player_id:", player->player_id);
+	c_log::Info(c_log::LGreen, "(c_networking::on_client_entity_create):",
+		c_log::LWhite, "Creating entity:",
+		c_log::LCyan, "(network_id:", event->entity->id, "- player_id : ", player->player_id, ")");
 }
 
 
@@ -221,7 +236,10 @@ void on_client_entity_update(librg_event_t* event)
 
 	sdk_ped* player_ped = (sdk_ped*)c_memory::instance()->sdk_find_player_ped(player->player_id);
 	if (player_ped == nullptr) {
-		c_log::Info("(on_client_entity_update)", "Cant find player id", player->player_id);
+		c_log::Info(c_log::LGreen, "(c_networking::on_client_entity_update):",
+			c_log::LWhite, "Cant find player id:",
+			c_log::LCyan, player->player_id);
+
 		return;
 	}
 
@@ -276,8 +294,9 @@ bool c_networking::connect_to(const char* address, int32_t port)
 
 	this->m_address.host = (char*)address;
 	this->m_address.port = port;
-
-	c_log::Info("Networking", ">>", "Initialized client context.");
+	
+	c_log::Info(c_log::LGreen, "(c_networking::connect_to):",
+		c_log::LWhite, "Initialized librg context.");
 
 	librg_network_start(&m_ctx, m_address);
 

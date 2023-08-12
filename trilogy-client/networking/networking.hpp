@@ -26,13 +26,12 @@
 #include <networking/entities/player_entity.hpp>
 
 class c_networking : public c_singleton<c_networking> {
-private:
+public:
 	librg_ctx_t m_ctx;
 
 	bool m_is_running = false;
 	bool m_is_connected = false;
 
-public:
 	int32_t player_id = 1;
 
 	using sdk_player_connect_t = void(*)(int64_t this_ptr);

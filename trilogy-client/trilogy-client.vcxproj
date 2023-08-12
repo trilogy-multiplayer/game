@@ -166,6 +166,7 @@
     <ClInclude Include="networking\entities\client_entity.hpp" />
     <ClInclude Include="networking\entities\player_entity.hpp" />
     <ClInclude Include="networking\networking.hpp" />
+    <ClInclude Include="renderer\renderer.hpp" />
     <ClInclude Include="scripting\scripting.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\sdk_entity.hpp" />
@@ -176,6 +177,16 @@
     <ClInclude Include="sdk\sdk_running_script.hpp" />
     <ClInclude Include="sdk\sdk_script_commands.hpp" />
     <ClInclude Include="sdk\sdk_vector.hpp" />
+    <ClInclude Include="vendor\imgui\imconfig.h" />
+    <ClInclude Include="vendor\imgui\imgui.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="vendor\imgui\imgui_stdlib.h" />
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="vendor\imgui\imstb_truetype.h" />
+    <ClInclude Include="vendor\kiero\kiero.h" />
     <ClInclude Include="vendor\minhook\minhook.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -188,8 +199,17 @@
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="networking\entities\player_entity.cpp" />
     <ClCompile Include="networking\networking.cpp" />
+    <ClCompile Include="renderer\renderer.cpp" />
     <ClCompile Include="scripting\scripting.cpp" />
     <ClCompile Include="sdk\sdk_running_script.cpp" />
+    <ClCompile Include="vendor\imgui\imgui.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_stdlib.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="vendor\kiero\kiero.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
