@@ -1,6 +1,6 @@
 #include "feature_nametags.hpp"
 
-void networking::features::c_nametags::on_tick() {
+void renderer::features::c_nametags::on_tick() {
 	static auto networking = c_networking::instance();
 	static auto memory = c_memory::instance();
 	static auto imgui_render = c_imgui_render::instance();

@@ -79,7 +79,7 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 	ImGui::PopStyleColor();
 
 	imgui_render->render_text("trilogy-mp", ImVec2(10, 10), 15.0f, RGBA(255, 255, 255, 255), false);
-	networking::features::c_nametags::instance()->on_tick();
+	renderer::features::c_nametags::instance()->on_tick();
 
 	imgui_render->end_scene();
 	imgui_render->render();

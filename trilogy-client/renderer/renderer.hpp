@@ -15,7 +15,7 @@
 #include <d3d11.h>
 
 #include <networking/networking.hpp>
-#include <networking/features/feature_nametags.hpp>
+#include <renderer/features/feature_nametags.hpp>
 #include <renderer/utilities/imgui_render.hpp>
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

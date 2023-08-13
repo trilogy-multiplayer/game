@@ -13,6 +13,9 @@ enum e_network_events : int8_t {
 };
 
 enum class e_entity_types {
+	EMPTY,
 	PLAYER,
 	VEHICLE,
 };
+
+#define TRILOGY_VERSION "0.0.1"

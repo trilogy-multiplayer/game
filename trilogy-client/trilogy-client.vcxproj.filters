@@ -88,12 +88,6 @@
     <Filter Include="Header Files\renderer">
       <UniqueIdentifier>{7e7c8826-758e-4a74-925a-2cd7032d202e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\networking\features">
-      <UniqueIdentifier>{fe5c9c91-f581-4bc1-976d-5f992a7eb591}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\networking\features">
-      <UniqueIdentifier>{c580ce75-22aa-4ce1-bffb-e4db0e2eec65}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\renderer\utilities">
       <UniqueIdentifier>{ae6910de-2976-4676-aa20-7977be3db277}</UniqueIdentifier>
     </Filter>
@@ -102,6 +96,18 @@
     </Filter>
     <Filter Include="Header Files\renderer\fonts">
       <UniqueIdentifier>{65befae7-98b0-4d25-8c37-9a6aeb2d71d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer\features">
+      <UniqueIdentifier>{984adcf4-ea43-4c9d-a17a-e7d9ad082b4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\features">
+      <UniqueIdentifier>{d9c3c56b-31a8-41a5-937a-5461818260bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\networking\modules">
+      <UniqueIdentifier>{15e8dea7-d188-415d-b53c-5ac017e546d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\networking\modules">
+      <UniqueIdentifier>{cdc21214-b207-4c67-9728-3eabd9608ba9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -207,14 +213,20 @@
     <ClInclude Include="networking\entities\network_entity.hpp">
       <Filter>Header Files\networking\entities</Filter>
     </ClInclude>
-    <ClInclude Include="networking\features\feature_nametags.hpp">
-      <Filter>Header Files\networking\features</Filter>
-    </ClInclude>
     <ClInclude Include="renderer\utilities\imgui_render.hpp">
       <Filter>Header Files\renderer\utilities</Filter>
     </ClInclude>
     <ClInclude Include="renderer\fonts\sffont.hpp">
       <Filter>Header Files\renderer\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\features\feature_nametags.hpp">
+      <Filter>Header Files\renderer\features</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\modules\module_sync.hpp">
+      <Filter>Header Files\networking\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\modules\module_player-sync.hpp">
+      <Filter>Header Files\networking\modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,11 +290,14 @@
     <ClCompile Include="vendor\imgui\imgui_stdlib.cpp">
       <Filter>Source Files\vendor\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="networking\features\feature_nametags.cpp">
-      <Filter>Source Files\networking\features</Filter>
-    </ClCompile>
     <ClCompile Include="renderer\utilities\imgui_render.cpp">
       <Filter>Source Files\renderer\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\features\feature_nametags.cpp">
+      <Filter>Source Files\renderer\features</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\modules\module_player-sync.cpp">
+      <Filter>Source Files\networking\modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

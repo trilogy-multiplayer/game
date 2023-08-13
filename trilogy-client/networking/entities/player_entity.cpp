@@ -36,10 +36,11 @@ c_player_entity::c_player_entity(int32_t network_id, std::string name, bool is_l
 	c_networking::instance()->m_players.push_back(this);
 }
 
-/*
-void c_player_entity::on_client_stream(librg_event* event) {
 
-	c_player_entity* player = (c_player_entity*)event->entity->user_data;
+void c_player_entity::on_client_stream(librg_event* event) {
+	auto player = c_networking::instance()->get_player_by_id(event->entity->id);
+	if (player == nullptr) return;
+
 	sdk_ped* player_ped = (sdk_ped*)c_memory::instance()->sdk_find_player_ped(0);
 
 	if (player == nullptr || player_ped == nullptr) return;
@@ -50,12 +51,19 @@ void c_player_entity::on_client_stream(librg_event* event) {
 	player->player_sync_data->move_speed = sdk_vec3_t(player_ped->m_vec_speed_x, player_ped->m_vec_speed_y, player_ped->m_vec_speed_z);
 	player->player_sync_data->camera_front = c_memory::instance()->sdk_current_camera_data_front->get_offset_pos();
 
-	player->player_sync_data->ped_state = *(_DWORD*)((__int64)player_ped + 1428);
-	player->player_sync_data->current_rotation = *(float*)((__int64)player_ped + 1820);
+	// player->player_sync_data->ped_state = *(_DWORD*)((__int64)player_ped + 1428);
+	player->player_sync_data->current_rotation_a = *(float*)((__int64)player_ped + 0x71c);
+	player->player_sync_data->current_rotation_b = *(float*)((__int64)player_ped + 0x720);
+	player->player_sync_data->current_move_x = *(float*)((__int64)player_ped + 0x6c);
+	player->player_sync_data->current_move_y = *(float*)((__int64)player_ped + 0x70);
+
+	static std::once_flag debug_log;
+	std::call_once(debug_log, [&] {
+		c_log::Info((__int64)player_ped);
+		});
 
 	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_CHAR_COORDINATES, player->char_id,
 		&event->entity->position.x, &event->entity->position.y, &event->entity->position.z);
 
 	librg_data_wptr(event->data, player->player_sync_data, sizeof(packet_player_sync_data));
-
-}*/
+}

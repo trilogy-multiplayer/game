@@ -6,6 +6,7 @@
 #include <sdk/sdk_ped.hpp>
 
 #include <vendor/librg/librg.h>
+
 class c_network_entity
 {
 public:

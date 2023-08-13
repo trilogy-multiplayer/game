@@ -16,7 +16,7 @@ public:
 	/**
 	  * Network entity inherits here
 	  */
-	// void on_client_stream(librg_event* event) override;
+	void on_client_stream(librg_event* event) override;
 
 	int char_id = 0; // 0x32
 	int player_id = 0; // 0x32
