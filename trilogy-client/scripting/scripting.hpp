@@ -16,14 +16,14 @@ class c_script
 public:
 	struct script_global_var_t
 	{
-		size_t val;
-		script_global_var_t(size_t val) { this->val = val * 4; }
+		short val;
+		script_global_var_t(short val) { this->val = val * 4; }
 	};
 
 	struct script_local_var_t
 	{
-		size_t val;
-		script_local_var_t(size_t val) { this->val = val; }
+		short val;
+		script_local_var_t(short val) { this->val = val; }
 	};
 
 public:
@@ -82,10 +82,6 @@ public:
 		sdk_running_script script;
 		script.initialize();
 
-		if (command == sdk_script_commands::COMMAND_IS_BUTTON_PRESSED) {
-			c_log::Info("Button press");
-		}
-
 		c_script opcode = c_script(command);
 		opcode.pack(args...);
 
@@ -97,10 +93,6 @@ public:
 
 		script.process_one_command(m_table_offset);
 		opcode.store_parameters(&script);
-
-		if (command == sdk_script_commands::COMMAND_IS_BUTTON_PRESSED){
-			c_log::Info(*m_script_params);
-		}
 
 		memcpy(m_script_params, original_script_params.get(), 10 * sizeof(int32_t));
 	}

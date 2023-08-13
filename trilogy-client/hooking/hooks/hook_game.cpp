@@ -73,7 +73,7 @@ bool c_hook_game::hook()
 {
 	auto hook_result = true;
 
-	ptr_game_state = memory::as_relative<int8_t*>(memory::find_pattern(memory::module_t(nullptr), "offset", "8B 05 ? ? ? ? 4C 8B 05 ? ? ? ? 83 F8 ?"), 2);
+	ptr_game_state = memory::as_relative<int8_t*>(memory::find_pattern(memory::module_t(nullptr), "c_hook_game::ptr_game_state", "8B 05 ? ? ? ? 4C 8B 05 ? ? ? ? 83 F8 ?"), 2);
 
 	if (hook_result) {
 		sdk_runningscript_process = memory::find_pattern<sdk_runningscript_process_t>(memory::module_t(nullptr), "c_hook_game::sdk_runningscript_process", "4C 8B DC 55 49 8D 6B C8 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 45 A0");

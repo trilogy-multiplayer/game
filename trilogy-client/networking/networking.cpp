@@ -91,12 +91,17 @@ static void h_sdk_player_connect(int64_t this_ptr) {
 	*c_memory::instance()->sdk_hid_mapping = decompress_mapping(player->player_sync_data->mapping, current_hid_state);
 
 	if (!player->player_sync_data->mapping.is_empty()) {
-		*(_DWORD*)((__int64)this_ptr + 1428) = player->player_sync_data->ped_state;
-		*(float*)((__int64)this_ptr + 1820) = player->player_sync_data->current_rotation;
+		// *(_DWORD*)((__int64)this_ptr + 1428) = player->player_sync_data->ped_state;
+		// *(float*)((__int64)this_ptr + 1820) = player->player_sync_data->current_rotation;
 
 		sdk_ped* ped = (sdk_ped*)this_ptr;
 		ped->update_position(player->position, player->player_sync_data->move_speed, 0);
 	}
+
+	*(float*)((__int64)this_ptr + 0x71c) = player->player_sync_data->current_rotation_a;
+	*(float*)((__int64)this_ptr + 0x720) = player->player_sync_data->current_rotation_b;
+	*(float*)((__int64)this_ptr + 0x6c) = player->player_sync_data->current_move_x;
+	*(float*)((__int64)this_ptr + 0x70) = player->player_sync_data->current_move_y;
 
 	networking->o_sdk_player_connect(this_ptr);
 
@@ -143,7 +148,6 @@ void c_networking::initialize() {
  * Split this later in to class members.
  */
 
-
 static void on_connect_requesting(librg_event_t* event)
 {
 	auto instance = c_networking::instance();
@@ -154,7 +158,7 @@ static void on_connect_requesting(librg_event_t* event)
 	server_ip_with_port << ":";
 	server_ip_with_port << instance->m_address.port;
 
-	c_log::Info(c_log::LGreen, "(c_networking::on_connect_requesting):", 
+	c_log::Info(c_log::LGreen, "(c_networking::on_connect_requesting):",
 		c_log::LWhite, "Connecting to", server_ip_with_port.str(), "as", instance->m_client_name);
 }
 
@@ -163,9 +167,9 @@ static void on_connect_accepted(librg_event_t* event)
 	auto instance = c_networking::instance();
 
 	auto player = new c_player_entity(event->entity->id, instance->m_client_name, true, sdk_vec3_t(SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z));
-	
-	c_log::Info(c_log::LGreen, "(c_networking::on_connect_accepted):", 
-		c_log::LWhite, "Connected!", 
+
+	c_log::Info(c_log::LGreen, "(c_networking::on_connect_accepted):",
+		c_log::LWhite, "Connected!",
 		c_log::LCyan, "(char_id:", player->char_id, "- player_id:", player->player_id, ")");
 
 	event->entity->type = (int)player->entity_type;
@@ -188,16 +192,45 @@ static void on_connect_disconnect(librg_event_t* event)
 
 void on_client_streamer_update(librg_event_t* event)
 {
-	if (!event->entity->user_data) return;
+	/*if (!event->entity->user_data) return;
 
 	c_network_entity* network_entity = (c_network_entity*)event->entity->user_data;
-	
+
 	switch (network_entity->entity_type) {
 	case e_entity_types::PLAYER:
 		c_player_entity* player = (c_player_entity*)network_entity;
 		player->on_client_stream(event);
 		break;
-	}
+	}*/
+
+	auto player = c_networking::instance()->get_player_by_id(event->entity->id);
+	if (player == nullptr) return;
+
+	sdk_ped* player_ped = (sdk_ped*)c_memory::instance()->sdk_find_player_ped(0);
+
+	if (player == nullptr || player_ped == nullptr) return;
+
+	player->player_sync_data = new packet_player_sync_data();
+	player->player_sync_data->name = c_networking::instance()->m_client_name.c_str();
+	player->player_sync_data->mapping = compress_mapping(*c_memory::instance()->sdk_hid_mapping);
+	player->player_sync_data->move_speed = sdk_vec3_t(player_ped->m_vec_speed_x, player_ped->m_vec_speed_y, player_ped->m_vec_speed_z);
+	player->player_sync_data->camera_front = c_memory::instance()->sdk_current_camera_data_front->get_offset_pos();
+	
+	// player->player_sync_data->ped_state = *(_DWORD*)((__int64)player_ped + 1428);
+	player->player_sync_data->current_rotation_a = *(float*)((__int64)player_ped + 0x71c);
+	player->player_sync_data->current_rotation_b = *(float*)((__int64)player_ped + 0x720);
+	player->player_sync_data->current_move_x = *(float*)((__int64)player_ped + 0x6c);
+	player->player_sync_data->current_move_y = *(float*)((__int64)player_ped + 0x70);
+
+	static std::once_flag debug_log;
+	std::call_once(debug_log, [&] {
+		c_log::Info((__int64)player_ped);
+		});
+
+	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_CHAR_COORDINATES, player->char_id,
+		&event->entity->position.x, &event->entity->position.y, &event->entity->position.z);
+
+	librg_data_wptr(event->data, player->player_sync_data, sizeof(packet_player_sync_data));
 }
 
 std::time_t last_update;
@@ -210,11 +243,12 @@ void on_client_entity_create(librg_event_t* event)
 	auto pos = event->entity->position;
 	auto player = new c_player_entity(event->entity->id, "unknown", false, sdk_vec3_t(pos.x, pos.y, pos.z));
 
+	// event->entity->user_data = player;
+
 	c_log::Info(c_log::LGreen, "(c_networking::on_client_entity_create):",
 		c_log::LWhite, "Creating entity:",
 		c_log::LCyan, "(network_id:", event->entity->id, "- player_id : ", player->player_id, ")");
 }
-
 
 void on_client_entity_update(librg_event_t* event)
 {
@@ -284,7 +318,7 @@ bool c_networking::connect_to(const char* address, int32_t port)
 
 	this->m_address.host = (char*)address;
 	this->m_address.port = port;
-	
+
 	c_log::Info(c_log::LGreen, "(c_networking::connect_to):",
 		c_log::LWhite, "Initialized librg context.");
 

@@ -165,8 +165,11 @@
     <ClInclude Include="memory\patterns.hpp" />
     <ClInclude Include="networking\entities\network_entity.hpp" />
     <ClInclude Include="networking\entities\player_entity.hpp" />
+    <ClInclude Include="networking\features\feature_nametags.hpp" />
     <ClInclude Include="networking\networking.hpp" />
+    <ClInclude Include="renderer\fonts\sffont.hpp" />
     <ClInclude Include="renderer\renderer.hpp" />
+    <ClInclude Include="renderer\utilities\imgui_render.hpp" />
     <ClInclude Include="scripting\scripting.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\sdk_entity.hpp" />
@@ -198,8 +201,10 @@
     <ClCompile Include="hooking\hooks\hook_game.cpp" />
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="networking\entities\player_entity.cpp" />
+    <ClCompile Include="networking\features\feature_nametags.cpp" />
     <ClCompile Include="networking\networking.cpp" />
     <ClCompile Include="renderer\renderer.cpp" />
+    <ClCompile Include="renderer\utilities\imgui_render.cpp" />
     <ClCompile Include="scripting\scripting.cpp" />
     <ClCompile Include="sdk\sdk_running_script.cpp" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />

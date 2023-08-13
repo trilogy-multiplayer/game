@@ -22,6 +22,7 @@ void imgui_inline_text(std::string key, std::string value) {
 HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_interval, UINT flags)
 {
 	static c_renderer* renderer = c_renderer::instance();
+	static c_imgui_render* imgui_render = c_imgui_render::instance();
 
 	std::call_once(renderer->is_initialized, [&] {
 		if (SUCCEEDED(dxgi_swapchain->GetDevice(__uuidof(ID3D11Device), (void**)&renderer->d3d11_device)))
@@ -41,16 +42,17 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 				d3d11_back_buffer->Release();
 			}
 
+			imgui_render->initialize(renderer->window, dxgi_swapchain);
+
 			renderer->o_wnd_proc = (WNDPROC)SetWindowLongPtr(renderer->window, GWLP_WNDPROC, (LONG_PTR)h_renderer_wndproc);
-			renderer->initialize_imgui();
+			//renderer->initialize_imgui();
 		}
 		else c_log::Info(c_log::LGreen, "(c_renderer::h_renderer_present):", c_log::LWhite, "Failed to create renderer in present hook.");
 		});
 
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
+	imgui_render->begin_scene();
 
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, { 0.0f, 0.0f, 0.0f, 0.5f });
 	ImGui::Begin("(trilogy-mp): debug");
 	{
 		static c_networking* networking = c_networking::instance();
@@ -74,11 +76,15 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 		}
 	}
 	ImGui::End();
+	ImGui::PopStyleColor();
 
-	ImGui::Render();
+	imgui_render->render_text("trilogy-mp", ImVec2(10, 10), 15.0f, RGBA(255, 255, 255, 255), false);
+	networking::features::c_nametags::instance()->on_tick();
+
+	imgui_render->end_scene();
+	imgui_render->render();
 
 	renderer->d3d11_device_context->OMSetRenderTargets(1, &renderer->d3d11_render_target, NULL);
-
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 	return renderer->o_present(dxgi_swapchain, sync_interval, flags);
@@ -87,11 +93,14 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 HRESULT h_renderer_resize(IDXGISwapChain* dxgi_swapchain, UINT buffer_count, FLOAT width, FLOAT height, DXGI_FORMAT new_format, UINT swapchain_flags)
 {
 	static c_renderer* renderer = c_renderer::instance();
+	static c_imgui_render* imgui_render = c_imgui_render::instance();
 
 	if (renderer->d3d11_render_target) {
 		renderer->d3d11_device_context->OMSetRenderTargets(0, 0, 0);
 		renderer->d3d11_render_target->Release();
 	}
+
+	// imgui_render->reset(width, height);
 
 	auto result = renderer->o_resize_buffers(dxgi_swapchain, buffer_count, width, height, new_format, swapchain_flags);
 

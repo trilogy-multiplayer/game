@@ -4,6 +4,8 @@
 #include <vendor/librg/zpl/zpl_math.h>
 #include "../../../trilogy-client/sdk/sdk_vector.hpp"
 
+#include <string>
+
 enum class e_hid_mapping_current_state : int16_t {
 	JUST_RELEASED,
 	NOT_PRESSED,
@@ -124,10 +126,16 @@ public:
 
 	uint8_t health;
 	uint8_t armour;*/
+	std::string name;
 
 	sdk_vec3_t camera_front;
-	int16_t ped_state;
-	float current_rotation;
+	
+	// int16_t ped_state;
+	float current_rotation_a;
+	float current_rotation_b;
+
+	float current_move_x;
+	float current_move_y;
 
 	sdk_vec3_t move_speed;
 	hid_compressed_mapping mapping;

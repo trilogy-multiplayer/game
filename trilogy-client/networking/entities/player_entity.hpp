@@ -16,14 +16,14 @@ public:
 	/**
 	  * Network entity inherits here
 	  */
-	void on_client_stream(librg_event* event) override;
+	// void on_client_stream(librg_event* event) override;
 
 	int char_id = 0; // 0x32
 	int player_id = 0; // 0x32
 
 	bool is_local;
 
-	std::string name;
+	std::string name = "";
 	sdk_vec3_t position = sdk_vec3_t(0,0,0);
 
 	packet_player_sync_data* player_sync_data;
