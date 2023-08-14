@@ -1,4 +1,5 @@
 #pragma once
+
 #include <cstring> 
 #include <cstdint>
 #include <vendor/librg/zpl/zpl_math.h>
@@ -6,6 +7,9 @@
 
 #include <string>
 
+/**
+  * This thing needs asap a rework lol
+  */
 enum class e_hid_mapping_current_state : int16_t {
 	JUST_RELEASED,
 	NOT_PRESSED,

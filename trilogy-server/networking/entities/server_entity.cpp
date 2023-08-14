@@ -1,4 +1,4 @@
-#include "server_entity.hpp"
+/*#include "server_entity.hpp"
 
 c_server_entity::c_server_entity(int32_t network_id, std::string name, librg_peer* peer)
 {
@@ -6,3 +6,4 @@ c_server_entity::c_server_entity(int32_t network_id, std::string name, librg_pee
 	this->name = name;
 	this->client_peer = peer;
 }
+*/

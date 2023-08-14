@@ -1,5 +1,6 @@
 #pragma once
 
+/*
 #include <cstdint>
 #include <definitions.hpp>
 
@@ -18,4 +19,4 @@ public:
 
 	std::string name;
 	packet_player_sync_data* player_sync_data;
-};
+};*/

@@ -6,10 +6,9 @@ void networking::modules::c_module_player_sync::on_local_stream_update(librg_eve
 
 }
 
-
 void networking::modules::c_module_player_sync::initialize(librg_ctx* librg_context)
 {
-	REGISTER_LIBRG_EVENT(librg_context, LIBRG_CLIENT_STREAMER_UPDATE, on_local_stream_update);
+	REGISTER_LIBRG_EVENT(librg_context, LIBRG_CLIENT_STREAMER_UPDATE, networking::modules::c_module_player_sync::instance()->on_local_stream_update);
 }
 
 

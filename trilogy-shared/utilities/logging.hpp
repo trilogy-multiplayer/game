@@ -84,6 +84,12 @@ public:
 		return *this;
 	}
 
+	template<typename ...Args>
+	static std::string Join(Args && ...args)
+	{
+		return std::string{ (std::string(args) + ...) };
+	}
+
 	template<class T> c_log& operator<<(const T& val) { return put(val); }
 	c_log& operator<<(stdstream_manip val) { return put(val); }
 	c_log& operator<<(c_log_manip val) { return put(val); }

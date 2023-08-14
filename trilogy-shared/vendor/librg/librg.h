@@ -264,7 +264,19 @@ enum librg_thread_state { LIBRG_THREAD_IDLE, LIBRG_THREAD_WORK, LIBRG_THREAD_EXI
  * Simple host address
  * used to configure network on start
  */
-typedef struct librg_address { i32 port; char *host; } librg_address;
+typedef struct librg_address { 
+    i32 port;
+    char *host;
+
+    std::string to_string() {
+        std::stringstream address_stringstream;
+        address_stringstream << host;
+        address_stringstream << ":";
+        address_stringstream << port;
+
+        return address_stringstream.str();
+    }
+} librg_address;
 
 typedef void (librg_entity_cb)(struct librg_ctx *ctx, struct librg_entity *entity);
 typedef void (librg_message_cb)(struct librg_message *msg);
@@ -490,6 +502,7 @@ enum librg_events {
     LIBRG_CLIENT_STREAMER_UPDATE,
 
     LIBRG_EVENT_LAST,
+    LIBRG_TICK,
 };
 
 enum librg_event_flags {

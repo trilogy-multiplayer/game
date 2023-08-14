@@ -25,6 +25,12 @@
     <Filter Include="Header Files\networking\entities">
       <UniqueIdentifier>{b3a38542-4a08-4523-b4ef-871d4372a000}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{ec3db8d9-3a6c-4963-b127-a6cc371c11e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{c478283b-8026-475e-90bf-1512dbebdf59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="server.cpp">
@@ -33,10 +39,25 @@
     <ClCompile Include="networking\entities\server_entity.cpp">
       <Filter>Source Files\networking\entities</Filter>
     </ClCompile>
+    <ClCompile Include="networking\server_networking.cpp">
+      <Filter>Source Files\networking</Filter>
+    </ClCompile>
+    <ClCompile Include="core\core.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="networking\entities\server_entity.hpp">
       <Filter>Header Files\networking\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\server_networking.hpp">
+      <Filter>Header Files\networking</Filter>
+    </ClInclude>
+    <ClInclude Include="common.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\core.hpp">
+      <Filter>Header Files\core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

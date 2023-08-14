@@ -19,7 +19,7 @@ int8_t h_sdk_runningscript_process(int64_t this_ptr, int64_t unk, int64_t unk1) 
 		
 		auto networking = c_networking::instance();
 		networking->initialize();
-		networking->connect_to("80.240.19.147", 1337);
+		networking->connect_to("127.0.0.1", 1337);
 
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_FADING_COLOUR, 208, 196, 171);
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 0, 0);

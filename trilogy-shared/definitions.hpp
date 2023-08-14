@@ -1,5 +1,18 @@
 #pragma once
 
+static const char* trilogy_build_channel[5] = {
+    "Undefined",
+    "Development",
+    "Beta",
+    "Release-Candidate"
+    "Release",
+};
+
+#define TRILOGY_VERSION_MAJOR 1
+#define TRILOGY_VERSION_MINOR 0
+#define TRILOGY_VERSION_PATCH 0
+#define TRILOGY_BUILD_CHANNEL 1
+
 #define		MAX_PLAYERS		256
 #define		MAX_VEHICLES	256
 #define		MAX_ENTITIES	(MAX_PLAYERS + MAX_VEHICLES)
@@ -18,4 +31,3 @@ enum class e_entity_types {
 	VEHICLE,
 };
 
-#define TRILOGY_VERSION "0.0.1"

@@ -30,11 +30,8 @@
 #include <utilities/ida.hpp>
 #include <mutex>
 
-#define REGISTER_LIBRG_EVENT(context, event_name, function_name)					\
-	auto callback__##event_name = ([&](librg_event_t* librg_event) {				\
-		this->function_name(librg_event);											\
-	});																				\
-	librg_event_add(context, event_name, (librg_event_cb*)&callback__##event_name);	\
+#define REGISTER_LIBRG_EVENT(context, event_name, function_name)								\
+	librg_event_add(context, event_name, [](librg_event_t* _event) { function_name(_event); });	\
 
 class c_networking : public c_singleton<c_networking> {
 public:
