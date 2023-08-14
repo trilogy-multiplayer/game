@@ -1,11 +1,10 @@
 #pragma once
 
-static const char* trilogy_build_channel[5] = {
-    "Undefined",
-    "Development",
-    "Beta",
-    "Release-Candidate"
-    "Release",
+enum e_build_channel : int8_t {
+    DEVELOPMENT = 1,
+    BETA,
+    RELEASE_CANDIDATE,
+    RELEASE
 };
 
 #define TRILOGY_VERSION_MAJOR 1

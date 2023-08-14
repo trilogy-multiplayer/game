@@ -9,6 +9,8 @@
 #include <memory>
 #include <windows.h>
 
+#include <definitions.hpp>
+
 class c_log
 {
 public:
@@ -31,7 +33,9 @@ public:
 	template<class T>
 	c_log& put(const T& val)
 	{
-		std::cout << val;
+		if (TRILOGY_BUILD_CHANNEL == e_build_channel::DEVELOPMENT)
+			std::cout << val;
+
 		return *this;
 	}
 
@@ -47,7 +51,9 @@ public:
 
 	c_log& put(stdstream_manip val)
 	{
-		std::cout << val;
+		if (TRILOGY_BUILD_CHANNEL == e_build_channel::DEVELOPMENT)
+			std::cout << val;
+
 		return *this;
 	}
 
