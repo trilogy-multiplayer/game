@@ -26,14 +26,20 @@ void c_networking::on_connect_request(librg_event_t* librg_event)
 	librg_data_wu8(librg_event->data, TRILOGY_VERSION_MINOR);
 	librg_data_wu8(librg_event->data, TRILOGY_VERSION_PATCH);
 	librg_data_wu8(librg_event->data, TRILOGY_BUILD_CHANNEL);
-	librg_data_wstr(librg_event->data, this->m_client_name);
+	librg_data_wstring(librg_event->data, this->m_client_name);
 }
 
 void c_networking::on_connect_accept(librg_event_t* librg_event)
 {
 	c_log::Info(c_log::LGreen, "(c_networking::on_connect_accepted):",
 		c_log::LWhite, "Connection completed! Requesting player spawning.");
-	// librg_data_wstr(librg_event->data, this->m_client_name);
+
+	librg_data data;
+	librg_data_init(&data);
+
+	librg_data_wstring(&data, m_client_name);
+	librg_message_send_all(&m_ctx, NETWORK_PLAYER_CONNECT, data.rawptr, librg_data_get_wpos(&data));
+	librg_data_free(&data);
 }
 
 #define INITIALIZE_MODULE_SYNC(class_instance)				\
@@ -54,7 +60,7 @@ bool c_networking::connect_to(const char* address, int32_t port)
 	REGISTER_LIBRG_EVENT(&m_ctx, LIBRG_CONNECTION_REQUEST, c_networking::instance()->on_connect_request);
 	REGISTER_LIBRG_EVENT(&m_ctx, LIBRG_CONNECTION_ACCEPT, c_networking::instance()->on_connect_accept);
 
-	//INITIALIZE_MODULE_SYNC(networking::modules::c_module_player_sync);
+	INITIALIZE_MODULE_SYNC(networking::modules::c_module_player_sync);
 
 	this->m_address.host = (char*)address;
 	this->m_address.port = port;

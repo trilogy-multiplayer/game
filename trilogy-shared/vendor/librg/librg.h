@@ -142,6 +142,11 @@
 #endif
 #endif
 
+#include <string>
+#include <sstream>
+
+using namespace std;
+
 /* include definitions */
 #ifndef LIBRG_CUSTOM_INCLUDES
     #ifdef LIBRG_IMPLEMENTATION
@@ -656,6 +661,7 @@ LIBRG_GEN_DATA_READWRITE(f64);
 LIBRG_GEN_DATA_READWRITE( b8);
 LIBRG_GEN_DATA_READWRITE(b16);
 LIBRG_GEN_DATA_READWRITE(b32);
+LIBRG_GEN_DATA_READWRITE(string);
 #undef LIBRG_GEN_DATA_READWRITE
 
 /**
@@ -1744,21 +1750,6 @@ extern "C" {
         data->write_pos += size;
     }
 
-    void librg_data_wstr(librg_data_t* data, std::string string)
-    {
-        librg_data_wu32(data, string.size());
-        librg_data_wptr(data, (void*)string.c_str(), string.size());
-    }
-
-    std::string librg_data_rstr(librg_data_t* data)
-    {
-        usize size = librg_data_ru32(data);
-        char* str = (char*)malloc(sizeof(char) * size);
-        librg_data_rptr(data, str, size);
-        return std::string(str);
-    }
-
-
     /**
      * Value writers and readers
      */
@@ -1792,7 +1783,8 @@ extern "C" {
     LIBRG_GEN_DATA_READWRITE( b8);
     LIBRG_GEN_DATA_READWRITE(b16);
     LIBRG_GEN_DATA_READWRITE(b32);
-    #undef LIBRG_GEN_DATA_READWRITE
+    LIBRG_GEN_DATA_READWRITE(string);
+#undef LIBRG_GEN_DATA_READWRITE
 
     /**
      * Special method for internal packet-safe reading

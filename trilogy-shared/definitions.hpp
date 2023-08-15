@@ -21,7 +21,8 @@ enum e_build_channel : int8_t {
 #define		SPAWN_POS_Z		26.875f
 
 enum e_network_events : int8_t {
-	SPAWN_PLAYER
+	NETWORK_PLAYER_CONNECT = 13,
+	NETWORK_SPAWN_PLAYER
 };
 
 enum class e_entity_types {

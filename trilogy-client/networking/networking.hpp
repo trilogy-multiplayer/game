@@ -30,8 +30,11 @@
 #include <utilities/ida.hpp>
 #include <mutex>
 
-#define REGISTER_LIBRG_EVENT(context, event_name, function_name)								\
+#define REGISTER_LIBRG_EVENT(context, event_name, function_name) \
 	librg_event_add(context, event_name, [](librg_event_t* _event) { function_name(_event); });	\
+
+#define REGISTER_LIBRG_MESSAGE(context, event_name, function_name) \
+	librg_network_add(context, event_name, [](librg_message_t * _event) { function_name(_event); }); \
 
 class c_networking : public c_singleton<c_networking> {
 public:

@@ -11,7 +11,7 @@
 class c_player_entity : public c_network_entity
 {
 public:
-	c_player_entity(int32_t network_id, std::string name, bool is_local, sdk_vec3_t pos);
+	c_player_entity(int32_t network_id, std::string name, bool is_local = false);
 
 	/**
 	  * Network entity inherits here
@@ -23,7 +23,7 @@ public:
 
 	bool is_local;
 
-	std::string name = "";
+	std::string m_name = "";
 	sdk_vec3_t position = sdk_vec3_t(0,0,0);
 
 	packet_player_sync_data* player_sync_data;

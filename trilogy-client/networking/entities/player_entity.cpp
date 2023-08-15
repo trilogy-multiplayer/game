@@ -2,14 +2,14 @@
 #include <networking/networking.hpp>
 #include <utilities/ida.hpp>
 
-c_player_entity::c_player_entity(int32_t network_id, std::string name, bool is_local, sdk_vec3_t pos)
+c_player_entity::c_player_entity(int32_t network_id, std::string name, bool is_local)
 {
 	c_networking::instance()->player_id++;
 
 	this->network_id = network_id;
 	this->player_id = c_networking::instance()->player_id;
 
-	if (is_local) {
+	/*if (is_local) {
 		// this->ped = c_memory::instance()->sdk_ped_pool->GetAt(0);
 		this->player_id = 0;
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, 0, &this->char_id);
@@ -23,15 +23,15 @@ c_player_entity::c_player_entity(int32_t network_id, std::string name, bool is_l
 	}
 	else {
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_CREATE_PLAYER, this->player_id, pos.x, pos.y, pos.z, &this->player_id);
-	}
+	}*/
 
 	// auto ped_ptr = *(_QWORD*)*c_memory::instance()->sdk_ped_pool + *c_memory::instance()->sdk_ped_pool_padding * ((__int64)this->char_id >> 8);
 	// auto ped = (sdk_ped*)ped_ptr;
 
 	this->entity_type = e_entity_types::PLAYER;
-	this->name = name;
+	this->m_name = name;
 	this->player_sync_data = new packet_player_sync_data();
-	this->player_sync_data->name = name.c_str();
+//	this->player_sync_data->name = name.c_str();
 
 	c_networking::instance()->m_players.push_back(this);
 }
@@ -46,7 +46,6 @@ void c_player_entity::on_client_stream(librg_event* event) {
 	if (player == nullptr || player_ped == nullptr) return;
 
 	player->player_sync_data = new packet_player_sync_data();
-	player->player_sync_data->name = c_networking::instance()->m_client_name.c_str();
 	player->player_sync_data->mapping = compress_mapping(*c_memory::instance()->sdk_hid_mapping);
 	player->player_sync_data->move_speed = sdk_vec3_t(player_ped->m_vec_speed_x, player_ped->m_vec_speed_y, player_ped->m_vec_speed_z);
 	player->player_sync_data->camera_front = c_memory::instance()->sdk_current_camera_data_front->get_offset_pos();

@@ -133,14 +133,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="core\core.cpp" />
-    <ClCompile Include="networking\entities\server_entity.cpp" />
+    <ClCompile Include="networking\entities\player_entity.cpp" />
+    <ClCompile Include="networking\modules\module_player-sync.cpp" />
     <ClCompile Include="networking\server_networking.cpp" />
     <ClCompile Include="server.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp" />
     <ClInclude Include="core\core.hpp" />
-    <ClInclude Include="networking\entities\server_entity.hpp" />
+    <ClInclude Include="networking\entities\network_entity.hpp" />
+    <ClInclude Include="networking\entities\player_entity.hpp" />
+    <ClInclude Include="networking\modules\module_player-sync.hpp" />
+    <ClInclude Include="networking\modules\module_sync.hpp" />
     <ClInclude Include="networking\server_networking.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

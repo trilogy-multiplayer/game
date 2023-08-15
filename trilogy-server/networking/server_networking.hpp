@@ -15,15 +15,20 @@
 #include <vendor/librg/enet.h>
 #include <vendor/librg/librg.h>
 
-#define REGISTER_LIBRG_EVENT(context, event_name, function_name)								\
+#include <networking/modules/module_player-sync.hpp>
+
+#define REGISTER_LIBRG_EVENT(context, event_name, function_name) \
 	librg_event_add(context, event_name, [](librg_event_t* _event) { function_name(_event); });	\
 
+#define REGISTER_LIBRG_MESSAGE(context, event_name, function_name) \
+	librg_network_add(context, event_name, [](librg_message_t * _event) { function_name(_event); }); \
+
 class c_server_networking : public c_singleton<c_server_networking> {
-private:
+public:
 	librg_ctx_t m_ctx = {};
 
-public:
 	bool m_is_running = true;
+public:
 
 	void initialize();
 

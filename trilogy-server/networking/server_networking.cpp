@@ -2,6 +2,7 @@
 #define ZPL_IMPLEMENTATION
 #define ZPLM_IMPLEMENTATION
 #define ENET_IMPLEMENTATION
+#define LIBRG_DEBUG
 
 #include "server_networking.hpp"
 
@@ -16,9 +17,9 @@ void c_server_networking::on_connect_request(librg_event_t* event)
 	auto build_minor = librg_data_ru8(event->data);
 	auto build_patch = librg_data_ru8(event->data);
 	auto build_channel = librg_data_ru8(event->data);
-	auto client_name = librg_data_rstr(event->data);
+	auto client_name = librg_data_rstring(event->data);
 
-	if (build_major != TRILOGY_VERSION_MAJOR || 
+	if (build_major != TRILOGY_VERSION_MAJOR ||
 		build_minor != TRILOGY_VERSION_MINOR ||
 		build_channel != TRILOGY_BUILD_CHANNEL) {
 		c_log::Info(c_log::LGreen, "(c_server_networking::on_connect_request):",
@@ -38,6 +39,13 @@ void c_server_networking::on_connect_accept(librg_event_t* librg_event)
 		c_log::LWhite, "Valid connection accepted.");
 }
 
+#define INITIALIZE_MODULE_SYNC(class_instance)				\
+	class_instance::instance()->initialize(&m_ctx);			\
+	c_log::Info(c_log::LGreen, "(c_networking::init):",	    \
+		c_log::LWhite, "Started hooking instance:",			\
+		c_log::LCyan, #class_instance);						\
+
+
 void c_server_networking::initialize()
 {
 	m_ctx.world_size = zpl_vec3f(5000.0f, 5000.0f, 5000.0f);
@@ -54,6 +62,8 @@ void c_server_networking::initialize()
 
 	REGISTER_LIBRG_EVENT(&m_ctx, LIBRG_CONNECTION_REQUEST, c_server_networking::instance()->on_connect_request);
 	REGISTER_LIBRG_EVENT(&m_ctx, LIBRG_CONNECTION_ACCEPT, c_server_networking::instance()->on_connect_accept);
+
+	INITIALIZE_MODULE_SYNC(networking::modules::c_module_player_sync);
 
 	c_log::Info(c_log::LGreen, "(c_server_networking::initialize):",
 		c_log::LWhite, "Initialized librg context.");

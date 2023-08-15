@@ -130,8 +130,6 @@ public:
 
 	uint8_t health;
 	uint8_t armour;*/
-	std::string name;
-
 	sdk_vec3_t camera_front;
 	
 	// int16_t ped_state;
