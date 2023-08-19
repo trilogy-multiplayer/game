@@ -38,7 +38,7 @@ static void increase_pool_size(CPool<A, B>* pool, int nSize)
 	}
 }
 
-int64_t h_sdk_find_player_ped(int32_t player_id) {
+sdk_ped* h_sdk_find_player_ped(int32_t player_id) {
 	return c_memory::instance()->o_sdk_find_player_ped(player_id);
 }
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <common.hpp>
+
 #include "utilities/logging.hpp"
 #include "utilities/singleton.hpp"
 

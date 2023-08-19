@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)definitions.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)networking\entities\network_entity.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)networking\packets\packet_player_sync_data.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)utilities\ida.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)utilities\logging.hpp" />

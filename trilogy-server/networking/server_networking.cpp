@@ -30,7 +30,7 @@ void c_server_networking::on_connect_request(librg_event_t* event)
 	}
 
 	c_log::Info(c_log::LGreen, "(c_server_networking::on_connect_request):",
-		c_log::LWhite, "Incoming connection from:", c_log::Join(hostname, ":", std::to_string(peer_ip.port)), "as", client_name);
+		c_log::LWhite, "Incoming connection from:", c_log::Join(hostname, ":", peer_ip.port), "as", client_name);
 }
 
 void c_server_networking::on_connect_accept(librg_event_t* librg_event)
@@ -51,7 +51,7 @@ void c_server_networking::initialize()
 	m_ctx.world_size = zpl_vec3f(5000.0f, 5000.0f, 5000.0f);
 
 	m_ctx.mode = LIBRG_MODE_SERVER;
-	m_ctx.tick_delay = 32;
+	m_ctx.tick_delay = 128;
 
 	m_ctx.max_connections = MAX_PLAYERS;
 	m_ctx.max_entities = (MAX_ENTITIES + MAX_PLAYERS);

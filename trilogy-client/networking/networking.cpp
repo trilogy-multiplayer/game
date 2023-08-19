@@ -6,11 +6,6 @@
 
 #include "networking.hpp"
 
-c_player_entity* c_networking::get_player_by_id(int32_t id)
-{
-	return nullptr;
-}
-
 void c_networking::initialize() {
 	this->m_ctx = { 0 };
 	this->m_is_running = false;
@@ -34,12 +29,12 @@ void c_networking::on_connect_accept(librg_event_t* librg_event)
 	c_log::Info(c_log::LGreen, "(c_networking::on_connect_accepted):",
 		c_log::LWhite, "Connection completed! Requesting player spawning.");
 
-	librg_data data;
-	librg_data_init(&data);
-
-	librg_data_wstring(&data, m_client_name);
-	librg_message_send_all(&m_ctx, NETWORK_PLAYER_CONNECT, data.rawptr, librg_data_get_wpos(&data));
-	librg_data_free(&data);
+	/**
+	  * Announce player to network players
+	  */
+	librg_lambda_message_send_all(&m_ctx, NETWORK_PLAYER_CONNECT, [&](librg_data* data) {
+		librg_data_wstring(data, m_client_name);
+		});
 }
 
 #define INITIALIZE_MODULE_SYNC(class_instance)				\
@@ -53,7 +48,7 @@ bool c_networking::connect_to(const char* address, int32_t port)
 	this->m_is_running = true;
 
 	m_ctx.mode = LIBRG_MODE_CLIENT;
-	m_ctx.tick_delay = 32;
+	m_ctx.tick_delay = 128;
 
 	librg_init(&m_ctx);
 

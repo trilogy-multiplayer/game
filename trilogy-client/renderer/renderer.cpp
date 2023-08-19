@@ -45,21 +45,19 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 			imgui_render->initialize(renderer->window, dxgi_swapchain);
 
 			renderer->o_wnd_proc = (WNDPROC)SetWindowLongPtr(renderer->window, GWLP_WNDPROC, (LONG_PTR)h_renderer_wndproc);
-			//renderer->initialize_imgui();
 		}
 		else c_log::Info(c_log::LGreen, "(c_renderer::h_renderer_present):", c_log::LWhite, "Failed to create renderer in present hook.");
 		});
 
 	imgui_render->begin_scene();
 
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, { 0.0f, 0.0f, 0.0f, 0.5f });
+	/*ImGui::PushStyleColor(ImGuiCol_WindowBg, {0.0f, 0.0f, 0.0f, 0.5f});
 	ImGui::Begin("(trilogy-mp): debug");
 	{
 		static c_networking* networking = c_networking::instance();
 
 		ImGui::Text("Nickname:");
 		ImGui::InputText("##trilogy-debug::server_nickname", &networking->m_client_name);
-
 
 		if (networking->m_is_connected) {
 			std::stringstream server_ip_with_port;
@@ -71,12 +69,12 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 			imgui_inline_text("(networking): Connected as:", networking->m_client_name);
 			imgui_inline_text("(librg): Last update:", std::to_string(networking->m_ctx.last_update));
 			imgui_inline_text("(librg): Buffer size:", std::to_string(networking->m_ctx.buffer_size));
-			imgui_inline_text("(networking): Free player id", std::to_string(networking->player_id));
-			imgui_inline_text("(networking): Player count", std::to_string(networking->m_players.size()));
+			//imgui_inline_text("(networking): Free player id", std::to_string(networking->player_id));
+			//imgui_inline_text("(networking): Player count", std::to_string(networking->m_players.size()));
 		}
 	}
 	ImGui::End();
-	ImGui::PopStyleColor();
+	ImGui::PopStyleColor();*/
 
 	imgui_render->render_text("trilogy-mp", ImVec2(10, 10), 15.0f, RGBA(255, 255, 255, 255), false);
 	renderer::features::c_nametags::instance()->on_tick();

@@ -71,9 +71,6 @@
     <ClInclude Include="networking\modules\module_sync.hpp">
       <Filter>Header Files\networking\modules</Filter>
     </ClInclude>
-    <ClInclude Include="networking\entities\network_entity.hpp">
-      <Filter>Header Files\networking\entities</Filter>
-    </ClInclude>
     <ClInclude Include="networking\entities\player_entity.hpp">
       <Filter>Header Files\networking\entities</Filter>
     </ClInclude>

@@ -39,20 +39,11 @@
 class c_networking : public c_singleton<c_networking> {
 public:
 	librg_ctx_t m_ctx;
+	librg_address_t m_address;
 
 	bool m_is_running = false;
 	bool m_is_connected = false;
 
-	int32_t player_id = 1;
-
-	using sdk_player_connect_t = void(*)(int64_t this_ptr);
-	sdk_player_connect_t o_sdk_player_connect;
-
-	c_player_entity* get_player_by_id(int32_t id);
-	c_player_entity* get_player_by_game_id(int32_t game_id);
-	std::vector<c_player_entity*> m_players;
-
-	librg_address_t m_address;
 	std::string m_client_name = "trilogy-admin";
 
 	void initialize();

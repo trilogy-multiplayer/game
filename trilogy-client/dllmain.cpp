@@ -119,8 +119,11 @@ uintptr_t init_main(const HMODULE h_module)
 	return 0;
 }
 
+
 BOOL APIENTRY DllMain(HMODULE h_module, uintptr_t dw_reason_for_call, LPVOID lp_reserved)
 {
+	DisableThreadLibraryCalls(h_module);
+
 	if (dw_reason_for_call == DLL_PROCESS_ATTACH)
 	{
 		if (AllocConsole())

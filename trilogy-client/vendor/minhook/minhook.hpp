@@ -34,8 +34,6 @@
 
 #include <windows.h>
 
-#pragma comment ( lib, "vendor/minhook/lib/lib-minhook.lib" )
-
  // MinHook Error Codes.
 typedef enum MH_STATUS
 {

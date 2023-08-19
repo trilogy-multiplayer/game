@@ -14,15 +14,24 @@
 
 namespace networking::modules {
 	class c_module_player_sync : public c_singleton<c_module_player_sync>, c_module_sync {
-	private:
+	public:
 		virtual e_entity_types get_sync_type() override { return e_entity_types::PLAYER; }
 
-		std::vector<c_player_entity> m_players;
+		std::vector<c_player_entity*> m_players = std::vector<c_player_entity*>(MAX_PLAYERS);
+		int32_t m_free_id = 0;
+
+		c_player_entity* m_local_player;
 	public:
 		void initialize(librg_ctx* librg_context) override;
 		void shutdown() override;
 
 		void on_player_connect(librg_message_t* librg_event);
+		void on_player_spawn(librg_message_t* librg_event);
+
+		void on_incoming_stream_entity_create(librg_event_t* librg_event) override;
+		void on_incoming_stream_entity_remove(librg_event_t* librg_event) override;
+		void on_incoming_stream_entity_update(librg_event_t* librg_event) override;
+
 		void on_local_stream_update(librg_event_t* librg_event) override;
 
 	};

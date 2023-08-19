@@ -48,7 +48,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClInclude Include="common.hpp" />
     <ClInclude Include="core\core.hpp" />
-    <ClInclude Include="networking\entities\network_entity.hpp" />
     <ClInclude Include="networking\entities\player_entity.hpp" />
     <ClInclude Include="networking\modules\module_player-sync.hpp" />
     <ClInclude Include="networking\modules\module_sync.hpp" />

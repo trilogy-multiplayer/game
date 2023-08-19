@@ -25,4 +25,7 @@ public:
 	sdk_vec3_t m_vec_speed;
 
 	packet_player_sync_data* m_player_sync_data;
+
+public:
+	void spawn(sdk_vec3_t position);
 };

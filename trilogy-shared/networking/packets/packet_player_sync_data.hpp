@@ -3,6 +3,8 @@
 #include <cstring> 
 #include <cstdint>
 #include <vendor/librg/zpl/zpl_math.h>
+
+//TODO: move into shared
 #include "../../../trilogy-client/sdk/sdk_vector.hpp"
 
 #include <string>

@@ -144,6 +144,7 @@
 
 #include <string>
 #include <sstream>
+#include <functional>
 
 using namespace std;
 
@@ -259,6 +260,8 @@ struct librg_event;
 typedef ENetPeer   librg_peer;
 typedef ENetHost   librg_host;
 typedef ENetPacket librg_packet;
+
+using message_callback_t = std::function<void(librg_data* data)>;
 
 enum librg_mode         { LIBRG_MODE_SERVER, LIBRG_MODE_CLIENT };
 enum librg_space_type   { LIBRG_SPACE_2D = 2, LIBRG_SPACE_3D = 3 };
@@ -762,7 +765,11 @@ LIBRG_API void librg_message_send_all             (struct librg_ctx *ctx, librg_
 LIBRG_API void librg_message_send_to              (struct librg_ctx *ctx, librg_message_id id, librg_peer *target, void *data, usize size);
 LIBRG_API void librg_message_send_except          (struct librg_ctx *ctx, librg_message_id id, librg_peer *target, void *data, usize size);
 LIBRG_API void librg_message_send_instream        (struct librg_ctx *ctx, librg_message_id id, librg_entity_id entity_id, void *data, usize size);
-LIBRG_API void librg_message_send_instream_except (struct librg_ctx *ctx, librg_message_id id, librg_entity_id entity_id, librg_peer *target, void *data, usize size);
+LIBRG_API void librg_message_send_instream_except (struct librg_ctx* ctx, librg_message_id id, librg_entity_id entity_id, librg_peer* target, void* data, usize size);
+LIBRG_API void librg_lambda_message_send_to       (librg_ctx* ctx, librg_message_id id, librg_peer* peer, message_callback_t callback);
+LIBRG_API void librg_lambda_message_send_except   (librg_ctx* ctx, librg_message_id id, librg_peer* peer, message_callback_t callback);
+LIBRG_API void librg_lambda_message_send_all      (librg_ctx* ctx, librg_message_id id, message_callback_t callback);
+
 
 /**
  * The basic message/data sending API
@@ -2010,6 +2017,25 @@ extern "C" {
     librg_inline void librg_message_send_instream_except(librg_ctx *ctx, librg_message_id id, librg_entity_id entity_id, librg_peer *except, void *data, usize size) {
         librg_message_sendex_instream(ctx, id, entity_id, except, librg_option_get(LIBRG_NETWORK_MESSAGE_CHANNEL), true, data, size);
     }
+
+    librg_inline void librg_lambda_message_send_to(librg_ctx* ctx, librg_message_id id, librg_peer* peer, message_callback_t callback) {
+        librg_data data; librg_data_init(&data); if (callback) callback(&data);
+        librg_message_send_to(ctx, id, peer, data.rawptr, librg_data_get_wpos(&data));
+        librg_data_free(&data);
+    }
+
+    librg_inline void librg_lambda_message_send_all(librg_ctx* ctx, librg_message_id id, message_callback_t callback) {
+        librg_data data; librg_data_init(&data); if (callback) callback(&data);
+        librg_message_send_all(ctx, id, data.rawptr, librg_data_get_wpos(&data));
+        librg_data_free(&data);
+    }
+
+    librg_inline void librg_lambda_message_send_except(librg_ctx* ctx, librg_message_id id, librg_peer* peer, message_callback_t callback) {
+        librg_data data; librg_data_init(&data); if (callback) callback(&data);
+        librg_message_send_except(ctx, id, peer, data.rawptr, librg_data_get_wpos(&data));
+        librg_data_free(&data);
+    }
+
 #endif
 
 // =======================================================================//

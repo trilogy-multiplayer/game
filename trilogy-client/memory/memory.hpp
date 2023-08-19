@@ -15,7 +15,7 @@
 
 class c_memory : public c_singleton<c_memory> {
 private:
-	using sdk_find_player_ped_t = int64_t(*)(int32_t player_id);
+	using sdk_find_player_ped_t = sdk_ped*(*)(int32_t player_id);
 	using sdk_calc_screen_coords_t = bool(*)(const sdk_vec3_t& in, sdk_vec3_t* out, float* outw, float* outh, bool farclip, bool unk);
 public:
 

@@ -38,7 +38,8 @@ int8_t h_sdk_runningscript_process(int64_t this_ptr, int64_t unk, int64_t unk1) 
 
 			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_FADING_COLOUR, 208, 196, 171);
 			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 4500, 1);
-			});
+
+		});
 	}
 	else {
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 0, 0);

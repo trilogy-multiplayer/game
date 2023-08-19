@@ -6,13 +6,29 @@
 
 c_player_entity::c_player_entity(std::string client_name)
 {
-	this->network_id = networking::modules::c_module_player_sync::instance()->m_free_id++;
+	this->m_network_id = networking::modules::c_module_player_sync::instance()->m_free_id++;
 
-	// auto ped_ptr = *(_QWORD*)*c_memory::instance()->sdk_ped_pool + *c_memory::instance()->sdk_ped_pool_padding * ((__int64)this->char_id >> 8);
-	// auto ped = (sdk_ped*)ped_ptr;
-
-	this->entity_type = e_entity_types::PLAYER;
+	this->m_entity_type = e_entity_types::PLAYER;
 	this->m_client_name = client_name;
 
-	networking::modules::c_module_player_sync::instance()->m_players.at(network_id) = this;
+	this->m_player_sync_data = new packet_player_sync_data();
+
+	networking::modules::c_module_player_sync::instance()->m_players.at(m_network_id) = this;
+}
+
+void c_player_entity::spawn(sdk_vec3_t position)
+{
+	static auto networking = c_server_networking::instance();
+
+	librg_entity_t* librg_entity = librg_entity_fetch(&networking->m_ctx, m_network_id);
+	if (!librg_entity) {
+		return;
+	}
+
+	librg_entity->position = position;
+	m_position = position;
+
+	librg_lambda_message_send_to(&networking->m_ctx, NETWORK_SPAWN_PLAYER, librg_entity->client_peer, [&](librg_data* data) {
+		librg_data_wptr(data, &m_position, sizeof(sdk_vec3_t));
+	});
 }

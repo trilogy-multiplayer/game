@@ -444,6 +444,10 @@ _In_ int nCmdShow)
 
 #define VC_EXTRALEAN 1
 #include <windows.h>
+
+//TODO: move into shared
+#include "../trilogy-client/sdk/sdk_vector.hpp"
+
 #undef NOMINMAX
 #undef WIN32_LEAN_AND_MEAN
 #undef WIN32_MEAN_AND_LEAN
@@ -3333,6 +3337,12 @@ typedef union zpl_vec3 {
     
     zpl_vec2 xy;
     f32 e[3];
+
+    inline void operator=(sdk_vec3_t vec) {
+        x = vec.x;
+        y = vec.y;
+        z = vec.z;
+    }
 } zpl_vec3;
 
 
