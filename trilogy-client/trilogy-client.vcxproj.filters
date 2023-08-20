@@ -139,6 +139,9 @@
     <Filter Include="Header Files\renderer\utilities\cef">
       <UniqueIdentifier>{2ac289ea-2f15-4ad8-a9e4-3641d8e34786}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\renderer\utilities\cef\app">
+      <UniqueIdentifier>{fb2c385e-e5d1-4ef6-b0b9-d06a969cfc2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp">
@@ -522,6 +525,9 @@
     <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\View.h">
       <Filter>Header Files\vendor\ultralight-ux</Filter>
     </ClInclude>
+    <ClInclude Include="renderer\utilities\cef\c_renderer_cef.hpp">
+      <Filter>Source Files\renderer\utilities\cef</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -724,6 +730,9 @@
     </ClCompile>
     <ClCompile Include="vendor\directxtk\GeometricPrimitive.cpp">
       <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\utilities\cef\c_renderer_cef.cpp">
+      <Filter>Source Files\renderer\utilities\cef</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

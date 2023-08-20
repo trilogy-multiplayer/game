@@ -6,13 +6,12 @@
 #include <common.hpp>
 
 class c_core : public c_singleton<c_core> {
+private:
+	std::string m_path = std::string("E:\\Coding\\trilogy-mp\\x64\\Release\\");
+
 public:
-	std::string m_name = "trilogy:MP";
-	double m_version = 0.1;
-
-	void initialize();
-
-	const char* get_build_date();
+	std::string get_computer_name();
+	std::string get_trilogy_base_path();
 };
 
 #endif

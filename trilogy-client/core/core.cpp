@@ -1,14 +1,25 @@
 #include "core.hpp"
 
-void c_core::initialize()
-{
+std::string c_core::get_computer_name() {
+    const int buffer_size = MAX_COMPUTERNAME_LENGTH + 1;
 
+    char buffer[buffer_size];
+    DWORD lpnSize = buffer_size;
+
+    if (GetComputerNameA(buffer, &lpnSize) == FALSE)
+        throw std::runtime_error("Something went wrong.");
+
+    return std::string { buffer };
 }
 
-const char* c_core::get_build_date()
+std::string c_core::get_trilogy_base_path()
 {
-	std::stringstream stream_date;
-	stream_date << __DATE__ << " - " << __TIME__;
+	/**
+	  * TODO:
+	  * Our launcher needs to set a registry value so the game knows our trilogy-path for libs.
+	  */
+    c_log::Info(get_computer_name());
 
-	return stream_date.str().c_str();
+	return m_path;
 }
+

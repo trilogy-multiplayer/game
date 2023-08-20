@@ -14,7 +14,9 @@ uintptr_t init_main(const HMODULE h_module)
 	auto core = c_core::instance();
 
 	c_log::add_out(new c_log::c_log_consolestream);
-	c_log::Info(core->m_name, core->m_version);
+	c_log::Info("Launching", TRILOGY_FULLNAME,
+		c_log::Join(TRILOGY_VERSION_MAJOR, ".", TRILOGY_VERSION_MINOR, ".", TRILOGY_VERSION_PATCH),
+		"on branch", TRILOGY_BuildChannelToString(TRILOGY_BUILD_CHANNEL));
 
 	auto memory = c_memory::instance();
 	memory->initialize();
@@ -132,7 +134,7 @@ BOOL APIENTRY DllMain(HMODULE h_module, uintptr_t dw_reason_for_call, LPVOID lp_
 			RECT console_bound = { 900, 420 };
 			RECT window_rect;
 
-			SetConsoleTitleA("trilogy:MP | Debug");
+			SetConsoleTitleA("TRILOGY:MP | Debug");
 
 			GetWindowRect(console_hwnd, &window_rect);
 			MoveWindow(console_hwnd, window_rect.left, window_rect.top, console_bound.left, console_bound.top, true);

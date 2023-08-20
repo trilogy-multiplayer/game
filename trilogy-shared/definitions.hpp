@@ -1,11 +1,34 @@
 #pragma once
 
+#ifndef TRILOGY_DEFINITIONS_H
+#define TRILOGY_DEFINITIONS_H
+
 enum e_build_channel : int8_t {
-    DEVELOPMENT = 1,
-    BETA,
-    RELEASE_CANDIDATE,
-    RELEASE
+	DEVELOPMENT = 1,
+	BETA,
+	RELEASE_CANDIDATE,
+	RELEASE
 };
+
+inline const char* TRILOGY_BuildChannelToString(int8_t status)
+{
+#define TRILOGY_ST2STR(x)    \
+    case x:             \
+        return #x;
+
+	switch (status) {
+		TRILOGY_ST2STR(DEVELOPMENT)
+			TRILOGY_ST2STR(BETA)
+			TRILOGY_ST2STR(RELEASE_CANDIDATE)
+			TRILOGY_ST2STR(RELEASE)
+	}
+
+#undef TRILOGY_ST2STR
+
+	return "(unknown)";
+}
+
+#define TRILOGY_FULLNAME "TRILOGY:MP"
 
 #define TRILOGY_VERSION_MAJOR 1
 #define TRILOGY_VERSION_MINOR 0
@@ -31,3 +54,4 @@ enum class e_entity_types {
 	VEHICLE,
 };
 
+#endif
