@@ -222,7 +222,10 @@
     <ClInclude Include="renderer\features\feature_nametags.hpp" />
     <ClInclude Include="renderer\fonts\sffont.hpp" />
     <ClInclude Include="renderer\renderer.hpp" />
-    <ClInclude Include="renderer\utilities\cef\c_renderer_cef.hpp" />
+    <ClInclude Include="renderer\utilities\cef\cef_app.hpp" />
+    <ClInclude Include="renderer\utilities\cef\cef_view.hpp" />
+    <ClInclude Include="renderer\utilities\cef\cef_texture.hpp" />
+    <ClInclude Include="renderer\utilities\cef\renderer_cef.hpp" />
     <ClInclude Include="renderer\utilities\imgui_render.hpp" />
     <ClInclude Include="scripting\scripting.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
@@ -299,7 +302,10 @@
     <ClCompile Include="networking\networking.cpp" />
     <ClCompile Include="renderer\features\feature_nametags.cpp" />
     <ClCompile Include="renderer\renderer.cpp" />
-    <ClCompile Include="renderer\utilities\cef\c_renderer_cef.cpp" />
+    <ClCompile Include="renderer\utilities\cef\cef_app.cpp" />
+    <ClCompile Include="renderer\utilities\cef\cef_view.cpp" />
+    <ClCompile Include="renderer\utilities\cef\cef_texture.cpp" />
+    <ClCompile Include="renderer\utilities\cef\renderer_cef.cpp" />
     <ClCompile Include="renderer\utilities\imgui_render.cpp" />
     <ClCompile Include="scripting\scripting.cpp" />
     <ClCompile Include="sdk\sdk_running_script.cpp" />

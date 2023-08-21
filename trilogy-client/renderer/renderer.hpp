@@ -36,6 +36,7 @@ public:
 
 	HWND window = NULL;
 
+	IDXGISwapChain* d3d11_swapchain = NULL;
 	ID3D11Device* d3d11_device = NULL;
 	ID3D11DeviceContext* d3d11_device_context = NULL;
 	ID3D11RenderTargetView* d3d11_render_target;

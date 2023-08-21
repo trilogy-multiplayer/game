@@ -142,6 +142,15 @@
     <Filter Include="Source Files\renderer\utilities\cef\app">
       <UniqueIdentifier>{fb2c385e-e5d1-4ef6-b0b9-d06a969cfc2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\renderer\utilities\cef\texture">
+      <UniqueIdentifier>{a1ecc1a4-b7b6-4509-8a7a-b1692d0553cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\utilities\cef\app">
+      <UniqueIdentifier>{b7afb640-df43-46e9-91d0-f09a1d8f19c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\utilities\cef\texture">
+      <UniqueIdentifier>{70edbf0e-2aea-4615-a17e-7da723cbbbe9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp">
@@ -525,8 +534,17 @@
     <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\View.h">
       <Filter>Header Files\vendor\ultralight-ux</Filter>
     </ClInclude>
-    <ClInclude Include="renderer\utilities\cef\c_renderer_cef.hpp">
-      <Filter>Source Files\renderer\utilities\cef</Filter>
+    <ClInclude Include="renderer\utilities\cef\cef_app.hpp">
+      <Filter>Header Files\renderer\utilities\cef\app</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\utilities\cef\cef_view.hpp">
+      <Filter>Header Files\renderer\utilities\cef\app</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\utilities\cef\renderer_cef.hpp">
+      <Filter>Header Files\renderer\utilities\cef</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\utilities\cef\cef_texture.hpp">
+      <Filter>Header Files\renderer\utilities\cef\texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -731,8 +749,17 @@
     <ClCompile Include="vendor\directxtk\GeometricPrimitive.cpp">
       <Filter>Source Files\vendor\directxtk</Filter>
     </ClCompile>
-    <ClCompile Include="renderer\utilities\cef\c_renderer_cef.cpp">
+    <ClCompile Include="renderer\utilities\cef\renderer_cef.cpp">
       <Filter>Source Files\renderer\utilities\cef</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\utilities\cef\cef_app.cpp">
+      <Filter>Source Files\renderer\utilities\cef\app</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\utilities\cef\cef_view.cpp">
+      <Filter>Source Files\renderer\utilities\cef\app</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\utilities\cef\cef_texture.cpp">
+      <Filter>Source Files\renderer\utilities\cef\texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

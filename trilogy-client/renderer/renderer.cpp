@@ -1,4 +1,6 @@
 #include "renderer.hpp"
+#include <renderer/utilities/cef/renderer_cef.hpp>
+#include <renderer/utilities/cef/cef_texture.hpp>
 
 LRESULT __stdcall h_renderer_wndproc(const HWND handle, UINT message, WPARAM word_param, LPARAM long_param) {
 	static c_renderer* renderer = c_renderer::instance();
@@ -24,6 +26,9 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 	static c_renderer* renderer = c_renderer::instance();
 	static c_imgui_render* imgui_render = c_imgui_render::instance();
 
+	if (dxgi_swapchain)
+		renderer->d3d11_swapchain = dxgi_swapchain;
+
 	std::call_once(renderer->is_initialized, [&] {
 		if (SUCCEEDED(dxgi_swapchain->GetDevice(__uuidof(ID3D11Device), (void**)&renderer->d3d11_device)))
 		{
@@ -37,6 +42,11 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 			ID3D11Texture2D* d3d11_back_buffer;
 			dxgi_swapchain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&d3d11_back_buffer);
 
+			renderer::utilities::cef::c_cef_texture::instance()->initialize();
+			renderer::utilities::cef::c_cef_texture::instance()->create_render_target();
+
+			renderer::utilities::cef::c_renderer_cef::instance()->initialize();
+
 			if (d3d11_back_buffer) {
 				renderer->d3d11_device->CreateRenderTargetView(d3d11_back_buffer, NULL, &renderer->d3d11_render_target);
 				d3d11_back_buffer->Release();
@@ -47,11 +57,14 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 			renderer->o_wnd_proc = (WNDPROC)SetWindowLongPtr(renderer->window, GWLP_WNDPROC, (LONG_PTR)h_renderer_wndproc);
 		}
 		else c_log::Info(c_log::LGreen, "(c_renderer::h_renderer_present):", c_log::LWhite, "Failed to create renderer in present hook.");
-		});
+		}); 
+
+	if (GetAsyncKeyState(VK_F8) & 0x1)
+		renderer::utilities::cef::c_renderer_cef::instance()->create_browser("http://80.240.19.147/", true);
 
 	imgui_render->begin_scene();
 
-	/*ImGui::PushStyleColor(ImGuiCol_WindowBg, {0.0f, 0.0f, 0.0f, 0.5f});
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, { 0.0f, 0.0f, 0.0f, 0.5f });
 	ImGui::Begin("(trilogy-mp): debug");
 	{
 		static c_networking* networking = c_networking::instance();
@@ -74,9 +87,15 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 		}
 	}
 	ImGui::End();
-	ImGui::PopStyleColor();*/
+	ImGui::PopStyleColor();
 
-	imgui_render->render_text("trilogy-mp", ImVec2(10, 10), 15.0f, RGBA(255, 255, 255, 255), false);
+	RECT window_size;
+	GetClientRect(renderer->window, &window_size);
+
+	if (GetAsyncKeyState(VK_F4) & 0x8000)
+		imgui_render->render_text("You are currently playing on a development version of TRILOGY:MP",
+			ImVec2(window_size.right / 2, 30), 15.0f, RGBA(255, 255, 255, 200), true);
+
 	renderer::features::c_nametags::instance()->on_tick();
 
 	imgui_render->end_scene();
@@ -84,6 +103,9 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 
 	renderer->d3d11_device_context->OMSetRenderTargets(1, &renderer->d3d11_render_target, NULL);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	renderer::utilities::cef::c_cef_texture::instance()->update_render_texture();
+	renderer::utilities::cef::c_cef_texture::instance()->draw_webview();
 
 	return renderer->o_present(dxgi_swapchain, sync_interval, flags);
 }
@@ -98,9 +120,13 @@ HRESULT h_renderer_resize(IDXGISwapChain* dxgi_swapchain, UINT buffer_count, FLO
 		renderer->d3d11_render_target->Release();
 	}
 
+	c_log::Info("Cleanup");
+	renderer::utilities::cef::c_cef_texture::instance()->cleanup_render_target();
 	// imgui_render->reset(width, height);
 
 	auto result = renderer->o_resize_buffers(dxgi_swapchain, buffer_count, width, height, new_format, swapchain_flags);
+
+	renderer::utilities::cef::c_cef_texture::instance()->create_render_target();
 
 	ID3D11Texture2D* d3d11_surface;
 	dxgi_swapchain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&d3d11_surface);
