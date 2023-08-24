@@ -29,37 +29,32 @@ public:
 	class sdk_camera_data_front
 	{
 	public:
-		float offset_pos_x; //0x0000 
-		float offset_pos_y; //0x0004 
-		float offset_pos_z; //0x0008 
-		float pos_x; //0x000C 
-		float pos_y; //0x0010 
-		float pos_z; //0x0014 
-		float unk_pos_x; //0x0018 
-		float unk_pos_y; //0x001C 
-		float unk_pos_z; //0x0020 
-		float unk_offset_pos_x; //0x0024 
-		float unk_offset_pos_y; //0x0028 
-		float unk_offset_pos_z; //0x002C 
+		sdk_vec3_t m_front_pos;
+		sdk_vec3_t m_pos;
+		sdk_vec3_t m_unk_pos;
+		sdk_vec3_t m_unk_offset_pos;
 		char pad_0x0030[0x10]; //0x0030
-
-	public:
-		sdk_vec3_t get_offset_pos() {
-			return sdk_vec3_t(offset_pos_x, offset_pos_y, offset_pos_z);
-		}
 	}; //Size=0x0040
 
+	/**
+	  * This dont belong here, need to move
+	  */
+#define SDK_LOCAL_PLAYER 0
+#define SDK_REMOTE_PLAYER 2
+#define SDK_CONTEXT_PLAYER 3
 
 	sdk_find_player_ped_t o_sdk_find_player_ped;
 	sdk_find_player_ped_t sdk_find_player_ped;
+
 	int8_t* sdk_player_in_focus;
 
     float* time_step;
+	sdk_ped** sdk_world_players;
 
     int32_t* sdk_ped_pool_padding;
 	int64_t* sdk_ped_pool;
 
-    hid_mapping* sdk_hid_mapping;
+    hid::hid_mapping* sdk_hid_mapping;
 	sdk_camera* sdk_current_camera;
 	sdk_camera_data_front* sdk_current_camera_data_front;
 

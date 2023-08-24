@@ -8,6 +8,7 @@
 #include <utilities/ida.hpp>
 #include <definitions.hpp>
 #include <sdk/sdk.hpp>
+#include <networking/features/feature_benchmark.hpp>
 
 uintptr_t init_main(const HMODULE h_module)
 {
@@ -31,11 +32,11 @@ uintptr_t init_main(const HMODULE h_module)
 		if (GetAsyncKeyState(VK_INSERT) & 0x8000) break;
 		//}
 
-		if (GetAsyncKeyState(VK_DIVIDE) & 0x1) {
+		if (GetAsyncKeyState(VK_F2) & 0x1) {
 			//int char_id;
 			//c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, 0, &char_id);
 			//c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GIVE_WEAPON_TO_CHAR, char_id, 24, 100);
-
+			networking::features::c_feature_benchmark::instance()->run_benchmark();
 		}
 
 		if (GetAsyncKeyState(VK_BACK) & 0x8000) {
@@ -49,12 +50,12 @@ uintptr_t init_main(const HMODULE h_module)
 			//c_log::Info("Ped pool", c_memory::instance()->sdk_ped_pool->GetAt(0));
 
 			for (int i = 0; i < 102; i++) {
-				if (c_memory::instance()->sdk_hid_mapping->m_keyboard_states[i].m_cur_state == e_hid_mapping_current_state::PRESSED)
+				if (c_memory::instance()->sdk_hid_mapping->m_keyboard_states[i].m_cur_state == hid::e_hid_mapping_current_state::PRESSED)
 					c_log::Info("Current pressed button:", i);
 			}
 
 			for (int i = 0; i < 3; i++) {
-				if (c_memory::instance()->sdk_hid_mapping->m_mouse_states[i].m_cur_state == e_hid_mapping_current_state::PRESSED)
+				if (c_memory::instance()->sdk_hid_mapping->m_mouse_states[i].m_cur_state == hid::e_hid_mapping_current_state::PRESSED)
 					c_log::Info("Current pressed mouse:", i);
 			}
 

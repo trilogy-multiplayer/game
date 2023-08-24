@@ -44,7 +44,8 @@ inline const char* TRILOGY_BuildChannelToString(int8_t status)
 #define		SPAWN_POS_Z		26.875f
 
 enum e_network_events : int8_t {
-	NETWORK_PLAYER_CONNECT = 13,
+	NETWORK_ACCEPT_CONNECTION = 13,
+	NETWORK_PLAYER_CONNECT,
 	NETWORK_SPAWN_PLAYER
 };
 

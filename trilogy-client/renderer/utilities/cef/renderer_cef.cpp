@@ -31,12 +31,33 @@ void renderer::utilities::cef::c_renderer_cef::initialize()
 
 	bool state = CefInitialize(cef_main_args, settings, app, nullptr);
 	CefRegisterSchemeHandlerFactory("http", "trilogy", new CEFSchemeHandlerFactory());
+
+	this->register_cef_function("trilogy.ShowCursor", [](CefRefPtr<CefFrame> frame, CefRefPtr<CefListValue> args) {
+		c_log::Info("Set cursor to", args->GetBool(1));
+		c_renderer::instance()->focus_browser = args->GetBool(1);
+		});
+
+	this->register_cef_function("trilogy.Log", [](CefRefPtr<CefFrame> frame, CefRefPtr<CefListValue> args) {
+		c_log::Info("trilogy.Log", args->GetString(1));
+		});
 }
 
-void renderer::utilities::cef::c_renderer_cef::create_browser(const std::string& url, bool transparent)
+CefRefPtr<renderer::utilities::cef::c_cef_view> renderer::utilities::cef::c_renderer_cef::create_browser(const std::string& url, bool visible)
 {
-	CefRefPtr<renderer::utilities::cef::c_cef_view> cef_view = new renderer::utilities::cef::c_cef_view(url, false, transparent);
+	CefRefPtr<renderer::utilities::cef::c_cef_view> cef_view = new renderer::utilities::cef::c_cef_view(url, false, visible);
 	cef_view->Initialise();
 
 	views.push_back(cef_view);
+
+	return cef_view;
+}
+
+std::function<void(CefRefPtr<CefFrame>frame, CefRefPtr<CefListValue>args)> renderer::utilities::cef::c_renderer_cef::get_cef_function_handler(std::string name)
+{
+	return m_handlers[name];
+}
+
+void renderer::utilities::cef::c_renderer_cef::register_cef_function(std::string name, std::function<void(CefRefPtr<CefFrame>frame, CefRefPtr<CefListValue>args)> function)
+{
+	m_handlers[name] = function;
 }

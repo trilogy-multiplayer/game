@@ -151,6 +151,21 @@
     <Filter Include="Header Files\renderer\utilities\cef\texture">
       <UniqueIdentifier>{70edbf0e-2aea-4615-a17e-7da723cbbbe9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\sdk\enums">
+      <UniqueIdentifier>{3cdcab11-c77f-4ced-be1e-eee6a357cef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sdk\api">
+      <UniqueIdentifier>{c4e4e8f7-5224-45f9-808f-d763ba874397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sdk\api">
+      <UniqueIdentifier>{afc3efb3-6528-45f7-ba4a-761836026cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\networking\features">
+      <UniqueIdentifier>{f8c3bedc-b827-4764-8819-4bc89859d12d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\networking\features">
+      <UniqueIdentifier>{0d38d89e-c024-4a44-a2fb-c278ae7c7bb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp">
@@ -546,6 +561,18 @@
     <ClInclude Include="renderer\utilities\cef\cef_texture.hpp">
       <Filter>Header Files\renderer\utilities\cef\texture</Filter>
     </ClInclude>
+    <ClInclude Include="renderer\utilities\cef\input_cef.hpp">
+      <Filter>Header Files\renderer\utilities\cef</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk_weathers.hpp">
+      <Filter>Header Files\sdk\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\features\feature_nickgen.hpp">
+      <Filter>Header Files\networking\features</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\features\feature_benchmark.hpp">
+      <Filter>Header Files\networking\features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -761,6 +788,18 @@
     <ClCompile Include="renderer\utilities\cef\cef_texture.cpp">
       <Filter>Source Files\renderer\utilities\cef\texture</Filter>
     </ClCompile>
+    <ClCompile Include="renderer\utilities\cef\input_cef.cpp">
+      <Filter>Source Files\renderer\utilities\cef</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\api\sdk_ped_api.cpp">
+      <Filter>Source Files\sdk\api</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\features\feature_nickgen.cpp">
+      <Filter>Source Files\networking\features</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\features\feature_benchmark.cpp">
+      <Filter>Source Files\networking\features</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\directxtk\TeapotData.inc">
@@ -768,6 +807,9 @@
     </None>
     <None Include="vendor\directxtk\SimpleMath.inl">
       <Filter>Header Files\vendor\directxtk</Filter>
+    </None>
+    <None Include="sdk\api\sdk_ped_api.hpp">
+      <Filter>Header Files\sdk\api</Filter>
     </None>
   </ItemGroup>
 </Project>

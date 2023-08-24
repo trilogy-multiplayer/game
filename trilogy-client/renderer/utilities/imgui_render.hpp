@@ -72,4 +72,5 @@ public:
 private:
 	bool m_finished_init = false;
 	ImFont* m_font;
+	ImFont* m_font_small;
 };

@@ -1,5 +1,60 @@
 #include "module_player-sync.hpp"
 
+#include <sdk/sdk_weathers.hpp>
+#include <sdk/api/sdk_ped_api.hpp>
+
+void h_process_control(sdk_ped* this_ptr)
+{
+	auto module_player_sync = networking::modules::c_module_player_sync::instance();
+	auto ped_api = sdk::api::sdk_ped_api::instance();
+
+	if (this_ptr == c_memory::instance()->sdk_find_player_ped(SDK_LOCAL_PLAYER)) {
+		module_player_sync->o_process_control(this_ptr);
+		return;
+	}
+
+	auto player = module_player_sync->get_player_by_ptr(
+		reinterpret_cast<int64_t>(this_ptr));
+
+	if (player == nullptr) return;
+	
+	hid::hid_mapping current_hid_state = *c_memory::instance()->sdk_hid_mapping;
+	auto current_camera_data_front = (*c_memory::instance()->sdk_current_camera_data_front).m_front_pos;
+
+	c_memory::instance()->sdk_current_camera_data_front->m_front_pos = player->m_camera_front;
+	*c_memory::instance()->sdk_hid_mapping = hid::decompress_mapping(player->m_hid_mapping, current_hid_state);
+
+	// Workaround for this, maybe move into player_entity
+	player->m_game_player->m_matrix = 
+
+	ped_api->set_rotation(player->m_game_player, player->m_rotation);
+	ped_api->set_force_power(player->m_game_player, player->m_force_power);
+
+	module_player_sync->o_process_control(this_ptr);
+
+	c_memory::instance()->sdk_current_camera_data_front->m_front_pos = current_camera_data_front;
+	*c_memory::instance()->sdk_hid_mapping = current_hid_state;
+}
+
+void networking::modules::c_module_player_sync::on_local_accept_connection(librg_message_t* librg_event)
+{
+	int32_t network_id = librg_data_ru32(librg_event->data);
+	std::string local_name = librg_data_rstring(librg_event->data);
+
+	int32_t time_hours = librg_data_ru32(librg_event->data);
+	int32_t time_minutes = librg_data_ru32(librg_event->data);
+
+	e_sdk_weathers weather = (e_sdk_weathers)librg_data_ru32(librg_event->data);
+
+	m_local_player = new c_player_entity(network_id, local_name, true);
+
+	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_TIME_OF_DAY, time_hours, time_minutes);
+	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_FORCE_WEATHER_NOW, (int32_t)weather);
+
+	c_log::Error(c_log::LRed, "(c_module_player_sync::on_local_accept_connection):",
+		c_log::LWhite, "Joined the server as", c_log::Cyan, m_local_player->m_name, "-", m_local_player->m_network_id);
+}
+
 void networking::modules::c_module_player_sync::on_player_connect(librg_message_t* event)
 {
 	int32_t network_id = librg_data_ru32(event->data);
@@ -7,56 +62,126 @@ void networking::modules::c_module_player_sync::on_player_connect(librg_message_
 
 	c_player_entity* player = new c_player_entity(network_id, client_name);
 
-	c_log::Info("Player connected:", player->m_name);
+	c_log::Info("Player connected:", player->m_name, player->m_network_id);
 }
-
 
 void networking::modules::c_module_player_sync::on_player_spawn(librg_message_t* event)
 {
 	sdk_vec3_t position;
 	librg_data_rptr(event->data, &position, sizeof(sdk_vec3_t));
 
-	auto player_ped = c_memory::instance()->sdk_find_player_ped(0);
+	auto player_ped = c_memory::instance()->sdk_find_player_ped(SDK_LOCAL_PLAYER);
 	if (player_ped == nullptr) return;
 
 	/**
 	  * Change sdk_ped class, switch pos_x, pos_y, pos_z to sdk_vec3_t
+	  * EDIT: done.
 	  */
-	player_ped->m_matrix->pos_x = position.x;
-	player_ped->m_matrix->pos_y = position.y;
-	player_ped->m_matrix->pos_z = position.z;
+	player_ped->m_matrix->m_position = position;
 }
 
 void networking::modules::c_module_player_sync::on_incoming_stream_entity_create(librg_event_t* librg_event)
 {
 	if (librg_event->entity->type != (int32_t)this->get_sync_type()) return;
 
-	c_log::Error("(networking::modules::c_module_player_sync::on_incoming_stream_entity_create):", librg_event->entity->id, librg_event->entity->type);
+	auto player = networking::modules::c_module_player_sync::instance()->m_players.at(librg_event->entity->id);
+	if (player == nullptr || player->is_local) return;
+
+	/**
+	  * TODO:
+	  * Add player pointer implementation to player_entity
+	  */
+	if (player->char_id != -1) {
+		// The player already exists -> theres something fucked up if this fires
+		c_log::Info("something fucked up");
+		librg_event_reject(librg_event);
+		return;
+	}
+
+	player->on_entity_create(librg_event);
+
+	this->m_streamed_players.push_back(player);
 }
 
 void networking::modules::c_module_player_sync::on_incoming_stream_entity_remove(librg_event_t* librg_event)
 {
 	if (librg_event->entity->type != (int32_t)this->get_sync_type()) return;
 
-	c_log::Error("(networking::modules::c_module_player_sync::on_incoming_stream_entity_remove):", librg_event->entity->id, librg_event->entity->type);
+	auto player = networking::modules::c_module_player_sync::instance()->m_players.at(librg_event->entity->id);
+	if (player == nullptr || player->is_local) return;
 
+	/**
+	  * TODO:
+	  * Add player pointer implementation to player_entity
+	  */
+	if (player->char_id == -1) {
+		// The player already exists -> theres something fucked up if this fires
+		c_log::Info("something fucked up");
+		librg_event_reject(librg_event);
+		return;
+	}
+
+	player->on_entity_remove(librg_event);
+
+	auto& streamed_players = this->m_streamed_players;
+
+	this->m_streamed_players.erase(
+		std::remove(streamed_players.begin(), streamed_players.end(), player), streamed_players.end());
 }
 
 void networking::modules::c_module_player_sync::on_incoming_stream_entity_update(librg_event_t* librg_event)
 {
 	if (librg_event->entity->type != (int32_t)this->get_sync_type()) return;
 
-	c_log::Error("(networking::modules::c_module_player_sync::on_incoming_stream_entity_update):", librg_event->entity->id, librg_event->entity->type);
+	auto player = networking::modules::c_module_player_sync::instance()->m_players.at(librg_event->entity->id);
+	if (player == nullptr || player->is_local) return;
+
+	if (player->m_game_player == nullptr) {
+		librg_event_reject(librg_event);
+		return;
+	}
+
+	player->on_entity_update(librg_event);
 }
 
 void networking::modules::c_module_player_sync::on_local_stream_update(librg_event_t* event)
 {
-	if (event->entity->type != (int32_t)this->get_sync_type()) return;
+	if (event->entity->id != m_local_player->m_network_id) {
+		c_log::Error(c_log::LRed, "(networking::modules::c_module_player_sync::on_local_stream_update):",
+			c_log::LWhite, "wtf?! why is someone else trying stream another player???");
+		return;
+	}
 
+	/**
+	  * Just stream it?
+	  * I would say add more checks if someone is nearby him too save some server performance
+	  */
+	m_local_player->on_local_client_stream(event);
+}
+
+c_player_entity* networking::modules::c_module_player_sync::get_player_by_ptr(int64_t this_ptr)
+{
+	for (auto& player : this->m_streamed_players)
+	{
+		if (player == nullptr) continue;
+		if (player->m_game_player == nullptr) continue;
+
+		if (reinterpret_cast<int64_t>(player->m_game_player) == this_ptr)
+			return player;
+	}
+
+	return nullptr;
 }
 
 void networking::modules::c_module_player_sync::initialize(librg_ctx* librg_context)
 {
+	auto process_control = memory::find_pattern<process_control_t>(memory::module_t(nullptr), "networking::modules::c_module_player_sync::process_control",
+		"48 8B C4 48 89 58 20 55 56 57 41 54 41 55 48 8D 68 A1");
+
+	MH_CreateHook(process_control, h_process_control, reinterpret_cast<void**>(&o_process_control));
+	MH_EnableHook(process_control);
+
+	REGISTER_LIBRG_MESSAGE(librg_context, NETWORK_ACCEPT_CONNECTION, networking::modules::c_module_player_sync::instance()->on_local_accept_connection);
 	REGISTER_LIBRG_MESSAGE(librg_context, NETWORK_PLAYER_CONNECT, networking::modules::c_module_player_sync::instance()->on_player_connect);
 	REGISTER_LIBRG_MESSAGE(librg_context, NETWORK_SPAWN_PLAYER, networking::modules::c_module_player_sync::instance()->on_player_spawn);
 

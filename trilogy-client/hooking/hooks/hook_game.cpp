@@ -3,6 +3,9 @@
 #include <networking/networking.hpp>
 #include <vendor/minhook/minhook.hpp>
 
+#include <renderer/renderer.hpp>
+#include <renderer/utilities/cef/renderer_cef.hpp>
+
 /**
  * Kinda ugly code?
  * Better search for a real game initialization function
@@ -21,6 +24,8 @@ int8_t h_sdk_runningscript_process(int64_t this_ptr, int64_t unk, int64_t unk1) 
 		networking->initialize();
 		networking->connect_to("127.0.0.1", 1337);
 
+		c_renderer::instance()->m_main_cef = renderer::utilities::cef::c_renderer_cef::instance()->create_browser("http://80.240.19.147/", false);
+
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_FADING_COLOUR, 208, 196, 171);
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 0, 0);
 		});
@@ -36,9 +41,10 @@ int8_t h_sdk_runningscript_process(int64_t this_ptr, int64_t unk, int64_t unk1) 
 			c_log::Debug(c_log::LBlue, "(trilogy-mp):",
 				c_log::LWhite, "Loaded game-files/assets! Due to debug mode, connecting to the dev-server.");
 
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_FADING_COLOUR, 208, 196, 171);
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 4500, 1);
+			c_renderer::instance()->m_main_cef->m_is_visible = true;
 
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_FADING_COLOUR, 208, 196, 171);
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 1500, 1);
 		});
 	}
 	else {

@@ -5,6 +5,9 @@
 
 #include <mutex>
 #include <hooking/hooking.hpp>
+
+#include <sdk/api/sdk_ped_api.hpp>
+
 /*
 #define CREATE_HOOK(ptr)		\
 	int8_t h_##ptr() {				\
@@ -47,6 +50,7 @@ void c_memory::initialize()
 	MH_Initialize();
 
 	c_scripting::instance()->initialize();
+	sdk::api::sdk_ped_api::instance()->initialize();
 
 	/**
 	 * TODO:
@@ -70,7 +74,9 @@ void c_memory::initialize()
 	sdk_ped_pool_padding = memory::find_pattern<int32_t*>(base_module, "sdk_ped_pool_padding", "48 69 C0 ? ? ? ? 49 03 00 48 8B 5C 24 08 C3 48 8B C3 48 8B 5C 24 08 C3 CC CC CC CC CC CC CC CC CC CC CC CC CC CC 48 83 EC ?", 3);
 	sdk_ped_pool = memory::as_relative<int64_t*>(memory::find_pattern(base_module, "sdk_ped_pool", "48 8B 0D ? ? ? ? 44 8B 0D ? ? ? ?"));
 
-	sdk_hid_mapping = memory::as_relative<hid_mapping*>(memory::find_pattern(base_module, "hid_mapping", "8B 05 ? ? ? ? 83 C0 ? 83 F8 ? 0F 86 ? ? ? ?"), 2);
+	sdk_world_players = *(sdk_ped*(*)[])memory::as_relative(memory::find_pattern(memory::module_t(nullptr), "world_players", "48 8B 0D ? ? ? ? 48 89 58 10 48 89 78 F0"));
+
+	sdk_hid_mapping = memory::as_relative<hid::hid_mapping*>(memory::find_pattern(base_module, "hid_mapping", "8B 05 ? ? ? ? 83 C0 ? 83 F8 ? 0F 86 ? ? ? ?"), 2);
 
 	sdk_current_camera = memory::as_relative<sdk_camera*>(memory::find_pattern(base_module, "sdk_current_camera", "48 8D 0D ? ? ? ? 0F 28 CE"));
 	sdk_current_camera_data_front = memory::as_relative<sdk_camera_data_front*>(memory::find_pattern(base_module, "sdk_current_camera_data_front", "48 8D 0D ? ? ? ? F3 0F 10 54 0A 04"));

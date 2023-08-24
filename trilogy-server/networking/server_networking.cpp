@@ -51,7 +51,7 @@ void c_server_networking::initialize()
 	m_ctx.world_size = zpl_vec3f(5000.0f, 5000.0f, 5000.0f);
 
 	m_ctx.mode = LIBRG_MODE_SERVER;
-	m_ctx.tick_delay = 128;
+	m_ctx.tick_delay = 32;
 
 	m_ctx.max_connections = MAX_PLAYERS;
 	m_ctx.max_entities = (MAX_ENTITIES + MAX_PLAYERS);

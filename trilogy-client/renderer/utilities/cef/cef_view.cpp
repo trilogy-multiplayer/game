@@ -2,26 +2,25 @@
 
 #include <include/cef_parser.h>
 #include <include/cef_task.h>
+
+#include <renderer/utilities/cef/renderer_cef.hpp>
+
 #include <renderer/utilities/cef/cef_texture.hpp>
 
-renderer::utilities::cef::c_cef_view::c_cef_view(std::string url, bool bIsLocal, bool bTransparent)
+renderer::utilities::cef::c_cef_view::c_cef_view(std::string url, bool bIsLocal, bool visible)
 {
 	m_bIsLocal = bIsLocal;
-	m_bIsTransparent = bTransparent;
+	m_is_visible = visible;
 	m_bBeingDestroyed = false;
 	m_fVolume = 1.0f;
 
 	m_sURL = url;
-	//memset(m_mouseButtonStates, 0, sizeof(m_mouseButtonStates));
-
-	// Initialise properties
-	//    m_Properties["mobile"] = "0";
 }
 
 renderer::utilities::cef::c_cef_view::~c_cef_view()
 {
 	//log << __FUNCTION__ << std::endl;
-	m_pWebView = nullptr;
+	m_webview = nullptr;
 
 	m_RenderData.cv.notify_all();
 }
@@ -98,7 +97,7 @@ void renderer::utilities::cef::c_cef_view::CheckResize(int width, int height)
 		m_pTextureView = NULL;
 
 		CreateTexture();
-		m_pWebView->GetHost()->WasResized();
+		m_webview->GetHost()->WasResized();
 
 		m_RenderData.cv.notify_all();
 	}
@@ -106,64 +105,64 @@ void renderer::utilities::cef::c_cef_view::CheckResize(int width, int height)
 
 void renderer::utilities::cef::c_cef_view::CloseBrowser()
 {
-	if (m_pWebView)
-		m_pWebView->GetHost()->CloseBrowser(true);
+	if (m_webview)
+		m_webview->GetHost()->CloseBrowser(true);
 
 	m_RenderData.cv.notify_all();
 }
 
 bool renderer::utilities::cef::c_cef_view::CanGoBack()
 {
-	if (!m_pWebView)
+	if (!m_webview)
 		return false;
 
-	return m_pWebView->CanGoBack();
+	return m_webview->CanGoBack();
 }
 
 bool renderer::utilities::cef::c_cef_view::CanGoForward()
 {
-	if (!m_pWebView)
+	if (!m_webview)
 		return false;
 
-	return m_pWebView->CanGoForward();
+	return m_webview->CanGoForward();
 }
 
 bool renderer::utilities::cef::c_cef_view::GoBack()
 {
-	if (!m_pWebView)
+	if (!m_webview)
 		return false;
 
-	if (!m_pWebView->CanGoBack())
+	if (!m_webview->CanGoBack())
 		return false;
 
-	m_pWebView->GoBack();
+	m_webview->GoBack();
 	return true;
 }
 
 bool renderer::utilities::cef::c_cef_view::GoForward()
 {
-	if (!m_pWebView)
+	if (!m_webview)
 		return false;
 
-	if (!m_pWebView->CanGoForward())
+	if (!m_webview->CanGoForward())
 		return false;
 
-	m_pWebView->GoForward();
+	m_webview->GoForward();
 	return true;
 }
 
 void renderer::utilities::cef::c_cef_view::Refresh(bool bIgnoreCache)
 {
-	if (!m_pWebView)
+	if (!m_webview)
 		return;
 
 	if (bIgnoreCache)
 	{
-		m_pWebView->ReloadIgnoreCache();
+		m_webview->ReloadIgnoreCache();
 	}
 	else
 	{
-		m_pWebView->Reload();
+		m_webview->Reload();
 	}
 }
 
@@ -178,9 +177,6 @@ void renderer::utilities::cef::c_cef_view::GetViewRect(CefRefPtr<CefBrowser> bro
 	rect.height = m_RenderData.height;
 }
 
-void renderer::utilities::cef::c_cef_view::OnPopupShow(CefRefPtr<CefBrowser> browser, bool show) {}
-void renderer::utilities::cef::c_cef_view::OnPopupSize(CefRefPtr<CefBrowser> browser, const CefRect& rect) {}
-
 void renderer::utilities::cef::c_cef_view::OnPaint(CefRefPtr<CefBrowser> browser, CefRenderHandler::PaintElementType paintType, const CefRenderHandler::RectList& dirtyRects, const void* buffer, int width, int height)
 {
 	if (paintType != PaintElementType::PET_VIEW)
@@ -189,7 +185,7 @@ void renderer::utilities::cef::c_cef_view::OnPaint(CefRefPtr<CefBrowser> browser
 	static auto texture = renderer::utilities::cef::c_cef_texture::instance();
 
 	std::lock_guard<std::mutex> lock(texture->paintMutex);
-	texture->m_drawData.push_back(std::make_unique<renderer::utilities::cef::draw_data_t>(width, height, (const unsigned*)buffer, dirtyRects));
+	texture->m_drawData.push_back(std::make_unique<renderer::utilities::cef::draw_data_t>(width, height, (const unsigned*)buffer, dirtyRects, &m_is_visible));
 
 	if (texture->m_drawData.size() > 60)
 		texture->m_drawData.pop_front();
@@ -200,10 +196,6 @@ bool renderer::utilities::cef::c_cef_view::OnCursorChange(CefRefPtr<CefBrowser> 
 	return true;
 }
 
-void renderer::utilities::cef::c_cef_view::OnLoadStart(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, TransitionType transitionType) {}
-void renderer::utilities::cef::c_cef_view::OnLoadEnd(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, int httpStatusCode) {}
-void renderer::utilities::cef::c_cef_view::OnLoadError(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefLoadHandler::ErrorCode errorCode, const CefString& errorText, const CefString& failedURL) {}
-
 bool renderer::utilities::cef::c_cef_view::OnBeforeBrowse(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, bool user_gesture, bool is_redirect)
 {
 	return false;
@@ -211,12 +203,12 @@ bool renderer::utilities::cef::c_cef_view::OnBeforeBrowse(CefRefPtr<CefBrowser> 
 
 void renderer::utilities::cef::c_cef_view::OnBeforeClose(CefRefPtr<CefBrowser> browser)
 {
-	m_pWebView = nullptr;
+	m_webview = nullptr;
 }
 
 void renderer::utilities::cef::c_cef_view::OnAfterCreated(CefRefPtr<CefBrowser> browser)
 {
-	m_pWebView = browser;
+	m_webview = browser;
 }
 
 bool renderer::utilities::cef::c_cef_view::OnJSDialog(CefRefPtr<CefBrowser> browser, const CefString& origin_url, CefJSDialogHandler::JSDialogType dialog_type, const CefString& message_text, const CefString& default_prompt_text, CefRefPtr<CefJSDialogCallback> callback, bool& suppress_message)
@@ -235,8 +227,6 @@ bool renderer::utilities::cef::c_cef_view::OnFileDialog(CefRefPtr<CefBrowser> br
 	return true;
 }
 
-void renderer::utilities::cef::c_cef_view::OnTitleChange(CefRefPtr<CefBrowser> browser, const CefString& title) {}
-
 bool renderer::utilities::cef::c_cef_view::OnTooltip(CefRefPtr<CefBrowser> browser, CefString& title)
 {
 	return true;
@@ -251,5 +241,22 @@ bool renderer::utilities::cef::c_cef_view::OnConsoleMessage(CefRefPtr<CefBrowser
 void renderer::utilities::cef::c_cef_view::OnBeforeContextMenu(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, CefRefPtr<CefMenuModel> model)
 {
 	model->Clear();
+}
+
+bool renderer::utilities::cef::c_cef_view::OnProcessMessageReceived(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefProcessId source_process, CefRefPtr<CefProcessMessage> message)
+{
+	CefRefPtr<CefFrame> main_frame = browser->GetMainFrame();
+	CefRefPtr<CefListValue> argList = message->GetArgumentList();
+
+	if (message->GetName() == "Invoke")
+	{
+		auto func = c_renderer_cef::instance()->get_cef_function_handler(argList->GetString(0));
+		if (func) func(frame, argList);
+		
+
+		return true;
+	}
+
+	return false;
 }
 

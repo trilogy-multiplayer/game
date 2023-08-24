@@ -21,8 +21,9 @@ namespace renderer::utilities::cef {
 		unsigned m_width;
 		unsigned m_height;
 		CefRenderHandler::RectList m_dirtyRects;
+		bool* m_is_visible;
 
-		draw_data_t(unsigned theWidth, unsigned theHeight, const unsigned* thePixels, const CefRenderHandler::RectList& theDirtyRects)
+		draw_data_t(unsigned theWidth, unsigned theHeight, const unsigned* thePixels, const CefRenderHandler::RectList& theDirtyRects, bool* theVisible)
 		{
 			m_pixels = new unsigned[theWidth * theHeight];
 			m_width = theWidth;
@@ -31,6 +32,7 @@ namespace renderer::utilities::cef {
 			memcpy(m_pixels, thePixels, 4 * m_width * m_height);
 
 			m_dirtyRects = theDirtyRects;
+			m_is_visible = theVisible;
 		}
 
 		~draw_data_t()
@@ -51,6 +53,11 @@ namespace renderer::utilities::cef {
 		static const char m_pixelShaderSource[];
 		static const char m_vertexShaderSource[];
 
+		ID3D11BlendState* bs;
+		ID3D11SamplerState* ss;
+		ID3D11VertexShader* vs;
+		ID3D11PixelShader* ps;
+
 		ID3D11RenderTargetView* m_mainRenderTargetView;
 
 		ID3DBlob* m_pixelBlob;
@@ -70,6 +77,8 @@ namespace renderer::utilities::cef {
 		unsigned m_textureWidth = 1;
 		unsigned m_textureHeight = 1;
 
+		ID3D11Texture2D* m_swapTexture;
+		bool* m_current_view_visible;
 	public:
 		bool create_shaders();
 		bool create_sampler();
@@ -82,6 +91,7 @@ namespace renderer::utilities::cef {
 
 		void create_render_target();
 		void cleanup_render_target();
+		void resize();
 
 		void draw_webview();
 

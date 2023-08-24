@@ -216,6 +216,8 @@
     <ClInclude Include="memory\module.hpp" />
     <ClInclude Include="memory\patterns.hpp" />
     <ClInclude Include="networking\entities\player_entity.hpp" />
+    <ClInclude Include="networking\features\feature_benchmark.hpp" />
+    <ClInclude Include="networking\features\feature_nickgen.hpp" />
     <ClInclude Include="networking\modules\module_player-sync.hpp" />
     <ClInclude Include="networking\modules\module_sync.hpp" />
     <ClInclude Include="networking\networking.hpp" />
@@ -225,11 +227,13 @@
     <ClInclude Include="renderer\utilities\cef\cef_app.hpp" />
     <ClInclude Include="renderer\utilities\cef\cef_view.hpp" />
     <ClInclude Include="renderer\utilities\cef\cef_texture.hpp" />
+    <ClInclude Include="renderer\utilities\cef\input_cef.hpp" />
     <ClInclude Include="renderer\utilities\cef\renderer_cef.hpp" />
     <ClInclude Include="renderer\utilities\imgui_render.hpp" />
     <ClInclude Include="scripting\scripting.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\sdk_entity.hpp" />
+    <ClInclude Include="sdk\sdk_weathers.hpp" />
     <ClInclude Include="sdk\sdk_ped.hpp" />
     <ClInclude Include="sdk\sdk_physical.hpp" />
     <ClInclude Include="sdk\sdk_placable.hpp" />
@@ -298,6 +302,8 @@
     <ClCompile Include="hooking\hooks\hook_game.cpp" />
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="networking\entities\player_entity.cpp" />
+    <ClCompile Include="networking\features\feature_benchmark.cpp" />
+    <ClCompile Include="networking\features\feature_nickgen.cpp" />
     <ClCompile Include="networking\modules\module_player-sync.cpp" />
     <ClCompile Include="networking\networking.cpp" />
     <ClCompile Include="renderer\features\feature_nametags.cpp" />
@@ -305,9 +311,11 @@
     <ClCompile Include="renderer\utilities\cef\cef_app.cpp" />
     <ClCompile Include="renderer\utilities\cef\cef_view.cpp" />
     <ClCompile Include="renderer\utilities\cef\cef_texture.cpp" />
+    <ClCompile Include="renderer\utilities\cef\input_cef.cpp" />
     <ClCompile Include="renderer\utilities\cef\renderer_cef.cpp" />
     <ClCompile Include="renderer\utilities\imgui_render.cpp" />
     <ClCompile Include="scripting\scripting.cpp" />
+    <ClCompile Include="sdk\api\sdk_ped_api.cpp" />
     <ClCompile Include="sdk\sdk_running_script.cpp" />
     <ClCompile Include="vendor\directxtk\AlphaTestEffect.cpp" />
     <ClCompile Include="vendor\directxtk\BasicEffect.cpp" />
@@ -363,6 +371,7 @@
     <ClCompile Include="vendor\minhook\lib\trampoline.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="sdk\api\sdk_ped_api.hpp" />
     <None Include="vendor\directxtk\SimpleMath.inl" />
     <None Include="vendor\directxtk\TeapotData.inc" />
   </ItemGroup>

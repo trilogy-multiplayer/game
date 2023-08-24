@@ -26,12 +26,20 @@ namespace renderer::utilities::cef {
 	class c_renderer_cef : public c_singleton <c_renderer_cef> {
 	public:
 		void initialize();
+		CefRefPtr<renderer::utilities::cef::c_cef_view> create_browser(const std::string& url, bool visible = true);
 
-		void create_browser(const std::string& url, bool transparent = true);
+		std::function<
+			void(CefRefPtr<CefFrame> frame, CefRefPtr<CefListValue> args)
+		> get_cef_function_handler(std::string name);
 
+		void register_cef_function(std::string name, std::function<void(CefRefPtr<CefFrame> frame, CefRefPtr<CefListValue> args)> function);
 	public:
 		std::vector<CefRefPtr<renderer::utilities::cef::c_cef_view>> views;
 		CefRefPtr<c_cef_app> app;
+
+		std::map<std::string,
+			std::function<void(CefRefPtr<CefFrame> frame, CefRefPtr<CefListValue> args)>
+		> m_handlers;
 	};
 }
 #endif

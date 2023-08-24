@@ -21,8 +21,6 @@
 #pragma once
 
 class CEFApp : public CefApp, public CefRenderProcessHandler, public CefV8Handler {
-	// Error Handler
-	//static CefRefPtr<CefResourceHandler> HandleError(const SString& strError, unsigned int uiError);
 
 	CefRefPtr<CefFrame> m_pFrame;
 
@@ -61,6 +59,7 @@ class CEFApp : public CefApp, public CefRenderProcessHandler, public CefV8Handle
 			else args->SetString(i, "Unsupported variable type");
 		}
 
+		m_pFrame->GetBrowser()->GetMainFrame()->SendProcessMessage(PID_BROWSER, message);
 		return true;
 	};
 

@@ -20,6 +20,12 @@
 
 #include <algorithm>
 
+#include <renderer/utilities/cef/cef_view.hpp>
+
+namespace renderer::utilities::cef {
+	class c_cef_view;
+}
+
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 class c_renderer : public c_singleton<c_renderer> {
@@ -29,11 +35,14 @@ private:
 	using renderer_wndproc_t = int64_t(__stdcall*)(HWND, uint32_t, WPARAM, LPARAM);
 public:
 	bool is_web_initialized = false;
+	bool focus_browser = false;
 
 	renderer_present_t o_present;
 	renderer_resize_t o_resize_buffers;
 	renderer_wndproc_t o_wnd_proc;
 
+	CefRefPtr<renderer::utilities::cef::c_cef_view> m_main_cef;
+		
 	HWND window = NULL;
 
 	IDXGISwapChain* d3d11_swapchain = NULL;

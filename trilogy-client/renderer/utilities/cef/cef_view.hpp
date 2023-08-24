@@ -1,3 +1,8 @@
+#pragma once
+
+#ifndef TRILOGY_RENDERER_CEF_vIEW_H
+#define TRILOGY_RENDERER_CEF_vIEW_H
+
 #undef GetNextSibling
 #undef GetFirstChild
 
@@ -50,15 +55,8 @@ namespace renderer::utilities::cef {
 
 		// CefRenderHandler methods
 		virtual void GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect) override;
-		virtual void OnPopupShow(CefRefPtr<CefBrowser> browser, bool show) override;
-		virtual void OnPopupSize(CefRefPtr<CefBrowser> browser, const CefRect& rect) override;
 		virtual void OnPaint(CefRefPtr<CefBrowser> browser, CefRenderHandler::PaintElementType paintType, const CefRenderHandler::RectList& dirtyRects, const void* buffer, int width, int height) override;
 		virtual bool OnCursorChange(CefRefPtr<CefBrowser> browser, CefCursorHandle cursor, cef_cursor_type_t type, const CefCursorInfo& cursorInfo) override;
-
-		// CefLoadHandler methods
-		virtual void OnLoadStart(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, TransitionType transitionType) override;
-		virtual void OnLoadEnd(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, int httpStatusCode) override;
-		virtual void OnLoadError(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefLoadHandler::ErrorCode errorCode, const CefString& errorText, const CefString& failedURL) override;
 
 		// CefRequestHandler methods
 		virtual bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, bool user_gesture, bool is_redirect) override;
@@ -79,16 +77,21 @@ namespace renderer::utilities::cef {
 			CefRefPtr<CefFileDialogCallback> callback) override;
 
 		// CefDisplayHandler methods
-		virtual void OnTitleChange(CefRefPtr<CefBrowser> browser, const CefString& title) override;
 		virtual bool OnTooltip(CefRefPtr<CefBrowser> browser, CefString& text) override;
 		virtual bool OnConsoleMessage(CefRefPtr<CefBrowser> browser, cef_log_severity_t level, const CefString& message, const CefString& source, int line) override;
 
 		// CefContextMenuHandler methods
 		virtual void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, CefRefPtr<CefMenuModel> model) override;
 
-		CefRefPtr<CefBrowser> m_pWebView;
+		virtual bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,
+			CefRefPtr<CefFrame> frame,
+			CefProcessId source_process,
+			CefRefPtr<CefProcessMessage> message) override;
 
+		CefRefPtr<CefBrowser> m_webview;
+		bool m_is_visible = true;
 	private:
+
 		ID3D11Texture2D* m_pTexture = nullptr;
 		ID3D11ShaderResourceView* m_pTextureView = nullptr;
 		bool                m_bBeingDestroyed;
@@ -122,3 +125,4 @@ namespace renderer::utilities::cef {
 		IMPLEMENT_REFCOUNTING(c_cef_view);
 	};
 }
+#endif

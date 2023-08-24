@@ -19,7 +19,7 @@ namespace networking::modules {
 		virtual e_entity_types get_sync_type() override { return e_entity_types::PLAYER; }
 
 		std::vector<c_player_entity*> m_players = std::vector<c_player_entity*>(MAX_PLAYERS);
-		int32_t m_free_id = 0;
+		int32_t m_free_id = 1;
 	public:
 		void initialize(librg_ctx* librg_context) override;
 		void shutdown() override;
@@ -28,7 +28,7 @@ namespace networking::modules {
 		void on_player_spawn(librg_message_t* librg_event);
 
 		void on_receive_stream_update(librg_event_t* librg_event) override;
-
+		void on_incoming_stream_entity_update(librg_event_t* librg_event) override;
 	};
 }
 #endif

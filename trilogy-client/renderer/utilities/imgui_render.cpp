@@ -95,6 +95,7 @@ void c_imgui_render::initialize(HWND target_window, IDXGISwapChain* swapchain) {
 	ImGui_ImplWin32_Init(target_window);
 	ImGui_ImplDX11_Init(ptr_device, ptr_context);
 
+	m_font_small = io.Fonts->AddFontFromMemoryCompressedTTF(sfpro_compressed_data, sfpro_compressed_size, 13, nullptr);
 	m_font = io.Fonts->AddFontFromMemoryCompressedTTF(sfpro_compressed_data, sfpro_compressed_size, 15, nullptr);
 }
 
@@ -211,25 +212,19 @@ float c_imgui_render::render_text(const std::string& text, const ImVec2& positio
 	float y = 0.0f;
 	int i = 0;
 	while (std::getline(stream, line)) {
-		ImVec2 textSize = m_font->CalcTextSizeA(size, FLT_MAX, 0.0f, text.c_str());
+		ImVec2 textSize = m_font_small->CalcTextSizeA(size, FLT_MAX, 0.0f, text.c_str());
 
 		if (center) {
 			if (outine) {
-				window->DrawList->AddText(m_font, size, { (position.x - textSize.x / 2.0f) + 1.0f, (position.y + textSize.y * i) + 1.0f }, IM_COL32(0, 0, 0, color.a), text.c_str());
-				window->DrawList->AddText(m_font, size, { (position.x - textSize.x / 2.0f) - 1.0f, (position.y + textSize.y * i) - 1.0f }, IM_COL32(0, 0, 0, color.a), text.c_str());
-				window->DrawList->AddText(m_font, size, { (position.x - textSize.x / 2.0f) + 1.0f, (position.y + textSize.y * i) - 1.0f }, IM_COL32(0, 0, 0, color.a), text.c_str());
-				window->DrawList->AddText(m_font, size, { (position.x - textSize.x / 2.0f) - 1.0f, (position.y + textSize.y * i) + 1.0f }, IM_COL32(0, 0, 0, color.a), text.c_str());
+				window->DrawList->AddText(m_font_small, size, { (position.x - textSize.x / 2.0f) + 1, (position.y + textSize.y * i) + 1 }, IM_COL32(0, 0, 0, 200), text.c_str());
 			}
-			window->DrawList->AddText(m_font, size, { position.x - textSize.x / 2.0f, position.y + textSize.y * i }, IM_COL32(color.r, color.g, color.b, color.a), text.c_str());
+			window->DrawList->AddText(m_font_small, size, { position.x - textSize.x / 2.0f, position.y + textSize.y * i }, IM_COL32(color.r, color.g, color.b, color.a), text.c_str());
 		}
 		else {
-			if (outine) {
-				window->DrawList->AddText(m_font, size, { (position.x) + 1.0f, (position.y + textSize.y * i) + 1.0f }, IM_COL32(0, 0, 0, color.a), text.c_str());
-				window->DrawList->AddText(m_font, size, { (position.x) - 1.0f, (position.y + textSize.y * i) - 1.0f }, IM_COL32(0, 0, 0, color.a), text.c_str());
-				window->DrawList->AddText(m_font, size, { (position.x) + 1.0f, (position.y + textSize.y * i) - 1.0f }, IM_COL32(0, 0, 0, color.a), text.c_str());
-				window->DrawList->AddText(m_font, size, { (position.x) - 1.0f, (position.y + textSize.y * i) + 1.0f }, IM_COL32(0, 0, 0, color.a), text.c_str());
-			}
-			window->DrawList->AddText(m_font, size, { position.x, position.y + textSize.y * i }, IM_COL32(color.r, color.g, color.b, color.a), text.c_str());
+			if (outine)
+				window->DrawList->AddText(m_font_small, size, { (position.x) + 1, (position.y + textSize.y * i) + 1}, IM_COL32(0, 0, 0, 200), text.c_str());
+
+			window->DrawList->AddText(m_font_small, size, { position.x, position.y + textSize.y * i }, IM_COL32(color.r, color.g, color.b, color.a), text.c_str());
 		}
 
 		y = position.y + textSize.y * (i + 1);
@@ -253,7 +248,6 @@ void c_imgui_render::render_line(const ImVec2& from, const ImVec2& to, RGBA colo
 
 void c_imgui_render::render_circle(const ImVec2& position, float radius, RGBA color, float thickness, uint32_t segments) {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
-
 
 	if (in_screen(position))
 		window->DrawList->AddCircle(position, radius, IM_COL32(color.r, color.g, color.b, color.a), segments, thickness);

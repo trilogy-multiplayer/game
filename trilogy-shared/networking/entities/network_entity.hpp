@@ -12,7 +12,7 @@ public:
 	int32_t m_network_id;
 
 public:
-	virtual void on_client_stream(librg_event* event) { }
+	virtual void on_local_client_stream(librg_event* event) { }
 	
 	virtual void on_entity_create(librg_event* event) { }
 	virtual void on_entity_remove(librg_event* event) { }

@@ -4,9 +4,9 @@
 #include <networking/modules/module_player-sync.hpp>
 #include <utilities/ida.hpp>
 
-c_player_entity::c_player_entity(std::string client_name)
+c_player_entity::c_player_entity(int32_t network_id, std::string client_name)
 {
-	this->m_network_id = networking::modules::c_module_player_sync::instance()->m_free_id++;
+	this->m_network_id = network_id;
 
 	this->m_entity_type = e_entity_types::PLAYER;
 	this->m_client_name = client_name;

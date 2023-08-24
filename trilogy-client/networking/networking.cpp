@@ -5,8 +5,11 @@
 #define LIBRG_DEBUG
 
 #include "networking.hpp"
+#include <networking/features/feature_nickgen.hpp>
 
 void c_networking::initialize() {
+	this->m_client_name = "TRILOGY:" + networking::features::c_feature_nickgen::instance()->get_nickname();
+
 	this->m_ctx = { 0 };
 	this->m_is_running = false;
 	this->m_is_connected = false;
@@ -48,7 +51,7 @@ bool c_networking::connect_to(const char* address, int32_t port)
 	this->m_is_running = true;
 
 	m_ctx.mode = LIBRG_MODE_CLIENT;
-	m_ctx.tick_delay = 128;
+	m_ctx.tick_delay = 16;
 
 	librg_init(&m_ctx);
 
@@ -77,6 +80,7 @@ void c_networking::on_client_thread()
 	{
 		if (GetAsyncKeyState(VK_SUBTRACT) & 0x1) {
 			this->m_is_running = false;
+			break;
 		}
 
 		librg_tick(&m_ctx);
