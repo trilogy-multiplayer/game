@@ -132,6 +132,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalDependencies>../cef/lib/libcef.lib;../cef/lib/libcef_dll_wrapper.lib;lib-minhook.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>libcef.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,6 +155,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalDependencies>../cef/lib/libcef.lib;../cef/lib/libcef_dll_wrapper.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>libcef.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -221,6 +223,7 @@
     <ClInclude Include="networking\modules\module_player-sync.hpp" />
     <ClInclude Include="networking\modules\module_sync.hpp" />
     <ClInclude Include="networking\networking.hpp" />
+    <ClInclude Include="renderer\features\feature_dev-chat.hpp" />
     <ClInclude Include="renderer\features\feature_nametags.hpp" />
     <ClInclude Include="renderer\fonts\sffont.hpp" />
     <ClInclude Include="renderer\renderer.hpp" />
@@ -231,6 +234,7 @@
     <ClInclude Include="renderer\utilities\cef\renderer_cef.hpp" />
     <ClInclude Include="renderer\utilities\imgui_render.hpp" />
     <ClInclude Include="scripting\scripting.hpp" />
+    <ClInclude Include="sdk\api\sdk_streaming_api.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\sdk_entity.hpp" />
     <ClInclude Include="sdk\sdk_weathers.hpp" />
@@ -306,6 +310,7 @@
     <ClCompile Include="networking\features\feature_nickgen.cpp" />
     <ClCompile Include="networking\modules\module_player-sync.cpp" />
     <ClCompile Include="networking\networking.cpp" />
+    <ClCompile Include="renderer\features\feature_dev-chat.cpp" />
     <ClCompile Include="renderer\features\feature_nametags.cpp" />
     <ClCompile Include="renderer\renderer.cpp" />
     <ClCompile Include="renderer\utilities\cef\cef_app.cpp" />
@@ -316,6 +321,7 @@
     <ClCompile Include="renderer\utilities\imgui_render.cpp" />
     <ClCompile Include="scripting\scripting.cpp" />
     <ClCompile Include="sdk\api\sdk_ped_api.cpp" />
+    <ClCompile Include="sdk\api\sdk_streaming_api.cpp" />
     <ClCompile Include="sdk\sdk_running_script.cpp" />
     <ClCompile Include="vendor\directxtk\AlphaTestEffect.cpp" />
     <ClCompile Include="vendor\directxtk\BasicEffect.cpp" />

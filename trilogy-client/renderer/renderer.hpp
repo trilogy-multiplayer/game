@@ -15,7 +15,10 @@
 #include <d3d11.h>
 
 #include <networking/networking.hpp>
+
 #include <renderer/features/feature_nametags.hpp>
+#include <renderer/features/feature_dev-chat.hpp>
+
 #include <renderer/utilities/imgui_render.hpp>
 
 #include <algorithm>

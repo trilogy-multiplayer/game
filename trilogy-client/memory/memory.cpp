@@ -7,6 +7,7 @@
 #include <hooking/hooking.hpp>
 
 #include <sdk/api/sdk_ped_api.hpp>
+#include <sdk/api/sdk_streaming_api.hpp>
 
 /*
 #define CREATE_HOOK(ptr)		\
@@ -50,7 +51,14 @@ void c_memory::initialize()
 	MH_Initialize();
 
 	c_scripting::instance()->initialize();
+	
+	/**
+	  * For near future,
+	  * move this into a own sdk class to initialize them all.
+	  */
+
 	sdk::api::sdk_ped_api::instance()->initialize();
+	sdk::api::sdk_streaming_api::instance()->initialize();
 
 	/**
 	 * TODO:

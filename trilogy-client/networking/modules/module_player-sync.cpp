@@ -19,20 +19,20 @@ void h_process_control(sdk_ped* this_ptr)
 	if (player == nullptr) return;
 	
 	hid::hid_mapping current_hid_state = *c_memory::instance()->sdk_hid_mapping;
-	auto current_camera_data_front = (*c_memory::instance()->sdk_current_camera_data_front).m_front_pos;
+	auto current_camera_data_front = *c_memory::instance()->sdk_current_camera_data_front;
 
-	c_memory::instance()->sdk_current_camera_data_front->m_front_pos = player->m_camera_front;
 	*c_memory::instance()->sdk_hid_mapping = hid::decompress_mapping(player->m_hid_mapping, current_hid_state);
+	c_memory::instance()->sdk_current_camera_data_front->m_front_pos = player->m_camera_front;
 
 	// Workaround for this, maybe move into player_entity
-	player->m_game_player->m_matrix = 
+	player->m_game_player->update_position(player->m_position);
 
 	ped_api->set_rotation(player->m_game_player, player->m_rotation);
 	ped_api->set_force_power(player->m_game_player, player->m_force_power);
 
 	module_player_sync->o_process_control(this_ptr);
 
-	c_memory::instance()->sdk_current_camera_data_front->m_front_pos = current_camera_data_front;
+	*c_memory::instance()->sdk_current_camera_data_front = current_camera_data_front;
 	*c_memory::instance()->sdk_hid_mapping = current_hid_state;
 }
 
@@ -70,8 +70,13 @@ void networking::modules::c_module_player_sync::on_player_spawn(librg_message_t*
 	sdk_vec3_t position;
 	librg_data_rptr(event->data, &position, sizeof(sdk_vec3_t));
 
+	int32_t model_index = librg_data_ru32(event->data);
+
 	auto player_ped = c_memory::instance()->sdk_find_player_ped(SDK_LOCAL_PLAYER);
 	if (player_ped == nullptr) return;
+
+	// sdk::api::sdk_ped_api
+	// c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, model_index);
 
 	/**
 	  * Change sdk_ped class, switch pos_x, pos_y, pos_z to sdk_vec3_t

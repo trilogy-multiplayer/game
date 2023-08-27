@@ -10,10 +10,15 @@
 #include <sdk/sdk.hpp>
 #include <networking/features/feature_benchmark.hpp>
 
-uintptr_t init_main(const HMODULE h_module)
-{
-	auto core = c_core::instance();
+#include <sdk/api/sdk_ped_api.hpp>
 
+#include <delayimp.h>
+#pragma comment(lib, "delayimp")
+
+uintptr_t init_main(const HMODULE h_module)
+{	
+	auto core = c_core::instance();
+	
 	c_log::add_out(new c_log::c_log_consolestream);
 	c_log::Info("Launching", TRILOGY_FULLNAME,
 		c_log::Join(TRILOGY_VERSION_MAJOR, ".", TRILOGY_VERSION_MINOR, ".", TRILOGY_VERSION_PATCH),
@@ -24,9 +29,8 @@ uintptr_t init_main(const HMODULE h_module)
 
 	auto renderer = c_renderer::instance();
 	renderer->initialize();
-	
+
 	int player_id = 2;
-	int player_handle;
 
 	while (true) {
 		if (GetAsyncKeyState(VK_INSERT) & 0x8000) break;
@@ -49,6 +53,7 @@ uintptr_t init_main(const HMODULE h_module)
 			//c_log::Info("Ped pool", c_memory::instance()->sdk_ped_pool);
 			//c_log::Info("Ped pool", c_memory::instance()->sdk_ped_pool->GetAt(0));
 
+			/*
 			for (int i = 0; i < 102; i++) {
 				if (c_memory::instance()->sdk_hid_mapping->m_keyboard_states[i].m_cur_state == hid::e_hid_mapping_current_state::PRESSED)
 					c_log::Info("Current pressed button:", i);
@@ -58,6 +63,7 @@ uintptr_t init_main(const HMODULE h_module)
 				if (c_memory::instance()->sdk_hid_mapping->m_mouse_states[i].m_cur_state == hid::e_hid_mapping_current_state::PRESSED)
 					c_log::Info("Current pressed mouse:", i);
 			}
+			*/
 
 			// sdk_ped* ped = (sdk_ped*)c_memory::instance()->sdk_find_player_ped(0);
 			// F3 0F 10 84 31 98 6B EB 04 0F 57 05 ? ? ? ?
@@ -80,32 +86,18 @@ uintptr_t init_main(const HMODULE h_module)
 			);
 
 			c_log::Info("sdk_calc_screen_coords", screen_coords.x, screen_coords.y, screen_coords.z, w, h);*/
+			static auto ped_api = sdk::api::sdk_ped_api::instance();
+
+			// ped_api->set_model(c_memory::instance()->sdk_find_player_ped(SDK_LOCAL_PLAYER), 264);
+
 		}
 
 		if (GetAsyncKeyState(VK_ADD) & 0x1) {
-			int game_id;
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, 0, &game_id);
-
-			float x, y, z;
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_CHAR_COORDINATES, game_id,
-				&x, &y, &z);
-
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_CREATE_PLAYER, player_id, x, y, z, &player_handle);
-
-			std::stringstream debug_message_stream;
-			debug_message_stream << "(trilogy:debug) ";
-			debug_message_stream << "Adding player with handle: ";
-			debug_message_stream << player_handle;
-			debug_message_stream << ".";
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_PRINT_HELP, debug_message_stream.str().c_str());
-
-			//auto ped_ptr = *(_QWORD*)*c_memory::instance()->sdk_ped_pool + 2712 * ((__int64)player_handle >> 8);
-			//auto ped = (sdk_ped*)ped_ptr;
-
-			//ped->update_position(sdk_vec3_t(x + 3.0f + (player_id * 0.2f), y, z), *c_memory::instance()->time_step);
-
-			player_id = player_id + 1;
+			int char_id;
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, 0, &char_id);
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_CURRENT_CHAR_WEAPON, char_id, 1.313131f);
 		}
+
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
 

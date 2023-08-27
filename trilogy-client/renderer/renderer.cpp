@@ -89,6 +89,8 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 
 			imgui_inline_text("(networking): Connected to:", server_ip_with_port.str());
 			imgui_inline_text("(networking): Connected as:", networking->m_client_name);
+			
+
 			imgui_inline_text("(librg): Last update:", std::to_string(networking->m_ctx.last_update));
 			imgui_inline_text("(librg): Buffer size:", std::to_string(networking->m_ctx.buffer_size));
 			//imgui_inline_text("(networking): Free player id", std::to_string(networking->player_id));
@@ -101,12 +103,11 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 	RECT window_size;
 	GetClientRect(renderer->window, &window_size);
 
-	if (GetAsyncKeyState(VK_F4) & 0x8000)
-		imgui_render->render_text("You are currently playing on a development version of TRILOGY:MP",
-			ImVec2(window_size.right / 2, 30), 15.0f, RGBA(255, 255, 255, 200), true);
+	// renderer::features::c_dev_chat::instance()->m_chat_messages.push_back({ "", "(c_renderer::h_renderer_present): test", 3000 });
 
 	renderer::features::c_nametags::instance()->on_tick();
-
+	renderer::features::c_dev_chat::instance()->on_tick();
+	
 	imgui_render->end_scene();
 	imgui_render->render();
 

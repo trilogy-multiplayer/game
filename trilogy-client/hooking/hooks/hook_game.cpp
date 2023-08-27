@@ -4,6 +4,7 @@
 #include <vendor/minhook/minhook.hpp>
 
 #include <renderer/renderer.hpp>
+#include <renderer/features/feature_dev-chat.hpp>
 #include <renderer/utilities/cef/renderer_cef.hpp>
 
 /**
@@ -68,12 +69,26 @@ void h_winmain_process_game_logic(int64_t this_ptr, int64_t unk) {
 
 static int64_t original = 0;
 int64_t h_sdk_thescripts_initialize() {
-	auto instance_hook_game = c_hook_game::instance();
+	static auto instance_hook_game = c_hook_game::instance();
+	static auto scripting = c_scripting::instance();
+	
+	static std::once_flag thescripts_initialize;
+	std::call_once(thescripts_initialize, [&] {
+		renderer::features::c_dev_chat::instance()->m_chat_messages.push_back({ "", "Loading scene...", 3000 });
 
-	if (original == 0)
-		original = instance_hook_game->o_sdk_thescripts_initialize();
+		scripting->call_opcode(sdk_script_commands::COMMAND_REQUEST_COLLISION, SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z);
+		scripting->call_opcode(sdk_script_commands::COMMAND_LOAD_SCENE, SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z);
 
-	return original;
+		renderer::features::c_dev_chat::instance()->m_chat_messages.push_back({ "", "Creating player...", 3000 });
+		
+		int player_handle;
+		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_CREATE_PLAYER, SDK_LOCAL_PLAYER,
+		SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z, &player_handle);
+		
+		renderer::features::c_dev_chat::instance()->m_chat_messages.push_back({ "", "TRILOGY:MP has been loaded.", 3000 });
+		});
+
+	return 0;
 }
 
 bool c_hook_game::hook()

@@ -203,7 +203,7 @@ bool in_screen(ImVec2 pos) {
 	return true;
 }
 
-float c_imgui_render::render_text(const std::string& text, const ImVec2& position, float size, RGBA color, bool center, bool outine) {
+float c_imgui_render::render_text(const std::string& text, const ImVec2& position, float size, RGBA color, bool center, bool outline) {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 
 	std::stringstream stream(text);
@@ -215,14 +215,14 @@ float c_imgui_render::render_text(const std::string& text, const ImVec2& positio
 		ImVec2 textSize = m_font_small->CalcTextSizeA(size, FLT_MAX, 0.0f, text.c_str());
 
 		if (center) {
-			if (outine) {
-				window->DrawList->AddText(m_font_small, size, { (position.x - textSize.x / 2.0f) + 1, (position.y + textSize.y * i) + 1 }, IM_COL32(0, 0, 0, 200), text.c_str());
+			if (outline) {
+				window->DrawList->AddText(m_font_small, size, { (position.x - textSize.x / 2.0f) + 1, (position.y + textSize.y * i) + 1 }, IM_COL32(0, 0, 0, color.a * 0.75), text.c_str());
 			}
 			window->DrawList->AddText(m_font_small, size, { position.x - textSize.x / 2.0f, position.y + textSize.y * i }, IM_COL32(color.r, color.g, color.b, color.a), text.c_str());
 		}
 		else {
-			if (outine)
-				window->DrawList->AddText(m_font_small, size, { (position.x) + 1, (position.y + textSize.y * i) + 1}, IM_COL32(0, 0, 0, 200), text.c_str());
+			if (outline)
+				window->DrawList->AddText(m_font_small, size, { (position.x) + 1, (position.y + textSize.y * i) + 1}, IM_COL32(0, 0, 0, color.a * 0.75), text.c_str());
 
 			window->DrawList->AddText(m_font_small, size, { position.x, position.y + textSize.y * i }, IM_COL32(color.r, color.g, color.b, color.a), text.c_str());
 		}

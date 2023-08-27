@@ -32,38 +32,26 @@ public:
 	sdk_vec3_t m_vec_speed;
 	char pad_0x0078[0x7C8]; //0x0078
 
-	void update_position(sdk_vec3_t targetPosition, sdk_vec3_t vecMoveSpeed, float time_step) {
-		sdk_vec3_t offset_vector(0, 0, 0);
-		offset_vector.x = get_offset_from_float(targetPosition.x, m_matrix->m_position.x);
-		offset_vector.y = get_offset_from_float(targetPosition.y, m_matrix->m_position.y);
-		offset_vector.z = get_offset_from_float(targetPosition.z, m_matrix->m_position.z);
+	void update_position(sdk_vec3_t target_position) {
+		auto position = m_matrix->m_position;
 
-		if (offset_vector.x < 0.1f && offset_vector.y < 0.1f && offset_vector.z < 0.1f) return;
+		if (position.x != target_position.x || position.y != target_position.y || position.z != target_position.z)
+		{
+			sdk_vec3_t offset_position {
+				get_offset_from_float(target_position.x, position.x),
+				get_offset_from_float(target_position.y, position.y),
+				get_offset_from_float(target_position.z, position.z)
+			};
 
-		sdk_vec3_t nextPosition = targetPosition;
-		sdk_vec3_t nextSpeed = vecMoveSpeed;
-		sdk_vec3_t currentSpeed = m_vec_speed;
-		sdk_vec3_t currentPosition = m_matrix->m_position;
-
-		const float fLerpFactor = 30.f;
-
-		sdk_vec3_t vec_pos_offset;
-		vec_pos_offset.x = (nextPosition.x - currentPosition.x) / fLerpFactor;
-		vec_pos_offset.y = (nextPosition.y - currentPosition.y) / fLerpFactor;
-		vec_pos_offset.z = (nextPosition.z - currentPosition.z) / fLerpFactor;
-
-		sdk_vec3_t vec_speed_offset;
-		vec_speed_offset.x = (nextSpeed.x - currentSpeed.x) / fLerpFactor;
-		vec_speed_offset.y = (nextSpeed.y - currentSpeed.y) / fLerpFactor;
-		vec_speed_offset.z = (nextSpeed.z - currentSpeed.z) / fLerpFactor;
-
-		m_matrix->m_position.x += vec_pos_offset.x;
-		m_matrix->m_position.y += vec_pos_offset.y;
-		m_matrix->m_position.z += vec_pos_offset.z;
-
-		m_vec_speed.x += vec_speed_offset.x;
-		m_vec_speed.y += vec_speed_offset.y;
-		m_vec_speed.z += vec_speed_offset.z;
+			if (offset_position.x > 7.5F || offset_position.y > 7.5F || offset_position.z > 0.5F)
+				m_matrix->m_position = target_position;
+			else
+			{
+				m_vec_speed.x += (target_position.x - position.x) * 0.15F;
+				m_vec_speed.y += (target_position.y - position.y) * 0.15F;
+				m_vec_speed.z += (target_position.z - position.z) * 0.15F;
+			}
+		}
 	}
 
 }; //Size=0x0840

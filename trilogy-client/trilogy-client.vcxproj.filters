@@ -573,6 +573,12 @@
     <ClInclude Include="networking\features\feature_benchmark.hpp">
       <Filter>Header Files\networking\features</Filter>
     </ClInclude>
+    <ClInclude Include="renderer\features\feature_dev-chat.hpp">
+      <Filter>Header Files\renderer\features</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\api\sdk_streaming_api.hpp">
+      <Filter>Header Files\sdk\api</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -799,6 +805,12 @@
     </ClCompile>
     <ClCompile Include="networking\features\feature_benchmark.cpp">
       <Filter>Source Files\networking\features</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\features\feature_dev-chat.cpp">
+      <Filter>Source Files\renderer\features</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\api\sdk_streaming_api.cpp">
+      <Filter>Source Files\sdk\api</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

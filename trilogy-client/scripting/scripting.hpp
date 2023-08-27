@@ -47,6 +47,7 @@ public:
 	void operator<< (script_local_var_t n);
 	void operator<< (int* n);
 	void operator<< (float* n);
+	void operator<< (bool* n);
 	void operator<< (const char* str);
 
 	void store_parameters(sdk_running_script* script);

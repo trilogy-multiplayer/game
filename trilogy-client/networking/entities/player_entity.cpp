@@ -55,14 +55,24 @@ void c_player_entity::on_local_client_stream(librg_event* event) {
 	int armor;
 	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_CHAR_ARMOUR, player->char_id, &armor);
 
+	sdk_vec2_t rotation = ped_api->get_rotation(game_player);
+	sdk_vec2_t force_power = ped_api->get_force_power(game_player);
+
+	sdk_vec3_t camera_front_pos = c_memory::instance()->sdk_current_camera_data_front->m_front_pos;
+
 	/**
 	  * Event is equal to last synced data.
 	  * Reject it.
+	  * 
+	  * kinda gay rn, rework
 	  */
 	if (player->m_position == game_player->m_matrix->m_position &&
 		player->m_vec_speed == game_player->m_vec_speed &&
 		player->m_health == health &&
-		player->m_armor == armor) {
+		player->m_armor == armor &&
+		player->m_rotation == rotation &&
+		player->m_force_power == force_power &&
+		player->m_camera_front == camera_front_pos) {
 		librg_event_reject(event);
 		return;
 	}
@@ -70,9 +80,9 @@ void c_player_entity::on_local_client_stream(librg_event* event) {
 	player->m_position = game_player->m_matrix->m_position;
 	player->m_vec_speed = game_player->m_vec_speed;
 
-	player->m_rotation = ped_api->get_rotation(game_player);
-	player->m_force_power = ped_api->get_force_power(game_player);
-	player->m_camera_front = c_memory::instance()->sdk_current_camera_data_front->m_front_pos;
+	player->m_rotation = rotation;
+	player->m_force_power = force_power;
+	player->m_camera_front = camera_front_pos;
 
 	player->m_health = health;
 	player->m_armor = armor;
@@ -132,6 +142,7 @@ void c_player_entity::on_entity_update(librg_event* event)
 
 	librg_data_rptr(event->data, &m_hid_mapping, sizeof(hid::hid_compressed_mapping));
 
+	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_TASK_LOOK_AT_COORD, char_id, m_camera_front.x, m_camera_front.y, m_camera_front.z, -1);
 	/**
 	  * TODO:
 	  * We need to adjust the positions in the process-control hook later.

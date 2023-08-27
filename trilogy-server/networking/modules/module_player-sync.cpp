@@ -98,6 +98,7 @@ void networking::modules::c_module_player_sync::on_incoming_stream_entity_update
 		return;
 	}
 
+
 	librg_data_wptr(event->data, &player->m_position, sizeof(sdk_vec3_t));
 	librg_data_wptr(event->data, &player->m_vec_speed, sizeof(sdk_vec3_t));
 	librg_data_wptr(event->data, &player->m_rotation, sizeof(sdk_vec2_t));

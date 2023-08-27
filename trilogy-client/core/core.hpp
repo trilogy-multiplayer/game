@@ -12,6 +12,8 @@ private:
 public:
 	std::string get_computer_name();
 	std::string get_trilogy_base_path();
+
+	std::string make_trilogy_path(std::string trilogy_path);
 };
 
 #endif
