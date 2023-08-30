@@ -17,10 +17,17 @@ bool sdk::api::sdk_streaming_api::has_model_loaded(int32_t model_index)
 	  * Afaik, theres no function for it in SA:DE - so just call the opcode.
 	  * Maybe ill find it lol.
 	  */
-	int has_model_loaded;
-	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_HAS_MODEL_LOADED, model_index, &has_model_loaded);
+	
+	/* int has_model_loaded;
+	 * c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_HAS_MODEL_LOADED, model_index, &has_model_loaded);
 
-	return (bool)has_model_loaded;
+	 * return (bool)has_model_loaded;
+	 */
+
+	auto it = std::find(m_loaded_models.begin(), m_loaded_models.end(), model_index);
+
+	if (it != m_loaded_models.end()) return true;
+	else return false;
 }
 
 void sdk::api::sdk_streaming_api::load_model(int32_t model_index, int32_t streaming_flags)
@@ -42,15 +49,18 @@ void sdk::api::sdk_streaming_api::load_model(int32_t model_index, int32_t stream
 
 	  m_is_loading_model = false;*/
 
+	// if (has_model_loaded(model_index)) return;
+
+	c_log::Info("Requesting model");
 	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_REQUEST_MODEL, model_index);
-	c_log::Info("Waiting for model...");
-	std::this_thread::sleep_for(std::chrono::milliseconds(300));
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+	c_log::Info("Loading model");
+
 	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_LOAD_ALL_MODELS_NOW);
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	std::this_thread::sleep_for(std::chrono::milliseconds(550));
 
-	c_log::Info("Model loaded");
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
+	c_log::Info("Model loaded!");
 }
 
 void sdk::api::sdk_streaming_api::load_all_requested_models()

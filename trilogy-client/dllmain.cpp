@@ -49,7 +49,7 @@ uintptr_t init_main(const HMODULE h_module)
 			c_renderer::instance()->focus_browser = !c_renderer::instance()->focus_browser;
 		}
 
-		if (GetAsyncKeyState(VK_BACK) & 0x8000) {
+		if (GetAsyncKeyState(VK_BACK) & 0x1) {
 			//sdk_player_ped* ped = (sdk_player_ped*)c_memory::instance()->sdk_find_player_ped(0);
 			//ped->m_matrix->set_position(sdk_vec3_t(SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z));
 			//c_log::Info(ped, ped->m_matrix);
@@ -92,10 +92,11 @@ uintptr_t init_main(const HMODULE h_module)
 			);
 
 			c_log::Info("sdk_calc_screen_coords", screen_coords.x, screen_coords.y, screen_coords.z, w, h);*/
-			static auto ped_api = sdk::api::sdk_ped_api::instance();
-
-			ped_api->set_model(c_memory::instance()->sdk_find_player_ped(SDK_LOCAL_PLAYER), 9);
-
+			memory::features::c_model_resolver::instance()->add_model_to_worker(9, [](int32_t model_index) {
+				static auto ped_api = sdk::api::sdk_ped_api::instance();
+				ped_api->set_model(c_memory::instance()->sdk_find_player_ped(SDK_LOCAL_PLAYER), model_index);
+			});
+			
 		    //	c_scripting::instance()->call_opcode(sdk_script_commands::task_look, char_id, position_to_look_at.x, position_to_look_at.y, position_to_look_at.z, -1);
 		}
 

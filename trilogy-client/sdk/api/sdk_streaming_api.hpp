@@ -15,6 +15,8 @@ namespace sdk::api {
 		void load_model(int32_t model_index, int32_t streaming_flags = 22);
 		void load_all_requested_models();
 	private:
+		std::list<int32_t> m_loaded_models{};
+
 		using sdk_request_model_t = void(*)(int32_t model_index, int32_t streaming_flags, int8_t unk);
 		sdk_request_model_t m_request_model;
 

@@ -60,6 +60,8 @@ void c_memory::initialize()
 	sdk::api::sdk_ped_api::instance()->initialize();
 	sdk::api::sdk_streaming_api::instance()->initialize();
 
+	memory::features::c_model_resolver::instance()->initialize();
+
 	/**
 	 * TODO:
 	 * Split this into hooking / patches classes

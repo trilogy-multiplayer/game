@@ -166,6 +166,12 @@
     <Filter Include="Source Files\networking\features">
       <UniqueIdentifier>{0d38d89e-c024-4a44-a2fb-c278ae7c7bb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\memory\features">
+      <UniqueIdentifier>{eb1dbe99-a570-4f46-8c6d-e97266030a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\memory\features">
+      <UniqueIdentifier>{3a078b8b-656b-477b-a2f7-389465266f63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp">
@@ -576,8 +582,8 @@
     <ClInclude Include="sdk\api\sdk_streaming_api.hpp">
       <Filter>Header Files\sdk\api</Filter>
     </ClInclude>
-    <ClInclude Include="vehicle_entity.hpp">
-      <Filter>Header Files\networking\entities</Filter>
+    <ClInclude Include="memory\features\feature_model-resolver.hpp">
+      <Filter>Header Files\memory\features</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -811,6 +817,9 @@
     </ClCompile>
     <ClCompile Include="sdk\api\sdk_streaming_api.cpp">
       <Filter>Source Files\sdk\api</Filter>
+    </ClCompile>
+    <ClCompile Include="memory\features\feature_model-resolver.cpp">
+      <Filter>Source Files\memory\features</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

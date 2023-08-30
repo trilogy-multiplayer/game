@@ -61,9 +61,10 @@ void sdk::api::sdk_ped_api::set_force_power(sdk_ped* player, sdk_vec2_t force_po
 
 void sdk::api::sdk_ped_api::set_model(sdk_ped* player, int32_t model_index)
 {
-	static auto streaming_api = sdk::api::sdk_streaming_api::instance();
+	// static auto streaming_api = sdk::api::sdk_streaming_api::instance();
+	// streaming_api->load_model(model_index);
 	
-	streaming_api->load_model(model_index);
+	// Model should be already loaded through the model_resolver
 
 	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, 0, model_index);
 

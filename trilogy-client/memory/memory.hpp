@@ -13,6 +13,8 @@
 #include <sdk/sdk.hpp>
 #include <networking/packets/packet_player_sync_data.hpp>
 
+#include <memory/features/feature_model-resolver.hpp>
+
 class c_memory : public c_singleton<c_memory> {
 private:
 	using sdk_find_player_ped_t = sdk_ped*(*)(int32_t player_id);

@@ -228,6 +228,7 @@
     <ClInclude Include="hooking\hooks\hook_crashfix.hpp" />
     <ClInclude Include="hooking\hooks\hook_disable_npc.hpp" />
     <ClInclude Include="hooking\hooks\hook_game.hpp" />
+    <ClInclude Include="memory\features\feature_model-resolver.hpp" />
     <ClInclude Include="memory\memory.hpp" />
     <ClInclude Include="memory\module.hpp" />
     <ClInclude Include="memory\patterns.hpp" />
@@ -317,6 +318,7 @@
     <ClCompile Include="hooking\hooks\hook_disable_npc.cpp" />
     <ClCompile Include="hooking\hooks\hook_crashfix.cpp" />
     <ClCompile Include="hooking\hooks\hook_game.cpp" />
+    <ClCompile Include="memory\features\feature_model-resolver.cpp" />
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="networking\entities\player_entity.cpp" />
     <ClCompile Include="networking\features\feature_benchmark.cpp" />
