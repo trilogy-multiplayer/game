@@ -58,7 +58,7 @@ void sdk::api::sdk_streaming_api::load_model(int32_t model_index, int32_t stream
 	c_log::Info("Loading model");
 
 	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_LOAD_ALL_MODELS_NOW);
-	std::this_thread::sleep_for(std::chrono::milliseconds(550));
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
 	c_log::Info("Model loaded!");
 }
