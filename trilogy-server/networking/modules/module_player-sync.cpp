@@ -22,7 +22,7 @@ void networking::modules::c_module_player_sync::on_player_connect(librg_message_
 
 	librg_lambda_message_send_to(&c_server_networking::instance()->m_ctx, NETWORK_ACCEPT_CONNECTION, librg_event->peer, [&](librg_data* data) {
 		librg_data_wu32(data, player->m_network_id);
-	librg_data_wstring(data, player->m_client_name);
+	librg_data_wstring(data, player->m_name);
 
 	/**
 	  * Here im passing some world values to the local client to synchronize the weather & time.
@@ -39,7 +39,7 @@ void networking::modules::c_module_player_sync::on_player_connect(librg_message_
 
 	librg_lambda_message_send_except(&c_server_networking::instance()->m_ctx, NETWORK_PLAYER_CONNECT, librg_event->peer, [&](librg_data* data) {
 		librg_data_wu32(data, player->m_network_id);
-		librg_data_wstring(data, player->m_client_name);
+		librg_data_wstring(data, player->m_name);
 		});
 
 	for (auto& player_iterator : m_players)
@@ -49,7 +49,7 @@ void networking::modules::c_module_player_sync::on_player_connect(librg_message_
 
 		librg_lambda_message_send_to(&c_server_networking::instance()->m_ctx, NETWORK_PLAYER_CONNECT, librg_entity->client_peer, [&](librg_data* data) {
 			librg_data_wu32(data, player_iterator->m_network_id);
-			librg_data_wstring(data, player_iterator->m_client_name);
+			librg_data_wstring(data, player_iterator->m_name);
 			});
 	}
 
@@ -98,17 +98,7 @@ void networking::modules::c_module_player_sync::on_incoming_stream_entity_update
 		return;
 	}
 
-
-	librg_data_wptr(event->data, &player->m_position, sizeof(sdk_vec3_t));
-	librg_data_wptr(event->data, &player->m_vec_speed, sizeof(sdk_vec3_t));
-	librg_data_wptr(event->data, &player->m_rotation, sizeof(sdk_vec2_t));
-	librg_data_wptr(event->data, &player->m_force_power, sizeof(sdk_vec2_t));
-	librg_data_wptr(event->data, &player->m_camera_front, sizeof(sdk_vec3_t));
-
-	librg_data_wu32(event->data, player->m_health);
-	librg_data_wu32(event->data, player->m_armor);
-
-	librg_data_wptr(event->data, &player->m_hid_mapping, sizeof(hid::hid_compressed_mapping));
+	player->on_entity_update(event);
 }
 
 void networking::modules::c_module_player_sync::on_receive_stream_update(librg_event_t* event)
@@ -123,16 +113,7 @@ void networking::modules::c_module_player_sync::on_receive_stream_update(librg_e
 		return;
 	}
 
-	librg_data_rptr(event->data, &player->m_position, sizeof(sdk_vec3_t));
-	librg_data_rptr(event->data, &player->m_vec_speed, sizeof(sdk_vec3_t));
-	librg_data_rptr(event->data, &player->m_rotation, sizeof(sdk_vec2_t));
-	librg_data_rptr(event->data, &player->m_force_power, sizeof(sdk_vec2_t));
-	librg_data_rptr(event->data, &player->m_camera_front, sizeof(sdk_vec3_t));
-
-	player->m_health = librg_data_ru32(event->data);
-	player->m_armor = librg_data_ru32(event->data);
-
-	librg_data_rptr(event->data, &player->m_hid_mapping, sizeof(hid::hid_compressed_mapping));
+	player->on_local_client_stream(event);
 }
 
 void networking::modules::c_module_player_sync::initialize(librg_ctx* librg_context)

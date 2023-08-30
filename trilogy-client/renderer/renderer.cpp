@@ -7,9 +7,6 @@
 LRESULT __stdcall h_renderer_wndproc(const HWND handle, UINT message, WPARAM word_param, LPARAM long_param) {
 	static c_renderer* renderer = c_renderer::instance();
 
-	if (ImGui_ImplWin32_WndProcHandler(handle, message, word_param, long_param))
-		return true;
-
 	if (ImGui::GetIO().MouseDrawCursor)
 	{
 		if (ImGui_ImplWin32_WndProcHandler(handle, message, word_param, long_param))
@@ -112,12 +109,15 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 	imgui_render->render();
 
 	renderer->d3d11_device_context->OMSetRenderTargets(1, &renderer->d3d11_render_target, NULL);
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 	renderer::utilities::cef::c_cef_texture::instance()->update_render_texture();
 	renderer::utilities::cef::c_cef_texture::instance()->draw_webview();
 
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
 	ImGuiIO& io = ImGui::GetIO();
+
+	io.WantCaptureMouse = renderer->focus_browser;
 	io.MouseDrawCursor = renderer->focus_browser;
 
 	return renderer->o_present(dxgi_swapchain, sync_interval, flags);

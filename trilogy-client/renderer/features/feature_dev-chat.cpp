@@ -1,5 +1,7 @@
 #include "feature_dev-chat.hpp"
 
+#include <renderer/utilities/imgui_render.hpp>
+
 #define MESSAGE_OPACITY 1.0f
 #define MESSAGE_FADE_IN_OUT_TIME 150
 

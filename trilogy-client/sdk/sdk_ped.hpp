@@ -32,8 +32,9 @@ public:
 	sdk_vec3_t m_vec_speed;
 	char pad_0x0078[0x7C8]; //0x0078
 
-	void update_position(sdk_vec3_t target_position) {
+	void update_position(sdk_vec3_t target_position, sdk_vec3_t target_vec_speed) {
 		auto position = m_matrix->m_position;
+		auto vec_speed = m_vec_speed;
 
 		if (position.x != target_position.x || position.y != target_position.y || position.z != target_position.z)
 		{
@@ -43,14 +44,18 @@ public:
 				get_offset_from_float(target_position.z, position.z)
 			};
 
-			if (offset_position.x > 7.5F || offset_position.y > 7.5F || offset_position.z > 0.5F)
+			if (offset_position.x > 6.5F || offset_position.y > 6.5F || offset_position.z > 0.5F)
 				m_matrix->m_position = target_position;
 			else
 			{
-				m_vec_speed.x += (target_position.x - position.x) * 0.15F;
-				m_vec_speed.y += (target_position.y - position.y) * 0.15F;
-				m_vec_speed.z += (target_position.z - position.z) * 0.15F;
+				m_matrix->m_position.x += (target_position.x - position.x) * 0.15F;
+				m_matrix->m_position.y += (target_position.y - position.y) * 0.15F;
+				m_matrix->m_position.z += (target_position.z - position.z) * 0.15F;
 			}
+
+			m_vec_speed.x += (target_vec_speed.x - vec_speed.x) * 0.15F;
+			m_vec_speed.y += (target_vec_speed.y - vec_speed.y) * 0.15F;
+			m_vec_speed.z += (target_vec_speed.z - vec_speed.z) * 0.15F;
 		}
 	}
 

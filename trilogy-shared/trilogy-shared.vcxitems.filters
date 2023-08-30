@@ -70,5 +70,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)networking\entities\network_entity.hpp">
       <Filter>networking\entities</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)networking\entities\player_entity.hpp">
+      <Filter>networking\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)networking\entities\vehicle_entity.hpp">
+      <Filter>networking\entities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

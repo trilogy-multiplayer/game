@@ -14,6 +14,10 @@ int16_t h_crash_fix_3() {
 	return 1;
 }
 
+void** h_crash_fix_crouch(int64_t this_ptr, __int64 a2, __int64 a3) {
+	return 0;
+}
+
 bool c_hook_crashfix::hook()
 {
 	auto hook_result = true;
@@ -37,6 +41,14 @@ bool c_hook_crashfix::hook()
 		MH_CreateHook(crash_fix_3, h_crash_fix_3, reinterpret_cast<void**>(&o_crash_fix_3));
 		hook_result = MH_EnableHook(crash_fix_3) == MH_OK;
 	}
+
+	if (hook_result) {
+		auto crash_fix_crouch = memory::find_pattern<crash_fix_crouch_t>(memory::module_t(nullptr), "c_hook_crashfix::crash_fix_crouch", "48 8B C4 53 57 41 56 48 81 EC ? ? ? ? 48 8B 1A");
+		MH_CreateHook(crash_fix_crouch, h_crash_fix_crouch, reinterpret_cast<void**>(&o_crash_fix_crouch));
+		hook_result = MH_EnableHook(crash_fix_crouch) == MH_OK;
+	}
+
+	// 
 
 	return hook_result;
 }

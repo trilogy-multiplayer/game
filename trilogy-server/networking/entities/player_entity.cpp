@@ -1,4 +1,4 @@
-#include "player_entity.hpp"
+#include <networking/entities/player_entity.hpp>
 
 #include <networking/server_networking.hpp>
 #include <networking/modules/module_player-sync.hpp>
@@ -9,11 +9,51 @@ c_player_entity::c_player_entity(int32_t network_id, std::string client_name)
 	this->m_network_id = network_id;
 
 	this->m_entity_type = e_entity_types::PLAYER;
-	this->m_client_name = client_name;
+	this->m_name = client_name;
 
-	this->m_player_sync_data = new packet_player_sync_data();
+	GET_TARGET_SYNC_MODULE->m_players.at(m_network_id) = this;
+}
 
-	networking::modules::c_module_player_sync::instance()->m_players.at(m_network_id) = this;
+/**
+  * TODO: implement these 
+  */
+void c_player_entity::on_entity_create(librg_event* event) { }
+void c_player_entity::on_entity_remove(librg_event* event) { }
+
+void c_player_entity::on_entity_update(librg_event* event)
+{
+	librg_data_wptr(event->data, &m_position, sizeof(sdk_vec3_t));
+	librg_data_wptr(event->data, &m_vec_speed, sizeof(sdk_vec3_t));
+
+	librg_data_wf32(event->data, m_heading);
+
+	librg_data_wptr(event->data, &m_rotation, sizeof(sdk_vec2_t));
+	librg_data_wptr(event->data, &m_force_power, sizeof(sdk_vec2_t));
+	librg_data_wptr(event->data, &m_camera_front, sizeof(sdk_vec3_t));
+
+	librg_data_wu32(event->data, m_health);
+	librg_data_wu32(event->data, m_armor);
+
+	librg_data_wptr(event->data, &m_hid_mapping, sizeof(hid::hid_compressed_mapping));
+}
+
+void c_player_entity::on_local_client_stream(librg_event* event)
+{
+	IS_VALID_READABLE_PACKET;
+
+	librg_data_rptr(event->data, &m_position, sizeof(sdk_vec3_t));
+	librg_data_rptr(event->data, &m_vec_speed, sizeof(sdk_vec3_t));
+
+	m_heading = librg_data_rf32(event->data);
+
+	librg_data_rptr(event->data, &m_rotation, sizeof(sdk_vec2_t));
+	librg_data_rptr(event->data, &m_force_power, sizeof(sdk_vec2_t));
+	librg_data_rptr(event->data, &m_camera_front, sizeof(sdk_vec3_t));
+
+	m_health = librg_data_ru32(event->data);
+	m_armor = librg_data_ru32(event->data);
+
+	librg_data_rptr(event->data, &m_hid_mapping, sizeof(hid::hid_compressed_mapping));
 }
 
 void c_player_entity::spawn(sdk_vec3_t position)

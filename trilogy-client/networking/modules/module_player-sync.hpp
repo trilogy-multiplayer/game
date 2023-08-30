@@ -9,6 +9,7 @@
 #define TRILOGY_NETWORKING_MODULE_PLAYERSYNC_H
 
 #include <common.hpp>
+
 #include <networking/networking.hpp>
 #include <networking/modules/module_sync.hpp>
 

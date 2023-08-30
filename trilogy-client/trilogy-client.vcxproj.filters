@@ -219,9 +219,6 @@
     <ClInclude Include="sdk\sdk_placable.hpp">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
-    <ClInclude Include="networking\entities\player_entity.hpp">
-      <Filter>Header Files\networking\entities</Filter>
-    </ClInclude>
     <ClInclude Include="hooking\hooks\hook_crashfix.hpp">
       <Filter>Header Files\hooking\hooks</Filter>
     </ClInclude>
@@ -578,6 +575,9 @@
     </ClInclude>
     <ClInclude Include="sdk\api\sdk_streaming_api.hpp">
       <Filter>Header Files\sdk\api</Filter>
+    </ClInclude>
+    <ClInclude Include="vehicle_entity.hpp">
+      <Filter>Header Files\networking\entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

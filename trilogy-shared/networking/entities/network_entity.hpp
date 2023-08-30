@@ -5,6 +5,12 @@
 
 #include <vendor/librg/librg.h>
 
+#define IS_VALID_READABLE_PACKET \
+	if (librg_data_capacity(event->data) <= 0) { \
+		librg_event_reject(event); \
+		return; \
+	} \
+	
 class c_network_entity
 {
 public:

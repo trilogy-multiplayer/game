@@ -54,6 +54,12 @@
     <ClCompile Include="networking\entities\player_entity.cpp">
       <Filter>Source Files\networking\entities</Filter>
     </ClCompile>
+    <ClCompile Include="vehicle_entity.cpp">
+      <Filter>Source Files\networking\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\modules\module_vehicle-sync.cpp">
+      <Filter>Source Files\networking\modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="networking\server_networking.hpp">
@@ -71,8 +77,8 @@
     <ClInclude Include="networking\modules\module_sync.hpp">
       <Filter>Header Files\networking\modules</Filter>
     </ClInclude>
-    <ClInclude Include="networking\entities\player_entity.hpp">
-      <Filter>Header Files\networking\entities</Filter>
+    <ClInclude Include="networking\modules\module_vehicle-sync.hpp">
+      <Filter>Header Files\networking\modules</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

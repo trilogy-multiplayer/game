@@ -9,8 +9,6 @@
 #define TRILOGY_RENDERING_FEATURE_DEV_CHAT_H
 
 #include <common.hpp>
-#include <renderer/utilities/imgui_render.hpp>
-#include <networking/networking.hpp>
 
 namespace renderer::features {
 	class c_dev_chat : public c_singleton<c_dev_chat> {
