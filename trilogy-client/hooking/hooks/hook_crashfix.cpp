@@ -48,7 +48,5 @@ bool c_hook_crashfix::hook()
 		hook_result = MH_EnableHook(crash_fix_crouch) == MH_OK;
 	}
 
-	// 
-
 	return hook_result;
 }

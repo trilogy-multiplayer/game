@@ -22,14 +22,14 @@ namespace networking::modules {
 		std::vector<c_vehicle_entity*> m_vehicles = std::vector<c_vehicle_entity*>(MAX_VEHICLES);
 		int32_t m_free_id = 1;
 	public:
-		void initialize(librg_ctx* librg_context) override;
+		/*void initialize(librg_ctx* librg_context) override;
 		void shutdown() override;
 
 		void on_player_connect(librg_message_t* librg_event);
 		void on_player_spawn(librg_message_t* librg_event);
 
 		void on_receive_stream_update(librg_event_t* librg_event) override;
-		void on_incoming_stream_entity_update(librg_event_t* librg_event) override;
+		void on_incoming_stream_entity_update(librg_event_t* librg_event) override;*/
 	};
 }
 #endif
