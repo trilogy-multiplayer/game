@@ -69,14 +69,30 @@ void networking::modules::c_module_player_sync::on_player_connect(librg_message_
 
 void networking::modules::c_module_player_sync::on_player_spawn(librg_message_t* event)
 {
+	int32_t network_id = librg_data_ru32(event->data);
+
+	auto player = networking::modules::c_module_player_sync::instance()->m_players.at(network_id);
+	if (player == nullptr) return;
+
 	sdk_vec3_t position;
 	librg_data_rptr(event->data, &position, sizeof(sdk_vec3_t));
-	 
-	// TODO:
-	// int32_t model_index = librg_data_ru32(event->data);
 
-	auto player_ped = c_memory::instance()->sdk_find_player_ped(SDK_LOCAL_PLAYER);
-	if (player_ped == nullptr) return;
+	int32_t model = librg_data_ru32(event->data);
+
+	/**
+	  * Currently this is getting called before Entity-Creation
+	  * Workaround!
+	  */
+	if (player->m_game_player == nullptr) {
+		c_log::Info("Game player is null");
+		return;
+	}
+
+	memory::features::c_model_resolver::instance()->add_model_to_worker(model, [player](int32_t model_index) {
+		player->use_player_context([model_index] { 
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, SDK_CONTEXT_PLAYER, model_index); 
+		});
+	});
 
 	// sdk::api::sdk_ped_api
 	// c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, model_index);
@@ -85,7 +101,9 @@ void networking::modules::c_module_player_sync::on_player_spawn(librg_message_t*
 	  * Change sdk_ped class, switch pos_x, pos_y, pos_z to sdk_vec3_t
 	  * EDIT: done.
 	  */
-	player_ped->m_matrix->m_position = position;
+
+	player->m_position = position;
+	player->m_game_player->m_matrix->m_position = position;
 }
 
 void networking::modules::c_module_player_sync::on_incoming_stream_entity_create(librg_event_t* librg_event)

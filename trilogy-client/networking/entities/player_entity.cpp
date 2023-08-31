@@ -20,8 +20,15 @@ c_player_entity::c_player_entity(int32_t network_id, std::string name, bool is_l
 	  * Set the char id only if player is local player, because:
 	  * local player will be the same character all the time
 	  */
-	if (is_local)
+	if (is_local) {
+		sdk_ped* game_player = c_memory::instance()->sdk_find_player_ped(SDK_LOCAL_PLAYER);
+		if (!game_player) return;
+
+		if (!m_game_player)
+			m_game_player = game_player;
+
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, SDK_LOCAL_PLAYER, &this->m_char_id);
+	}
 
 	/**
 	  * Maybe replace this with member variables in player entity class.
@@ -136,6 +143,14 @@ void c_player_entity::on_entity_create(librg_event* event)
 	}
 
 	memory->sdk_world_players[56 * temporary_player_handle] = nullptr;
+
+	int32_t model = librg_data_ru32(event->data);
+
+	memory::features::c_model_resolver::instance()->add_model_to_worker(model, [this](int32_t model_index) {
+		this->use_player_context([model_index] {
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, SDK_CONTEXT_PLAYER, model_index);
+			});
+		});
 }
 
 void c_player_entity::on_entity_update(librg_event* event)
@@ -172,7 +187,7 @@ void c_player_entity::on_entity_update(librg_event* event)
 
 void c_player_entity::on_entity_remove(librg_event* event)
 {
-	this->use_player_context(m_game_player, [&] {
+	this->use_player_context([&] {
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DELETE_PLAYER, SDK_CONTEXT_PLAYER);
 
 		this->m_char_id = -1;

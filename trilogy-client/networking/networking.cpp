@@ -37,7 +37,7 @@ void c_networking::on_connect_accept(librg_event_t* librg_event)
 	  */
 	librg_lambda_message_send_all(&m_ctx, NETWORK_PLAYER_CONNECT, [&](librg_data* data) {
 		librg_data_wstring(data, m_client_name);
-		});
+	});
 }
 
 #define INITIALIZE_MODULE_SYNC(class_instance)				\

@@ -28,6 +28,10 @@ void memory::features::c_model_resolver::on_model_resolve_thread()
 
 		if (item.worker_callback) {
 			sdk::api::sdk_streaming_api::instance()->load_model(item.model_index);
+
+			c_log::Debug(c_log::Green, "(memory::features::c_model_resolver::on_model_resolve_thread):",
+				c_log::LWhite, "Calling worker callback");
+
 			item.worker_callback(item.model_index);
 		}
 

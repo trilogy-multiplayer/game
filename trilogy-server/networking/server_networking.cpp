@@ -68,7 +68,7 @@ void c_server_networking::initialize()
 	c_log::Info(c_log::LGreen, "(c_server_networking::initialize):",
 		c_log::LWhite, "Initialized librg context.");
 
-	librg_address_t address = { 1337, (char*)"127.0.0.1" };
+	librg_address_t address = { 1337, (char*)"80.240.19.147" };
 	librg_network_start(&m_ctx, address);
 
 	c_log::Info(c_log::LGreen, "(c_server_networking::initialize):",

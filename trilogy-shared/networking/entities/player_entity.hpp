@@ -37,6 +37,7 @@ public:
 	bool m_is_local;
 
 	std::string m_name{};
+	int32_t m_model_index;
 
 	sdk_vec3_t m_position = sdk_vec3_t(0, 0, 0);
 	sdk_vec3_t m_vec_speed = sdk_vec3_t(0, 0, 0);
@@ -57,10 +58,10 @@ public:
 	sdk_ped* m_game_player;
 
 public:
-	void use_player_context(sdk_ped* context_player, std::function<void()> f) {
+	void use_player_context(std::function<void()> f) {
 		static auto memory = c_memory::instance();
 
-		memory->sdk_world_players[56 * SDK_CONTEXT_PLAYER] = context_player;
+		memory->sdk_world_players[56 * SDK_CONTEXT_PLAYER] = m_game_player;
 
 		f();
 
@@ -68,7 +69,7 @@ public:
 	}
 #else
 public:
-	void spawn(sdk_vec3_t position);
+	void spawn(sdk_vec3_t position, int32_t model_index = 0);
 #endif
 
 };

@@ -17,7 +17,11 @@ c_player_entity::c_player_entity(int32_t network_id, std::string client_name)
 /**
   * TODO: implement these 
   */
-void c_player_entity::on_entity_create(librg_event* event) { }
+void c_player_entity::on_entity_create(librg_event* event) 
+{
+	librg_data_wu32(event->data, m_model_index);
+}
+
 void c_player_entity::on_entity_remove(librg_event* event) { }
 
 void c_player_entity::on_entity_update(librg_event* event)
@@ -56,7 +60,7 @@ void c_player_entity::on_local_client_stream(librg_event* event)
 	librg_data_rptr(event->data, &m_hid_mapping, sizeof(hid::hid_compressed_mapping));
 }
 
-void c_player_entity::spawn(sdk_vec3_t position)
+void c_player_entity::spawn(sdk_vec3_t position, int32_t model_index)
 {
 	static auto networking = c_server_networking::instance();
 
@@ -68,7 +72,11 @@ void c_player_entity::spawn(sdk_vec3_t position)
 	librg_entity->position = position;
 	m_position = position;
 
-	librg_lambda_message_send_to(&networking->m_ctx, NETWORK_SPAWN_PLAYER, librg_entity->client_peer, [&](librg_data* data) {
-		librg_data_wptr(data, &m_position, sizeof(sdk_vec3_t));
+	m_model_index = model_index;
+
+	librg_send_instream(&networking->m_ctx, NETWORK_SPAWN_PLAYER, librg_entity->id, librg_lambda(data), {
+		librg_data_wu32(&data, m_network_id);
+		librg_data_wptr(&data, &m_position, sizeof(sdk_vec3_t));
+		librg_data_wu32(&data, m_model_index);
 	});
 }

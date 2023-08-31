@@ -28,6 +28,8 @@ namespace networking::modules {
 		void on_player_spawn(librg_message_t* librg_event);
 
 		void on_receive_stream_update(librg_event_t* librg_event) override;
+
+		void on_incoming_stream_entity_create(librg_event_t* librg_event) override;
 		void on_incoming_stream_entity_update(librg_event_t* librg_event) override;
 	};
 }

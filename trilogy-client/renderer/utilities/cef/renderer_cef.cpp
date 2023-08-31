@@ -39,7 +39,7 @@ void renderer::utilities::cef::c_renderer_cef::initialize()
 	CefSettings settings;
 
 	CefString(&settings.browser_subprocess_path).FromASCII(
-		c_log::Join(core->get_trilogy_base_path(), "trilogy-ui-subprocess.exe").c_str());
+		c_log::Join(core->get_trilogy_base_path(), "libs/trilogy-ui-subprocess.exe").c_str());
 
 	CefString(&settings.resources_dir_path).FromASCII(
 		c_core::instance()->make_trilogy_path("libs/").c_str());

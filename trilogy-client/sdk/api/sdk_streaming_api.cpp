@@ -51,16 +51,16 @@ void sdk::api::sdk_streaming_api::load_model(int32_t model_index, int32_t stream
 
 	// if (has_model_loaded(model_index)) return;
 
-	c_log::Info("Requesting model");
 	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_REQUEST_MODEL, model_index);
 	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-	c_log::Info("Loading model");
-
+	/**
+	  * TODO:
+	  * Find the perfect timeouts to load the models.
+	  */
 	c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_LOAD_ALL_MODELS_NOW);
 	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-	c_log::Info("Model loaded!");
+	c_log::Info("Loaded");
 }
 
 void sdk::api::sdk_streaming_api::load_all_requested_models()
