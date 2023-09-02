@@ -233,6 +233,7 @@
     <ClInclude Include="memory\module.hpp" />
     <ClInclude Include="memory\patterns.hpp" />
     <ClInclude Include="networking\features\feature_benchmark.hpp" />
+    <ClInclude Include="networking\features\feature_discord-rpc.hpp" />
     <ClInclude Include="networking\features\feature_nickgen.hpp" />
     <ClInclude Include="networking\modules\module_player-sync.hpp" />
     <ClInclude Include="networking\modules\module_sync.hpp" />

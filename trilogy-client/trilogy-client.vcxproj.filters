@@ -585,6 +585,9 @@
     <ClInclude Include="memory\features\feature_model-resolver.hpp">
       <Filter>Header Files\memory\features</Filter>
     </ClInclude>
+    <ClInclude Include="networking\features\feature_discord-rpc.hpp">
+      <Filter>Header Files\networking\features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
