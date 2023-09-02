@@ -19,6 +19,8 @@
 #include <ctime>
 #include <mutex>
 
+#include <renderer/renderer.hpp>
+
 class c_hook_game : public c_singleton<c_hook_game> {
 private:
 	using sdk_runningscript_process_t = int8_t(*)(int64_t this_ptr, int64_t unk, int64_t unk1);

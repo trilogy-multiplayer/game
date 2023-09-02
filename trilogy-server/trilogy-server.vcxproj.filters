@@ -25,18 +25,60 @@
     <Filter Include="Header Files\networking\entities">
       <UniqueIdentifier>{b3a38542-4a08-4523-b4ef-871d4372a000}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{ec3db8d9-3a6c-4963-b127-a6cc371c11e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{c478283b-8026-475e-90bf-1512dbebdf59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\networking\modules">
+      <UniqueIdentifier>{a619bb98-6621-46ea-885e-92ff042296af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\networking\modules">
+      <UniqueIdentifier>{ded3b7b7-f54b-4160-9db5-5736b937e5c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="networking\entities\server_entity.cpp">
+    <ClCompile Include="networking\server_networking.cpp">
+      <Filter>Source Files\networking</Filter>
+    </ClCompile>
+    <ClCompile Include="core\core.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\modules\module_player-sync.cpp">
+      <Filter>Source Files\networking\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\entities\player_entity.cpp">
       <Filter>Source Files\networking\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="vehicle_entity.cpp">
+      <Filter>Source Files\networking\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\modules\module_vehicle-sync.cpp">
+      <Filter>Source Files\networking\modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="networking\entities\server_entity.hpp">
-      <Filter>Header Files\networking\entities</Filter>
+    <ClInclude Include="networking\server_networking.hpp">
+      <Filter>Header Files\networking</Filter>
+    </ClInclude>
+    <ClInclude Include="common.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\core.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\modules\module_player-sync.hpp">
+      <Filter>Header Files\networking\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\modules\module_sync.hpp">
+      <Filter>Header Files\networking\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\modules\module_vehicle-sync.hpp">
+      <Filter>Header Files\networking\modules</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

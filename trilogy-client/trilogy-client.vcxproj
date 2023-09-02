@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -44,11 +44,12 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -57,6 +58,7 @@
   </ImportGroup>
   <ImportGroup Label="Shared">
     <Import Project="..\trilogy-shared\trilogy-shared.vcxitems" Label="Shared" />
+    <Import Project="..\cef\cef.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -72,12 +74,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir);$(IncludePath);</IncludePath>
-    <TargetName>$(ProjectName)-dev2</TargetName>
+    <IncludePath>$(ProjectDir);$(IncludePath);$(DXSDK_DIR)Include</IncludePath>
+    <TargetName>$(ProjectName)</TargetName>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(DXSDK_DIR)Lib\x64</LibraryPath>
+    <LinkIncremental />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir);$(IncludePath);</IncludePath>
-    <TargetName>$(ProjectName)-dev2</TargetName>
+    <IncludePath>$(ProjectDir);$(IncludePath);$(DXSDK_DIR)Include</IncludePath>
+    <TargetName>$(ProjectName)</TargetName>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(DXSDK_DIR)Lib\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,13 +129,22 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>lib-minhook.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../cef/lib/libcef.lib;../cef/lib/libcef_dll_wrapper.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>libcef.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs />
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -143,7 +157,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,24 +165,94 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>../cef/lib/libcef.lib;../cef/lib/libcef_dll_wrapper.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>libcef.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs />
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\App.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\AppCore.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\CAPI.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\Defines.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\JSHelpers.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\Monitor.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\Overlay.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\Platform.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\Window.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JavaScript.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSBase.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSContextRef.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSObjectRef.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSObjectRefPrivate.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSRetainPtr.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSStringRef.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSTypedArray.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSValueRef.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\WebKitAvailability.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Bitmap.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Buffer.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\CAPI.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Defines.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Geometry.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\KeyCodes.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\KeyEvent.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Listener.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Matrix.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\MouseEvent.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\Clipboard.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\Config.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\FileSystem.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\FontLoader.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\GPUDriver.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\Logger.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\Platform.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\Surface.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\private\PlatformFileSystem.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\RefPtr.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Renderer.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\RenderTarget.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\ScrollEvent.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Session.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\String.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\String16.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\String32.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\String8.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Ultralight.h" />
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\View.h" />
     <ClInclude Include="common.hpp" />
     <ClInclude Include="core\core.hpp" />
     <ClInclude Include="hooking\hooking.hpp" />
     <ClInclude Include="hooking\hooks\hook_crashfix.hpp" />
     <ClInclude Include="hooking\hooks\hook_disable_npc.hpp" />
     <ClInclude Include="hooking\hooks\hook_game.hpp" />
+    <ClInclude Include="memory\features\feature_model-resolver.hpp" />
     <ClInclude Include="memory\memory.hpp" />
     <ClInclude Include="memory\module.hpp" />
     <ClInclude Include="memory\patterns.hpp" />
-    <ClInclude Include="networking\entities\client_entity.hpp" />
-    <ClInclude Include="networking\entities\player_entity.hpp" />
+    <ClInclude Include="networking\features\feature_benchmark.hpp" />
+    <ClInclude Include="networking\features\feature_discord-rpc.hpp" />
+    <ClInclude Include="networking\features\feature_nickgen.hpp" />
+    <ClInclude Include="networking\modules\module_player-sync.hpp" />
+    <ClInclude Include="networking\modules\module_sync.hpp" />
     <ClInclude Include="networking\networking.hpp" />
+    <ClInclude Include="renderer\features\feature_dev-chat.hpp" />
+    <ClInclude Include="renderer\features\feature_nametags.hpp" />
+    <ClInclude Include="renderer\fonts\sffont.hpp" />
+    <ClInclude Include="renderer\renderer.hpp" />
+    <ClInclude Include="renderer\utilities\cef\cef_app.hpp" />
+    <ClInclude Include="renderer\utilities\cef\cef_view.hpp" />
+    <ClInclude Include="renderer\utilities\cef\cef_texture.hpp" />
+    <ClInclude Include="renderer\utilities\cef\input_cef.hpp" />
+    <ClInclude Include="renderer\utilities\cef\renderer_cef.hpp" />
+    <ClInclude Include="renderer\utilities\imgui_render.hpp" />
     <ClInclude Include="scripting\scripting.hpp" />
+    <ClInclude Include="sdk\api\sdk_streaming_api.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\sdk_entity.hpp" />
+    <ClInclude Include="sdk\sdk_weathers.hpp" />
     <ClInclude Include="sdk\sdk_ped.hpp" />
     <ClInclude Include="sdk\sdk_physical.hpp" />
     <ClInclude Include="sdk\sdk_placable.hpp" />
@@ -176,6 +260,56 @@
     <ClInclude Include="sdk\sdk_running_script.hpp" />
     <ClInclude Include="sdk\sdk_script_commands.hpp" />
     <ClInclude Include="sdk\sdk_vector.hpp" />
+    <ClInclude Include="vendor\directxtk\AlignedNew.h" />
+    <ClInclude Include="vendor\directxtk\Audio.h" />
+    <ClInclude Include="vendor\directxtk\Bezier.h" />
+    <ClInclude Include="vendor\directxtk\BinaryReader.h" />
+    <ClInclude Include="vendor\directxtk\BufferHelpers.h" />
+    <ClInclude Include="vendor\directxtk\CommonStates.h" />
+    <ClInclude Include="vendor\directxtk\DDS.h" />
+    <ClInclude Include="vendor\directxtk\DDSTextureLoader.h" />
+    <ClInclude Include="vendor\directxtk\DemandCreate.h" />
+    <ClInclude Include="vendor\directxtk\DirectXHelpers.h" />
+    <ClInclude Include="vendor\directxtk\EffectCommon.h" />
+    <ClInclude Include="vendor\directxtk\Effects.h" />
+    <ClInclude Include="vendor\directxtk\GamePad.h" />
+    <ClInclude Include="vendor\directxtk\GeometricPrimitive.h" />
+    <ClInclude Include="vendor\directxtk\Geometry.h" />
+    <ClInclude Include="vendor\directxtk\GraphicsMemory.h" />
+    <ClInclude Include="vendor\directxtk\Keyboard.h" />
+    <ClInclude Include="vendor\directxtk\LoaderHelpers.h" />
+    <ClInclude Include="vendor\directxtk\Model.h" />
+    <ClInclude Include="vendor\directxtk\Mouse.h" />
+    <ClInclude Include="vendor\directxtk\pch.h" />
+    <ClInclude Include="vendor\directxtk\PlatformHelpers.h" />
+    <ClInclude Include="vendor\directxtk\PostProcess.h" />
+    <ClInclude Include="vendor\directxtk\PrimitiveBatch.h" />
+    <ClInclude Include="vendor\directxtk\ScreenGrab.h" />
+    <ClInclude Include="vendor\directxtk\SDKMesh.h" />
+    <ClInclude Include="vendor\directxtk\SharedResourcePool.h" />
+    <ClInclude Include="vendor\directxtk\SimpleMath.h" />
+    <ClInclude Include="vendor\directxtk\SpriteBatch.h" />
+    <ClInclude Include="vendor\directxtk\SpriteFont.h" />
+    <ClInclude Include="vendor\directxtk\vbo.h" />
+    <ClInclude Include="vendor\directxtk\VertexTypes.h" />
+    <ClInclude Include="vendor\directxtk\WICTextureLoader.h" />
+    <ClInclude Include="vendor\imgui\imconfig.h" />
+    <ClInclude Include="vendor\imgui\imgui.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="vendor\imgui\imgui_stdlib.h" />
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="vendor\imgui\imstb_truetype.h" />
+    <ClInclude Include="vendor\kiero\kiero.h" />
+    <ClInclude Include="vendor\minhook\lib\buffer.h" />
+    <ClInclude Include="vendor\minhook\lib\hde\hde32.h" />
+    <ClInclude Include="vendor\minhook\lib\hde\hde64.h" />
+    <ClInclude Include="vendor\minhook\lib\hde\pstdint.h" />
+    <ClInclude Include="vendor\minhook\lib\hde\table32.h" />
+    <ClInclude Include="vendor\minhook\lib\hde\table64.h" />
+    <ClInclude Include="vendor\minhook\lib\trampoline.h" />
     <ClInclude Include="vendor\minhook\minhook.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -185,11 +319,83 @@
     <ClCompile Include="hooking\hooks\hook_disable_npc.cpp" />
     <ClCompile Include="hooking\hooks\hook_crashfix.cpp" />
     <ClCompile Include="hooking\hooks\hook_game.cpp" />
+    <ClCompile Include="memory\features\feature_model-resolver.cpp" />
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="networking\entities\player_entity.cpp" />
+    <ClCompile Include="networking\features\feature_benchmark.cpp" />
+    <ClCompile Include="networking\features\feature_nickgen.cpp" />
+    <ClCompile Include="networking\modules\module_player-sync.cpp" />
     <ClCompile Include="networking\networking.cpp" />
+    <ClCompile Include="renderer\features\feature_dev-chat.cpp" />
+    <ClCompile Include="renderer\features\feature_nametags.cpp" />
+    <ClCompile Include="renderer\renderer.cpp" />
+    <ClCompile Include="renderer\utilities\cef\cef_app.cpp" />
+    <ClCompile Include="renderer\utilities\cef\cef_view.cpp" />
+    <ClCompile Include="renderer\utilities\cef\cef_texture.cpp" />
+    <ClCompile Include="renderer\utilities\cef\input_cef.cpp" />
+    <ClCompile Include="renderer\utilities\cef\renderer_cef.cpp" />
+    <ClCompile Include="renderer\utilities\imgui_render.cpp" />
     <ClCompile Include="scripting\scripting.cpp" />
+    <ClCompile Include="sdk\api\sdk_ped_api.cpp" />
+    <ClCompile Include="sdk\api\sdk_streaming_api.cpp" />
     <ClCompile Include="sdk\sdk_running_script.cpp" />
+    <ClCompile Include="vendor\directxtk\AlphaTestEffect.cpp" />
+    <ClCompile Include="vendor\directxtk\BasicEffect.cpp" />
+    <ClCompile Include="vendor\directxtk\BasicPostProcess.cpp" />
+    <ClCompile Include="vendor\directxtk\BinaryReader.cpp" />
+    <ClCompile Include="vendor\directxtk\BufferHelpers.cpp" />
+    <ClCompile Include="vendor\directxtk\CommonStates.cpp" />
+    <ClCompile Include="vendor\directxtk\DDSTextureLoader.cpp" />
+    <ClCompile Include="vendor\directxtk\DebugEffect.cpp" />
+    <ClCompile Include="vendor\directxtk\DGSLEffect.cpp" />
+    <ClCompile Include="vendor\directxtk\DGSLEffectFactory.cpp" />
+    <ClCompile Include="vendor\directxtk\DirectXHelpers.cpp" />
+    <ClCompile Include="vendor\directxtk\DualPostProcess.cpp" />
+    <ClCompile Include="vendor\directxtk\DualTextureEffect.cpp" />
+    <ClCompile Include="vendor\directxtk\EffectCommon.cpp" />
+    <ClCompile Include="vendor\directxtk\EffectFactory.cpp" />
+    <ClCompile Include="vendor\directxtk\EnvironmentMapEffect.cpp" />
+    <ClCompile Include="vendor\directxtk\GamePad.cpp" />
+    <ClCompile Include="vendor\directxtk\GeometricPrimitive.cpp" />
+    <ClCompile Include="vendor\directxtk\Geometry.cpp" />
+    <ClCompile Include="vendor\directxtk\GraphicsMemory.cpp" />
+    <ClCompile Include="vendor\directxtk\Keyboard.cpp" />
+    <ClCompile Include="vendor\directxtk\Model.cpp" />
+    <ClCompile Include="vendor\directxtk\ModelLoadCMO.cpp" />
+    <ClCompile Include="vendor\directxtk\ModelLoadSDKMESH.cpp" />
+    <ClCompile Include="vendor\directxtk\ModelLoadVBO.cpp" />
+    <ClCompile Include="vendor\directxtk\Mouse.cpp" />
+    <ClCompile Include="vendor\directxtk\NormalMapEffect.cpp" />
+    <ClCompile Include="vendor\directxtk\PBREffect.cpp" />
+    <ClCompile Include="vendor\directxtk\PBREffectFactory.cpp" />
+    <ClCompile Include="vendor\directxtk\pch.cpp" />
+    <ClCompile Include="vendor\directxtk\PrimitiveBatch.cpp" />
+    <ClCompile Include="vendor\directxtk\ScreenGrab.cpp" />
+    <ClCompile Include="vendor\directxtk\SimpleMath.cpp" />
+    <ClCompile Include="vendor\directxtk\SkinnedEffect.cpp" />
+    <ClCompile Include="vendor\directxtk\SpriteBatch.cpp" />
+    <ClCompile Include="vendor\directxtk\SpriteFont.cpp" />
+    <ClCompile Include="vendor\directxtk\ToneMapPostProcess.cpp" />
+    <ClCompile Include="vendor\directxtk\VertexTypes.cpp" />
+    <ClCompile Include="vendor\directxtk\WICTextureLoader.cpp" />
+    <ClCompile Include="vendor\imgui\imgui.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_stdlib.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="vendor\kiero\kiero.cpp" />
+    <ClCompile Include="vendor\minhook\lib\buffer.c" />
+    <ClCompile Include="vendor\minhook\lib\hde\hde32.c" />
+    <ClCompile Include="vendor\minhook\lib\hde\hde64.c" />
+    <ClCompile Include="vendor\minhook\lib\hook.c" />
+    <ClCompile Include="vendor\minhook\lib\trampoline.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sdk\api\sdk_ped_api.hpp" />
+    <None Include="vendor\directxtk\SimpleMath.inl" />
+    <None Include="vendor\directxtk\TeapotData.inc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

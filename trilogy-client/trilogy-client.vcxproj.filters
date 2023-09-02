@@ -67,6 +67,111 @@
     <Filter Include="Source Files\hooking\hooks">
       <UniqueIdentifier>{01142154-2c33-44da-99f3-9d79048308d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\renderer">
+      <UniqueIdentifier>{a0287880-a41f-4803-97e0-f59a5cacb65e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vendor\kiero">
+      <UniqueIdentifier>{ca041276-2a8f-435a-906f-8ee063fb70c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vendor\imgui">
+      <UniqueIdentifier>{d69b61d3-5adb-4cf6-a73b-7e3176b7b7d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor">
+      <UniqueIdentifier>{e2a1d16c-75d6-40e8-9231-c5e9e3a1f2a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor\kiero">
+      <UniqueIdentifier>{0e5eea5e-f6bf-4cae-aef2-7e0476332d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor\imgui">
+      <UniqueIdentifier>{dafa7ee4-1b2d-46f5-9f7d-78b2e62e7ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer">
+      <UniqueIdentifier>{7e7c8826-758e-4a74-925a-2cd7032d202e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer\utilities">
+      <UniqueIdentifier>{ae6910de-2976-4676-aa20-7977be3db277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\utilities">
+      <UniqueIdentifier>{1d53c72c-bb04-4737-8ae0-115492273394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\fonts">
+      <UniqueIdentifier>{65befae7-98b0-4d25-8c37-9a6aeb2d71d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer\features">
+      <UniqueIdentifier>{984adcf4-ea43-4c9d-a17a-e7d9ad082b4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\features">
+      <UniqueIdentifier>{d9c3c56b-31a8-41a5-937a-5461818260bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\networking\modules">
+      <UniqueIdentifier>{15e8dea7-d188-415d-b53c-5ac017e546d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\networking\modules">
+      <UniqueIdentifier>{cdc21214-b207-4c67-9728-3eabd9608ba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vendor\minhook\lib">
+      <UniqueIdentifier>{cf235dff-c8f4-4d83-8a02-2396c6709d14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vendor\minhook\lib\hde">
+      <UniqueIdentifier>{dfba54ce-6549-4e45-bdda-c2848203885a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor\minhook">
+      <UniqueIdentifier>{2d2fb27d-fc7f-42d3-9fb0-cd4cc8b0c843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor\minhook\lib">
+      <UniqueIdentifier>{f4c78022-9b48-4051-a4d6-61e55be97ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor\minhook\lib\hde">
+      <UniqueIdentifier>{f5af6d49-c25f-47db-9246-c6dd5868d058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vendor\ultralight-ux">
+      <UniqueIdentifier>{a504bc81-6252-41fa-83e2-49a9202b37dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vendor\directxtk">
+      <UniqueIdentifier>{3b08ad9e-db51-4e9b-8c0e-02ffd93efc1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor\directxtk">
+      <UniqueIdentifier>{117fe48f-5372-46b5-b2e7-d49574c6b32a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer\utilities\cef">
+      <UniqueIdentifier>{be4fe491-885f-47df-b7ac-d8bcda03f3da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\utilities\cef">
+      <UniqueIdentifier>{2ac289ea-2f15-4ad8-a9e4-3641d8e34786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer\utilities\cef\app">
+      <UniqueIdentifier>{fb2c385e-e5d1-4ef6-b0b9-d06a969cfc2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer\utilities\cef\texture">
+      <UniqueIdentifier>{a1ecc1a4-b7b6-4509-8a7a-b1692d0553cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\utilities\cef\app">
+      <UniqueIdentifier>{b7afb640-df43-46e9-91d0-f09a1d8f19c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\renderer\utilities\cef\texture">
+      <UniqueIdentifier>{70edbf0e-2aea-4615-a17e-7da723cbbbe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sdk\enums">
+      <UniqueIdentifier>{3cdcab11-c77f-4ced-be1e-eee6a357cef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sdk\api">
+      <UniqueIdentifier>{c4e4e8f7-5224-45f9-808f-d763ba874397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sdk\api">
+      <UniqueIdentifier>{afc3efb3-6528-45f7-ba4a-761836026cf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\networking\features">
+      <UniqueIdentifier>{f8c3bedc-b827-4764-8819-4bc89859d12d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\networking\features">
+      <UniqueIdentifier>{0d38d89e-c024-4a44-a2fb-c278ae7c7bb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\memory\features">
+      <UniqueIdentifier>{eb1dbe99-a570-4f46-8c6d-e97266030a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\memory\features">
+      <UniqueIdentifier>{3a078b8b-656b-477b-a2f7-389465266f63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp">
@@ -120,12 +225,6 @@
     <ClInclude Include="sdk\sdk_placable.hpp">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
-    <ClInclude Include="networking\entities\client_entity.hpp">
-      <Filter>Header Files\networking\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="networking\entities\player_entity.hpp">
-      <Filter>Header Files\networking\entities</Filter>
-    </ClInclude>
     <ClInclude Include="hooking\hooks\hook_crashfix.hpp">
       <Filter>Header Files\hooking\hooks</Filter>
     </ClInclude>
@@ -137,6 +236,357 @@
     </ClInclude>
     <ClInclude Include="hooking\hooks\hook_game.hpp">
       <Filter>Header Files\hooking\hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_internal.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_textedit.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imstb_truetype.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imconfig.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_impl_dx11.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_impl_win32.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\kiero\kiero.h">
+      <Filter>Header Files\vendor\kiero</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\renderer.hpp">
+      <Filter>Header Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\imgui\imgui_stdlib.h">
+      <Filter>Header Files\vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\utilities\imgui_render.hpp">
+      <Filter>Header Files\renderer\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\fonts\sffont.hpp">
+      <Filter>Header Files\renderer\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\features\feature_nametags.hpp">
+      <Filter>Header Files\renderer\features</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\modules\module_sync.hpp">
+      <Filter>Header Files\networking\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\modules\module_player-sync.hpp">
+      <Filter>Header Files\networking\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\minhook\lib\trampoline.h">
+      <Filter>Header Files\vendor\minhook\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\minhook\lib\buffer.h">
+      <Filter>Header Files\vendor\minhook\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\minhook\lib\hde\hde32.h">
+      <Filter>Header Files\vendor\minhook\lib\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\minhook\lib\hde\hde64.h">
+      <Filter>Header Files\vendor\minhook\lib\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\minhook\lib\hde\pstdint.h">
+      <Filter>Header Files\vendor\minhook\lib\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\minhook\lib\hde\table32.h">
+      <Filter>Header Files\vendor\minhook\lib\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\minhook\lib\hde\table64.h">
+      <Filter>Header Files\vendor\minhook\lib\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\Bezier.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\BinaryReader.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\BufferHelpers.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\CommonStates.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\DDS.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\DDSTextureLoader.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\DemandCreate.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\DirectXHelpers.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\EffectCommon.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\Effects.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\GamePad.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\GeometricPrimitive.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\Geometry.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\GraphicsMemory.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\Keyboard.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\LoaderHelpers.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\Model.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\Mouse.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\pch.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\PlatformHelpers.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\PostProcess.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\PrimitiveBatch.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\ScreenGrab.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\SDKMesh.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\SharedResourcePool.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\SimpleMath.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\SpriteBatch.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\SpriteFont.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\vbo.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\VertexTypes.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\WICTextureLoader.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\AlignedNew.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\directxtk\Audio.h">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\App.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\AppCore.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\CAPI.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\Defines.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\JSHelpers.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\Monitor.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\Overlay.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\Platform.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\AppCore\Window.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JavaScript.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSBase.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSContextRef.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSObjectRef.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSObjectRefPrivate.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSRetainPtr.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSStringRef.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSTypedArray.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\JSValueRef.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\JavaScriptCore\WebKitAvailability.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Bitmap.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Buffer.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\CAPI.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Defines.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Geometry.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\KeyCodes.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\KeyEvent.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Listener.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Matrix.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\MouseEvent.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\Clipboard.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\Config.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\FileSystem.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\FontLoader.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\GPUDriver.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\Logger.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\Platform.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\platform\Surface.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\private\PlatformFileSystem.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\RefPtr.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Renderer.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\RenderTarget.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\ScrollEvent.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Session.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\String.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\String16.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\String32.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\String8.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\Ultralight.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\PARADOX\Downloads\UltralightDX11Demo-master\UltralightDX11Demo-master\UltralightDX11Demo\ThirdParty\Ultralight\inc\Ultralight\View.h">
+      <Filter>Header Files\vendor\ultralight-ux</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\utilities\cef\cef_app.hpp">
+      <Filter>Header Files\renderer\utilities\cef\app</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\utilities\cef\cef_view.hpp">
+      <Filter>Header Files\renderer\utilities\cef\app</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\utilities\cef\renderer_cef.hpp">
+      <Filter>Header Files\renderer\utilities\cef</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\utilities\cef\cef_texture.hpp">
+      <Filter>Header Files\renderer\utilities\cef\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\utilities\cef\input_cef.hpp">
+      <Filter>Header Files\renderer\utilities\cef</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk_weathers.hpp">
+      <Filter>Header Files\sdk\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\features\feature_nickgen.hpp">
+      <Filter>Header Files\networking\features</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\features\feature_benchmark.hpp">
+      <Filter>Header Files\networking\features</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer\features\feature_dev-chat.hpp">
+      <Filter>Header Files\renderer\features</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\api\sdk_streaming_api.hpp">
+      <Filter>Header Files\sdk\api</Filter>
+    </ClInclude>
+    <ClInclude Include="memory\features\feature_model-resolver.hpp">
+      <Filter>Header Files\memory\features</Filter>
+    </ClInclude>
+    <ClInclude Include="networking\features\feature_discord-rpc.hpp">
+      <Filter>Header Files\networking\features</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,5 +623,217 @@
     <ClCompile Include="hooking\hooks\hook_game.cpp">
       <Filter>Source Files\hooking\hooks</Filter>
     </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_impl_dx11.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_impl_win32.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\kiero\kiero.cpp">
+      <Filter>Source Files\vendor\kiero</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\renderer.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_stdlib.cpp">
+      <Filter>Source Files\vendor\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\utilities\imgui_render.cpp">
+      <Filter>Source Files\renderer\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\features\feature_nametags.cpp">
+      <Filter>Source Files\renderer\features</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\modules\module_player-sync.cpp">
+      <Filter>Source Files\networking\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\minhook\lib\hde\hde32.c">
+      <Filter>Source Files\vendor\minhook\lib\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\minhook\lib\hde\hde64.c">
+      <Filter>Source Files\vendor\minhook\lib\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\minhook\lib\buffer.c">
+      <Filter>Source Files\vendor\minhook\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\minhook\lib\hook.c">
+      <Filter>Source Files\vendor\minhook\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\minhook\lib\trampoline.c">
+      <Filter>Source Files\vendor\minhook\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\Geometry.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\GraphicsMemory.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\Keyboard.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\Model.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\ModelLoadCMO.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\ModelLoadSDKMESH.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\ModelLoadVBO.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\Mouse.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\NormalMapEffect.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\PBREffect.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\PBREffectFactory.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\pch.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\PrimitiveBatch.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\ScreenGrab.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\SimpleMath.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\SkinnedEffect.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\SpriteBatch.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\SpriteFont.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\ToneMapPostProcess.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\VertexTypes.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\WICTextureLoader.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\AlphaTestEffect.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\BasicEffect.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\BasicPostProcess.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\BinaryReader.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\BufferHelpers.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\CommonStates.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\DDSTextureLoader.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\DebugEffect.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\DGSLEffect.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\DGSLEffectFactory.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\DirectXHelpers.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\DualPostProcess.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\DualTextureEffect.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\EffectCommon.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\EffectFactory.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\EnvironmentMapEffect.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\GamePad.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\directxtk\GeometricPrimitive.cpp">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\utilities\cef\renderer_cef.cpp">
+      <Filter>Source Files\renderer\utilities\cef</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\utilities\cef\cef_app.cpp">
+      <Filter>Source Files\renderer\utilities\cef\app</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\utilities\cef\cef_view.cpp">
+      <Filter>Source Files\renderer\utilities\cef\app</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\utilities\cef\cef_texture.cpp">
+      <Filter>Source Files\renderer\utilities\cef\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\utilities\cef\input_cef.cpp">
+      <Filter>Source Files\renderer\utilities\cef</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\api\sdk_ped_api.cpp">
+      <Filter>Source Files\sdk\api</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\features\feature_nickgen.cpp">
+      <Filter>Source Files\networking\features</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\features\feature_benchmark.cpp">
+      <Filter>Source Files\networking\features</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\features\feature_dev-chat.cpp">
+      <Filter>Source Files\renderer\features</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\api\sdk_streaming_api.cpp">
+      <Filter>Source Files\sdk\api</Filter>
+    </ClCompile>
+    <ClCompile Include="memory\features\feature_model-resolver.cpp">
+      <Filter>Source Files\memory\features</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vendor\directxtk\TeapotData.inc">
+      <Filter>Source Files\vendor\directxtk</Filter>
+    </None>
+    <None Include="vendor\directxtk\SimpleMath.inl">
+      <Filter>Header Files\vendor\directxtk</Filter>
+    </None>
+    <None Include="sdk\api\sdk_ped_api.hpp">
+      <Filter>Header Files\sdk\api</Filter>
+    </None>
   </ItemGroup>
 </Project>

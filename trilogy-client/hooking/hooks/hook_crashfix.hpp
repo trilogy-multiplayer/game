@@ -23,7 +23,12 @@ private:
 	using crash_fix_2_t = void(*)(int64_t this_ptr, int64_t unk);
 	crash_fix_2_t o_crash_fix_2 = 0;
 
+	using crash_fix_3_t = int16_t(*)();
+	crash_fix_3_t o_crash_fix_3 = 0;
+
+	using crash_fix_crouch_t = void**(*)(__int64 a1, __int64 a2, __int64 a3);
 public:
+	crash_fix_crouch_t o_crash_fix_crouch = 0;
 	int64_t* crash_fix_collision_ptr = 0;
 	
 	bool hook();

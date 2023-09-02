@@ -16,6 +16,9 @@
     <Filter Include="networking\packets">
       <UniqueIdentifier>{9b282945-4d47-443e-88d0-ad46b1e72ee0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="networking\entities">
+      <UniqueIdentifier>{7e0889fe-36b9-40c3-95ea-129e5031380d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)vendor\librg\zpl\stb_image.h">
@@ -63,6 +66,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)networking\packets\packet_player_sync_data.hpp">
       <Filter>networking\packets</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)networking\entities\network_entity.hpp">
+      <Filter>networking\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)networking\entities\player_entity.hpp">
+      <Filter>networking\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)networking\entities\vehicle_entity.hpp">
+      <Filter>networking\entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

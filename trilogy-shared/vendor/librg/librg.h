@@ -137,8 +137,16 @@
 
 // disable asserts for release build
 #if !defined(LIBRG_DEBUG) || defined(LIBRG_NO_ASSERT)
+#ifndef ZPL_ASSERT_MSG
 #define ZPL_ASSERT_MSG(cond, msg, ...)
 #endif
+#endif
+
+#include <string>
+#include <sstream>
+#include <functional>
+
+using namespace std;
 
 /* include definitions */
 #ifndef LIBRG_CUSTOM_INCLUDES
@@ -212,6 +220,7 @@
 extern "C" {
 #endif
 
+#pragma warning(disable : 4190)
 
 // =======================================================================//
 // !
@@ -252,6 +261,8 @@ typedef ENetPeer   librg_peer;
 typedef ENetHost   librg_host;
 typedef ENetPacket librg_packet;
 
+using message_callback_t = std::function<void(librg_data* data)>;
+
 enum librg_mode         { LIBRG_MODE_SERVER, LIBRG_MODE_CLIENT };
 enum librg_space_type   { LIBRG_SPACE_2D = 2, LIBRG_SPACE_3D = 3 };
 enum librg_pointer_type { LIBRG_POINTER_CTX, LIBRG_POINTER_DATA, LIBRG_POINTER_EVENT };
@@ -261,7 +272,19 @@ enum librg_thread_state { LIBRG_THREAD_IDLE, LIBRG_THREAD_WORK, LIBRG_THREAD_EXI
  * Simple host address
  * used to configure network on start
  */
-typedef struct librg_address { i32 port; char *host; } librg_address;
+typedef struct librg_address { 
+    i32 port;
+    char *host;
+
+    std::string to_string() {
+        std::stringstream address_stringstream;
+        address_stringstream << host;
+        address_stringstream << ":";
+        address_stringstream << port;
+
+        return address_stringstream.str();
+    }
+} librg_address;
 
 typedef void (librg_entity_cb)(struct librg_ctx *ctx, struct librg_entity *entity);
 typedef void (librg_message_cb)(struct librg_message *msg);
@@ -487,6 +510,7 @@ enum librg_events {
     LIBRG_CLIENT_STREAMER_UPDATE,
 
     LIBRG_EVENT_LAST,
+    LIBRG_TICK,
 };
 
 enum librg_event_flags {
@@ -640,6 +664,7 @@ LIBRG_GEN_DATA_READWRITE(f64);
 LIBRG_GEN_DATA_READWRITE( b8);
 LIBRG_GEN_DATA_READWRITE(b16);
 LIBRG_GEN_DATA_READWRITE(b32);
+LIBRG_GEN_DATA_READWRITE(string);
 #undef LIBRG_GEN_DATA_READWRITE
 
 /**
@@ -740,7 +765,11 @@ LIBRG_API void librg_message_send_all             (struct librg_ctx *ctx, librg_
 LIBRG_API void librg_message_send_to              (struct librg_ctx *ctx, librg_message_id id, librg_peer *target, void *data, usize size);
 LIBRG_API void librg_message_send_except          (struct librg_ctx *ctx, librg_message_id id, librg_peer *target, void *data, usize size);
 LIBRG_API void librg_message_send_instream        (struct librg_ctx *ctx, librg_message_id id, librg_entity_id entity_id, void *data, usize size);
-LIBRG_API void librg_message_send_instream_except (struct librg_ctx *ctx, librg_message_id id, librg_entity_id entity_id, librg_peer *target, void *data, usize size);
+LIBRG_API void librg_message_send_instream_except (struct librg_ctx* ctx, librg_message_id id, librg_entity_id entity_id, librg_peer* target, void* data, usize size);
+LIBRG_API void librg_lambda_message_send_to       (librg_ctx* ctx, librg_message_id id, librg_peer* peer, message_callback_t callback);
+LIBRG_API void librg_lambda_message_send_except   (librg_ctx* ctx, librg_message_id id, librg_peer* peer, message_callback_t callback);
+LIBRG_API void librg_lambda_message_send_all      (librg_ctx* ctx, librg_message_id id, message_callback_t callback);
+
 
 /**
  * The basic message/data sending API
@@ -1728,21 +1757,6 @@ extern "C" {
         data->write_pos += size;
     }
 
-    void librg_data_wstr(librg_data_t* data, std::string string)
-    {
-        librg_data_wu32(data, string.size());
-        librg_data_wptr(data, (void*)string.c_str(), string.size());
-    }
-
-    std::string librg_data_rstr(librg_data_t* data)
-    {
-        usize size = librg_data_ru32(data);
-        char* str = (char*)malloc(sizeof(char) * size);
-        librg_data_rptr(data, str, size);
-        return std::string(str);
-    }
-
-
     /**
      * Value writers and readers
      */
@@ -1776,7 +1790,8 @@ extern "C" {
     LIBRG_GEN_DATA_READWRITE( b8);
     LIBRG_GEN_DATA_READWRITE(b16);
     LIBRG_GEN_DATA_READWRITE(b32);
-    #undef LIBRG_GEN_DATA_READWRITE
+    LIBRG_GEN_DATA_READWRITE(string);
+#undef LIBRG_GEN_DATA_READWRITE
 
     /**
      * Special method for internal packet-safe reading
@@ -2002,6 +2017,25 @@ extern "C" {
     librg_inline void librg_message_send_instream_except(librg_ctx *ctx, librg_message_id id, librg_entity_id entity_id, librg_peer *except, void *data, usize size) {
         librg_message_sendex_instream(ctx, id, entity_id, except, librg_option_get(LIBRG_NETWORK_MESSAGE_CHANNEL), true, data, size);
     }
+
+    librg_inline void librg_lambda_message_send_to(librg_ctx* ctx, librg_message_id id, librg_peer* peer, message_callback_t callback) {
+        librg_data data; librg_data_init(&data); if (callback) callback(&data);
+        librg_message_send_to(ctx, id, peer, data.rawptr, librg_data_get_wpos(&data));
+        librg_data_free(&data);
+    }
+
+    librg_inline void librg_lambda_message_send_all(librg_ctx* ctx, librg_message_id id, message_callback_t callback) {
+        librg_data data; librg_data_init(&data); if (callback) callback(&data);
+        librg_message_send_all(ctx, id, data.rawptr, librg_data_get_wpos(&data));
+        librg_data_free(&data);
+    }
+
+    librg_inline void librg_lambda_message_send_except(librg_ctx* ctx, librg_message_id id, librg_peer* peer, message_callback_t callback) {
+        librg_data data; librg_data_init(&data); if (callback) callback(&data);
+        librg_message_send_except(ctx, id, peer, data.rawptr, librg_data_get_wpos(&data));
+        librg_data_free(&data);
+    }
+
 #endif
 
 // =======================================================================//

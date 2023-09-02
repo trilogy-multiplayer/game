@@ -47,6 +47,7 @@ public:
 	void operator<< (script_local_var_t n);
 	void operator<< (int* n);
 	void operator<< (float* n);
+	void operator<< (bool* n);
 	void operator<< (const char* str);
 
 	void store_parameters(sdk_running_script* script);
@@ -82,10 +83,6 @@ public:
 		sdk_running_script script;
 		script.initialize();
 
-		if (command == sdk_script_commands::COMMAND_IS_BUTTON_PRESSED) {
-			c_log::Info("Button press");
-		}
-
 		c_script opcode = c_script(command);
 		opcode.pack(args...);
 
@@ -97,10 +94,6 @@ public:
 
 		script.process_one_command(m_table_offset);
 		opcode.store_parameters(&script);
-
-		if (command == sdk_script_commands::COMMAND_IS_BUTTON_PRESSED){
-			c_log::Info(*m_script_params);
-		}
 
 		memcpy(m_script_params, original_script_params.get(), 10 * sizeof(int32_t));
 	}

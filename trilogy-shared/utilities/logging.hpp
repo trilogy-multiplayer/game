@@ -9,6 +9,8 @@
 #include <memory>
 #include <windows.h>
 
+#include <definitions.hpp>
+
 class c_log
 {
 public:
@@ -31,7 +33,9 @@ public:
 	template<class T>
 	c_log& put(const T& val)
 	{
-		std::cout << val;
+		if (TRILOGY_BUILD_CHANNEL == e_build_channel::DEVELOPMENT)
+			std::cout << val;
+
 		return *this;
 	}
 
@@ -47,7 +51,9 @@ public:
 
 	c_log& put(stdstream_manip val)
 	{
-		std::cout << val;
+		if (TRILOGY_BUILD_CHANNEL == e_build_channel::DEVELOPMENT)
+			std::cout << val;
+
 		return *this;
 	}
 
@@ -83,6 +89,15 @@ public:
 
 		return *this;
 	}
+
+	template<typename ...Args>
+	static std::string Join(Args&& ...args)
+	{
+		std::ostringstream oss;
+		(oss << ... << args);
+		return oss.str();
+	}
+
 
 	template<class T> c_log& operator<<(const T& val) { return put(val); }
 	c_log& operator<<(stdstream_manip val) { return put(val); }
@@ -128,9 +143,9 @@ public:
 		c_log& begin() const override { return instance(); }
 	} Raw{};
 
-	static constexpr struct c_log_done : public c_log_base {
-		c_log& begin() const override { return instance().put(LYellow, Green, " - [DONE]", Reset); }
-	} Done{};
+	static constexpr struct c_log_Error : public c_log_base {
+		c_log& begin() const override { return instance().put(LYellow, LRed, " - [ERROR]", Reset); }
+	} Error{};
 
 	static constexpr struct c_log_debug : public c_log_base {
 		c_log& begin() const override { return instance().put(LYellow, Cyan, " - [DEBUG]", Reset); }
@@ -138,7 +153,7 @@ public:
 
 	static constexpr struct c_log_error : public c_log_base {
 		c_log& begin() const override { return instance().put(LYellow, LBlue, " - [TRILOGY]", Reset); }
-	} Crash{};
+	} Trilogy{};
 
 	static constexpr struct c_log_info : public c_log_base {
 	private:

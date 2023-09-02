@@ -8,6 +8,8 @@
 #ifndef TRILOGY_NETWORKING_H
 #define TRILOGY_NETWORKING_H
 
+#include <common.hpp>
+
 #define WIN32_LEAN_AND_MEAN 
 #define _CRT_SECURE_NO_WARNINGS
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
@@ -24,31 +26,34 @@
 #include "utilities/singleton.hpp"
 
 #include <networking/entities/player_entity.hpp>
+#include <networking/modules/module_player-sync.hpp>
+
+#include <vendor/minhook/minhook.hpp>
+#include <utilities/ida.hpp>
+#include <mutex>
+
+#define REGISTER_LIBRG_EVENT(context, event_name, function_name) \
+	librg_event_add(context, event_name, [](librg_event_t* _event) { function_name(_event); });	\
+
+#define REGISTER_LIBRG_MESSAGE(context, event_name, function_name) \
+	librg_network_add(context, event_name, [](librg_message_t * _event) { function_name(_event); }); \
 
 class c_networking : public c_singleton<c_networking> {
-private:
+public:
 	librg_ctx_t m_ctx;
+	librg_address_t m_address;
 
 	bool m_is_running = false;
 	bool m_is_connected = false;
 
-public:
-	int32_t player_id = 1;
-
-	using sdk_player_connect_t = void(*)(int64_t this_ptr);
-	sdk_player_connect_t o_sdk_player_connect;
-
-	c_player_entity* get_player_by_id(int32_t id);
-	c_player_entity* get_player_by_game_id(int32_t game_id);
-	std::vector<c_player_entity*> m_players;
-
-	librg_address_t m_address;
 	std::string m_client_name = "trilogy-admin";
 
 	void initialize();
 	bool connect_to(const char* address, int32_t port);
 
 	void on_client_thread();
+	void on_connect_request(librg_event_t* librg_event);
+	void on_connect_accept(librg_event_t* librg_event);
 };
 
 #endif

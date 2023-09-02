@@ -17,6 +17,8 @@
 #include "memory/module.hpp"
 #include "utilities/logging.hpp"
 
+#pragma warning(disable: 26451)
+
 namespace memory
 {
 	inline bool correlate(std::uint8_t* target, const std::optional<std::uint8_t>* sig, std::size_t length)
@@ -83,11 +85,22 @@ namespace memory
 		auto base = mod.base();
 		for (size_t i = 0; i < mod.size(); i++)
 			if (correlate(reinterpret_cast<uint8_t*>(base + i), data, length)) {
-				c_log::Debug(("[+] memory >>"), name, (base + i + offset), "#" + std::to_string(pattern_id));
+				std::stringstream beautified_address;
+				beautified_address << "(";
+				beautified_address << std::hex << (base + i + offset);
+				beautified_address << ")";
+
+				c_log::Debug(c_log::LGreen, "(pattern_scan):",
+					c_log::LWhite, name,
+					c_log::LCyan, beautified_address.str());
+
 				return (type)(base + i + offset);
 			}
 
-		c_log::Debug(("[-] memory >> failed to find signature pattern."), name);
+		c_log::Debug(c_log::LRed, "(pattern_scan):",
+			c_log::LWhite, "Failed to find:",
+			c_log::LCyan, name);
+
 		return (type)(nullptr);
 	}
 

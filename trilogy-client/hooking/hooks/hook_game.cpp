@@ -3,6 +3,10 @@
 #include <networking/networking.hpp>
 #include <vendor/minhook/minhook.hpp>
 
+#include <renderer/renderer.hpp>
+#include <renderer/features/feature_dev-chat.hpp>
+#include <renderer/utilities/cef/renderer_cef.hpp>
+
 /**
  * Kinda ugly code?
  * Better search for a real game initialization function
@@ -14,11 +18,14 @@ int8_t h_sdk_runningscript_process(int64_t this_ptr, int64_t unk, int64_t unk1) 
 	std::call_once(instance_hook_game->initialize_game_time, [&] {
 		instance_hook_game->last_game_tick = std::time(0);
 
-		c_log::Info("(trilogy:mp) loading game files...");
-
+		c_log::Debug(c_log::LBlue, "(trilogy-mp):",
+			c_log::LWhite, "Loading game-files/assets...");
+		
 		auto networking = c_networking::instance();
 		networking->initialize();
 		networking->connect_to("80.240.19.147", 1337);
+
+		c_renderer::instance()->m_main_cef = renderer::utilities::cef::c_renderer_cef::instance()->create_browser("http://80.240.19.147/", false);
 
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_FADING_COLOUR, 208, 196, 171);
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 0, 0);
@@ -29,14 +36,17 @@ int8_t h_sdk_runningscript_process(int64_t this_ptr, int64_t unk, int64_t unk1) 
 	 * - smoother ingame joining
 	 * & have enough time to load clientside assets
 	 */
-	if ((std::time(0) - instance_hook_game->last_game_tick) >= 3)
+	if ((std::time(0) - instance_hook_game->last_game_tick) >= 2)
 	{
 		std::call_once(instance_hook_game->initialize_game_time_after, [&] {
-			c_log::Info("(trilogy:mp) loaded game files! connecting to dev server");
+			c_log::Debug(c_log::LBlue, "(trilogy-mp):",
+				c_log::LWhite, "Loaded game-files/assets! Due to debug mode, connecting to the dev-server.");
+
+			c_renderer::instance()->m_main_cef->m_is_visible = true;
 
 			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_FADING_COLOUR, 208, 196, 171);
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 4500, 1);
-			});
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 1500, 1);
+		});
 	}
 	else {
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 0, 0);
@@ -59,19 +69,33 @@ void h_winmain_process_game_logic(int64_t this_ptr, int64_t unk) {
 
 static int64_t original = 0;
 int64_t h_sdk_thescripts_initialize() {
-	auto instance_hook_game = c_hook_game::instance();
+	static auto instance_hook_game = c_hook_game::instance();
+	static auto scripting = c_scripting::instance();
+	
+	static std::once_flag thescripts_initialize;
+	std::call_once(thescripts_initialize, [&] {
+		renderer::features::c_dev_chat::instance()->m_chat_messages.push_back({ "", "Loading scene...", 3000 });
 
-	if (original == 0)
-		original = instance_hook_game->o_sdk_thescripts_initialize();
+		scripting->call_opcode(sdk_script_commands::COMMAND_REQUEST_COLLISION, SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z);
+		scripting->call_opcode(sdk_script_commands::COMMAND_LOAD_SCENE, SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z);
 
-	return original;
+		renderer::features::c_dev_chat::instance()->m_chat_messages.push_back({ "", "Creating player...", 3000 });
+		
+		int player_handle;
+		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_CREATE_PLAYER, SDK_LOCAL_PLAYER,
+		SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z, &player_handle);
+		
+		renderer::features::c_dev_chat::instance()->m_chat_messages.push_back({ "", "TRILOGY:MP has been loaded.", 3000 });
+		});
+
+	return 0;
 }
 
 bool c_hook_game::hook()
 {
 	auto hook_result = true;
 
-	ptr_game_state = memory::as_relative<int8_t*>(memory::find_pattern(memory::module_t(nullptr), "offset", "8B 05 ? ? ? ? 4C 8B 05 ? ? ? ? 83 F8 ?"), 2);
+	ptr_game_state = memory::as_relative<int8_t*>(memory::find_pattern(memory::module_t(nullptr), "c_hook_game::ptr_game_state", "8B 05 ? ? ? ? 4C 8B 05 ? ? ? ? 83 F8 ?"), 2);
 
 	if (hook_result) {
 		sdk_runningscript_process = memory::find_pattern<sdk_runningscript_process_t>(memory::module_t(nullptr), "c_hook_game::sdk_runningscript_process", "4C 8B DC 55 49 8D 6B C8 48 81 EC ? ? ? ? 48 8B 05 ? ? ? ? 48 33 C4 48 89 45 A0");
@@ -90,7 +114,6 @@ bool c_hook_game::hook()
 		MH_CreateHook(sdk_thescripts_initialize, h_sdk_thescripts_initialize, reinterpret_cast<void**>(&o_sdk_thescripts_initialize));
 		hook_result = MH_EnableHook(sdk_thescripts_initialize) == MH_OK;
 	}
-
 
 	return hook_result;
 }

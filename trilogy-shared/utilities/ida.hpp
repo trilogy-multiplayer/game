@@ -98,11 +98,26 @@ typedef int bool;       // we want to use bool in our C programs
 
 // Some convenience macros to make partial accesses nicer  
 // first unsigned macros:  
+#ifndef LOBYTE
 #define LOBYTE(x)   (*((_BYTE*)&(x)))   // low byte  
+#endif
+
+#ifndef LOWORD
 #define LOWORD(x)   (*((_WORD*)&(x)))   // low word  
+#endif
+
+#ifndef LODWORD
 #define LODWORD(x)  (*((_DWORD*)&(x)))  // low dword  
+#endif
+
+#ifndef HIBYTE
 #define HIBYTE(x)   (*((_BYTE*)&(x)+1))  
+#endif
+
+#ifndef HIWORD
 #define HIWORD(x)   (*((_WORD*)&(x)+1))  
+#endif
+
 #define HIDWORD(x)  (*((_DWORD*)&(x)+1))  
 #define BYTEn(x, n)   (*((_BYTE*)&(x)+n))  
 #define WORDn(x, n)   (*((_WORD*)&(x)+n))  

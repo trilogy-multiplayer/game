@@ -11,6 +11,7 @@
 #pragma once
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
+#define TRILOGY_CLIENT					// Set client definition
 
 #include <windows.h>
 #include <sstream>
@@ -27,6 +28,7 @@
 #include <optional>
 #include <intrin.h>
 #include <iostream>
+#include <mutex>
 
 #include "utilities/singleton.hpp"
 #include "utilities/logging.hpp"

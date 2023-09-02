@@ -53,6 +53,12 @@ void c_script::operator << (int32_t* ptr)
     this->m_savedParams.push_back(ptr);
 }
 
+void c_script::operator << (bool* ptr)
+{
+    *this << script_local_var_t(this->m_savedParams.size());
+    this->m_savedParams.push_back((int*)ptr);
+}
+
 void c_script::operator << (float* ptr)
 {
     *this << script_local_var_t(this->m_savedParams.size());
@@ -60,7 +66,7 @@ void c_script::operator << (float* ptr)
 }
 
 #define operator(ID, TYPE)                                                     \
-    void c_script::operator << (TYPE n)                                            \
+    void c_script::operator << (TYPE n)                                        \
     {                                                                          \
         unsigned char typeId = ID;                                             \
         append (&typeId, 1);                                                   \
