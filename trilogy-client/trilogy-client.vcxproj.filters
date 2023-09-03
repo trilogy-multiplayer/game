@@ -830,6 +830,9 @@
     <ClCompile Include="memory\features\feature_model-resolver.cpp">
       <Filter>Source Files\memory\features</Filter>
     </ClCompile>
+    <ClCompile Include="networking\features\feature_discord-rpc.cpp">
+      <Filter>Source Files\networking\features</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\directxtk\TeapotData.inc">

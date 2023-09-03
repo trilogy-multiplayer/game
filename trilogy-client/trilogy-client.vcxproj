@@ -324,6 +324,7 @@
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="networking\entities\player_entity.cpp" />
     <ClCompile Include="networking\features\feature_benchmark.cpp" />
+    <ClCompile Include="networking\features\feature_discord-rpc.cpp" />
     <ClCompile Include="networking\features\feature_nickgen.cpp" />
     <ClCompile Include="networking\modules\module_player-sync.cpp" />
     <ClCompile Include="networking\networking.cpp" />

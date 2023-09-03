@@ -6,6 +6,7 @@
 
 #include "networking.hpp"
 #include <networking/features/feature_nickgen.hpp>
+#include <networking/features/feature_discord-rpc.hpp>
 
 void c_networking::initialize() {
 	this->m_client_name = "TRILOGY:" + networking::features::c_feature_nickgen::instance()->get_nickname();
@@ -78,10 +79,17 @@ void c_networking::on_client_thread()
 {
 	while (this->m_is_running)
 	{
+		static std::once_flag discord_initialization;
+		std::call_once(discord_initialization, [&] {
+			networking::features::c_feature_discord_rpc::instance()->initialize();
+			});
+
 		if (GetAsyncKeyState(VK_SUBTRACT) & 0x1) {
 			this->m_is_running = false;
 			break;
 		}
+
+		networking::features::c_feature_discord_rpc::instance()->update_rich_presence();
 
 		librg_tick(&m_ctx);
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));

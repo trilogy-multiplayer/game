@@ -63,7 +63,7 @@ void networking::modules::c_module_player_sync::on_player_connect(librg_message_
 
 	player->spawn(
 		sdk_vec3_t(SPAWN_POS_X, SPAWN_POS_Y, SPAWN_POS_Z),
-		model_iterator
+		183
 	);
 }
 
