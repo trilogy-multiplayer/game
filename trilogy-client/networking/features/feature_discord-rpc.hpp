@@ -21,7 +21,7 @@ namespace networking::features {
 	private:
 		bool m_running;
 
-		void on_discord_rpc_thread();
+		int32_t get_player_count();
 	};
 }
 

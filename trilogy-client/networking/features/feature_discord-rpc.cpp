@@ -22,8 +22,6 @@ void networking::features::c_feature_discord_rpc::on_discord_rpc_thread()
 
 }
 
-char* details = new char[256];
-
 void networking::features::c_feature_discord_rpc::update_rich_presence()
 {
     static auto networking = c_networking::instance();
@@ -37,8 +35,9 @@ void networking::features::c_feature_discord_rpc::update_rich_presence()
     memset(&rich_presence, 0, sizeof(rich_presence));
     rich_presence.state = "Development server";
 
-    sprintf(details, "Playing as: %s", module_player_sync->m_local_player->m_name.c_str());
-    rich_presence.details = details;
+    rich_presence.details = 
+        c_log::Join("Playing as: ", module_player_sync->m_local_player->m_name)
+        .c_str();
 
     rich_presence.startTimestamp = std::time(0);
 
@@ -46,8 +45,13 @@ void networking::features::c_feature_discord_rpc::update_rich_presence()
     rich_presence.smallImageKey = "trilogy-round";
 
     rich_presence.partyId = networking->m_address.host;
-    rich_presence.partySize = module_player_sync->m_players.size();
     rich_presence.partyMax = 1000;
+
+    rich_presence.partySize = 
+        std::count_if(
+            module_player_sync->m_players.begin(), module_player_sync->m_players.end(), [](auto player) { 
+                return player != nullptr; 
+            });
 
     Discord_UpdatePresence(&rich_presence);
 }
