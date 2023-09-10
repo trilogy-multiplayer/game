@@ -7,28 +7,28 @@ void renderer::utilities::cef::c_renderer_cef::initialize()
 	static auto core = c_core::instance();
 	app = new c_cef_app;
 
-	auto chrome_elf_handle = LoadLibraryA(core->make_trilogy_path("libs/chrome_elf.dll").c_str());
+	auto chrome_elf_handle = LoadLibraryA(core->make_trilogy_path("/libs/chrome_elf.dll").c_str());
 	if (!chrome_elf_handle) {
 		c_log::Error(c_log::LGreen, "(renderer::utilities::cef::c_renderer_cef::initialize):",
 			c_log::LWhite, "Failed to find chrome_elf.dll in libraries");
 		return;
 	}
 
-	auto lib_egl_handle = LoadLibraryA(core->make_trilogy_path("libs/libEGL.dll").c_str());
+	auto lib_egl_handle = LoadLibraryA(core->make_trilogy_path("/libs/libEGL.dll").c_str());
 	if (!lib_egl_handle) {
 		c_log::Error(c_log::LGreen, "(renderer::utilities::cef::c_renderer_cef::initialize):",
 			c_log::LWhite, "Failed to find libEGL.dll in libraries");
 		return;
 	}
 
-	auto lib_gles_v2_handle = LoadLibraryA(core->make_trilogy_path("libs/libGLESv2.dll").c_str());
+	auto lib_gles_v2_handle = LoadLibraryA(core->make_trilogy_path("/libs/libGLESv2.dll").c_str());
 	if (!lib_gles_v2_handle) {
 		c_log::Error(c_log::LGreen, "(renderer::utilities::cef::c_renderer_cef::initialize):",
 			c_log::LWhite, "Failed to find libGLESv2.dll in libraries");
 		return;
 	}
 
-	auto libcef_handle = LoadLibraryA(core->make_trilogy_path("libs/libcef.dll").c_str());
+	auto libcef_handle = LoadLibraryA(core->make_trilogy_path("/libs/libcef.dll").c_str());
 	if (!libcef_handle) {
 		c_log::Error(c_log::LGreen, "(renderer::utilities::cef::c_renderer_cef::initialize):",
 			c_log::LWhite, "Failed to find libcef.dll in libraries");
@@ -39,15 +39,15 @@ void renderer::utilities::cef::c_renderer_cef::initialize()
 	CefSettings settings;
 
 	CefString(&settings.browser_subprocess_path).FromASCII(
-		c_log::Join(core->get_trilogy_base_path(), "trilogy-ui-subprocess.exe").c_str());
+		c_log::Join(core->get_trilogy_base_path(), "/libs/trilogy-ui-subprocess.exe").c_str());
 
 	CefString(&settings.resources_dir_path).FromASCII(
-		c_core::instance()->make_trilogy_path("libs/").c_str());
+		c_core::instance()->make_trilogy_path("/libs/").c_str());
 
-	CefString(&settings.locales_dir_path).FromASCII(c_core::instance()->make_trilogy_path("libs/locales").c_str());
+	CefString(&settings.locales_dir_path).FromASCII(c_core::instance()->make_trilogy_path("/libs/locales").c_str());
 
 	CefString(&settings.log_file).FromASCII(
-		c_log::Join(core->get_trilogy_base_path(), "cefdebug.txt").c_str());
+		c_log::Join(core->get_trilogy_base_path(), "/cefdebug.txt").c_str());
 
 	settings.log_severity = cef_log_severity_t::LOGSEVERITY_VERBOSE;
 

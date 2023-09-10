@@ -7,6 +7,8 @@
 #include <renderer/features/feature_dev-chat.hpp>
 #include <renderer/utilities/cef/renderer_cef.hpp>
 
+#include <shellapi.h>
+
 /**
  * Kinda ugly code?
  * Better search for a real game initialization function
@@ -23,9 +25,30 @@ int8_t h_sdk_runningscript_process(int64_t this_ptr, int64_t unk, int64_t unk1) 
 		
 		auto networking = c_networking::instance();
 		networking->initialize();
-		networking->connect_to("127.0.0.1", 1337);
 
-		c_renderer::instance()->m_main_cef = renderer::utilities::cef::c_renderer_cef::instance()->create_browser("http://80.240.19.147/", false);
+		std::string ip = "127.0.0.1";
+		std::string nickname = "unknown";
+		int port = 1337;
+
+		if (auto command_line = GetCommandLineW()) { // trilogy:mp -h xxx -p xxx -n xxx
+			int argc;
+			auto argv = CommandLineToArgvW(command_line, &argc);
+			if (argc > 0) {
+				std::wstring _host = argv[1];
+				std::wstring _port = argv[3];
+				std::wstring _nickname = argv[5];
+
+				ip = std::string(_host.begin(), _host.end());
+				port = std::stoi(std::string(_port.begin(), _port.end()));
+				nickname = std::string(_nickname.begin(), _nickname.end());
+
+				LocalFree(argv);
+			}
+		}
+
+		networking->connect_to(ip.c_str(), port, nickname.c_str());
+
+		c_renderer::instance()->m_main_cef = renderer::utilities::cef::c_renderer_cef::instance()->create_browser("http://80.240.19.147/", false); // CEF
 
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_FADING_COLOUR, 208, 196, 171);
 		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DO_FADE, 0, 0);

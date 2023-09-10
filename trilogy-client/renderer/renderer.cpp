@@ -70,35 +70,32 @@ HRESULT __stdcall h_renderer_present(IDXGISwapChain* dxgi_swapchain, UINT sync_i
 
 	imgui_render->begin_scene();
 
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, { 0.0f, 0.0f, 0.0f, 0.5f });
-	ImGui::Begin("(trilogy-mp): debug");
-	{
-		static c_networking* networking = c_networking::instance();
+	//ImGui::PushStyleColor(ImGuiCol_WindowBg, { 0.0f, 0.0f, 0.0f, 0.5f });
+	//ImGui::Begin("(trilogy-mp): debug");
+	//{
+	//	static c_networking* networking = c_networking::instance();
 
-		ImGui::Text("Nickname:");
-		ImGui::InputText("##trilogy-debug::server_nickname", &networking->m_client_name);
+	//	ImGui::Text("Nickname:");
+	//	ImGui::InputText("##trilogy-debug::server_nickname", &networking->m_client_name);
 
-		if (networking->m_is_connected) {
-			std::stringstream server_ip_with_port;
-			server_ip_with_port << networking->m_address.host;
-			server_ip_with_port << ":";
-			server_ip_with_port << networking->m_address.port;
+	//	if (networking->m_is_connected) {
+	//		std::stringstream server_ip_with_port;
+	//		server_ip_with_port << networking->m_address.host;
+	//		server_ip_with_port << ":";
+	//		server_ip_with_port << networking->m_address.port;
 
-			imgui_inline_text("(networking): Connected to:", server_ip_with_port.str());
-			imgui_inline_text("(networking): Connected as:", networking->m_client_name);
-			
+	//		imgui_inline_text("(networking): Connected to:", server_ip_with_port.str());
+	//		imgui_inline_text("(networking): Connected as:", networking->m_client_name);
+	//		
 
-			imgui_inline_text("(librg): Last update:", std::to_string(networking->m_ctx.last_update));
-			imgui_inline_text("(librg): Buffer size:", std::to_string(networking->m_ctx.buffer_size));
-			//imgui_inline_text("(networking): Free player id", std::to_string(networking->player_id));
-			//imgui_inline_text("(networking): Player count", std::to_string(networking->m_players.size()));
-		}
-	}
-	ImGui::End();
-	ImGui::PopStyleColor();
-
-	RECT window_size;
-	GetClientRect(renderer->window, &window_size);
+	//		imgui_inline_text("(librg): Last update:", std::to_string(networking->m_ctx.last_update));
+	//		imgui_inline_text("(librg): Buffer size:", std::to_string(networking->m_ctx.buffer_size));
+	//		//imgui_inline_text("(networking): Free player id", std::to_string(networking->player_id));
+	//		//imgui_inline_text("(networking): Player count", std::to_string(networking->m_players.size()));
+	//	}
+	//}
+	//ImGui::End();
+	//ImGui::PopStyleColor();
 
 	// renderer::features::c_dev_chat::instance()->m_chat_messages.push_back({ "", "(c_renderer::h_renderer_present): test", 3000 });
 

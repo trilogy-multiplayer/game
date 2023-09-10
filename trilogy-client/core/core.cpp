@@ -1,4 +1,6 @@
 #include "core.hpp"
+#include <filesystem>
+#include <iostream>
 
 std::string c_core::get_computer_name() {
 	const int buffer_size = MAX_COMPUTERNAME_LENGTH + 1;
@@ -14,15 +16,8 @@ std::string c_core::get_computer_name() {
 
 std::string c_core::get_trilogy_base_path()
 {
-	/**
-	  * TODO:
-	  * Our launcher needs to set a registry value so the game knows our trilogy-path for libs.
-	  */
-
-	if (get_computer_name().find("DESKTOP-6RZ5T9") != std::string::npos)
-		return m_path;
-
-	return "";
+	printf("Path: %s\n", std::filesystem::current_path().string().c_str());
+	return std::filesystem::current_path().string().c_str();
 }
 
 std::string c_core::make_trilogy_path(std::string trilogy_path)

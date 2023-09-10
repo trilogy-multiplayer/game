@@ -49,7 +49,7 @@ public:
 	std::string m_client_name = "trilogy-admin";
 
 	void initialize();
-	bool connect_to(const char* address, int32_t port);
+	bool connect_to(const char* address, int32_t port, std::string name);
 
 	void on_client_thread();
 	void on_connect_request(librg_event_t* librg_event);

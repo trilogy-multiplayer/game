@@ -8,7 +8,7 @@
 #include <networking/features/feature_nickgen.hpp>
 
 void c_networking::initialize() {
-	this->m_client_name = "TRILOGY:" + networking::features::c_feature_nickgen::instance()->get_nickname();
+	//this->m_client_name = "TRILOGY:" + networking::features::c_feature_nickgen::instance()->get_nickname();
 
 	this->m_ctx = { 0 };
 	this->m_is_running = false;
@@ -46,7 +46,7 @@ void c_networking::on_connect_accept(librg_event_t* librg_event)
 		c_log::LWhite, "Started hooking instance:",			\
 		c_log::LCyan, #class_instance);						\
 
-bool c_networking::connect_to(const char* address, int32_t port)
+bool c_networking::connect_to(const char* address, int32_t port, std::string name)
 {
 	this->m_is_running = true;
 
@@ -62,6 +62,7 @@ bool c_networking::connect_to(const char* address, int32_t port)
 
 	this->m_address.host = (char*)address;
 	this->m_address.port = port;
+	this->m_client_name = name.c_str();
 
 	c_log::Info(c_log::LGreen, "(c_networking::connect_to):",
 		c_log::LWhite, "Initialized librg context.");
