@@ -576,9 +576,6 @@
     <ClInclude Include="sdk\api\sdk_streaming_api.hpp">
       <Filter>Header Files\sdk\api</Filter>
     </ClInclude>
-    <ClInclude Include="vehicle_entity.hpp">
-      <Filter>Header Files\networking\entities</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

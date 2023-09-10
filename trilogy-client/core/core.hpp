@@ -7,7 +7,7 @@
 
 class c_core : public c_singleton<c_core> {
 private:
-	std::string m_path = std::string("E:\\Coding\\trilogy-mp\\x64\\Release\\");
+	std::string m_path = std::string("C:\\Games\\Grand Theft Auto San Andreas The Definitive Edition\\Gameface\\Binaries\\Win64\\");
 
 public:
 	std::string get_computer_name();
