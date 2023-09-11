@@ -293,6 +293,7 @@
     <ClInclude Include="vendor\directxtk\vbo.h" />
     <ClInclude Include="vendor\directxtk\VertexTypes.h" />
     <ClInclude Include="vendor\directxtk\WICTextureLoader.h" />
+    <ClInclude Include="vendor\discord\discord_rpc.hpp" />
     <ClInclude Include="vendor\imgui\imconfig.h" />
     <ClInclude Include="vendor\imgui\imgui.h" />
     <ClInclude Include="vendor\imgui\imgui_impl_dx11.h" />
@@ -323,6 +324,7 @@
     <ClCompile Include="memory\memory.cpp" />
     <ClCompile Include="networking\entities\player_entity.cpp" />
     <ClCompile Include="networking\features\feature_benchmark.cpp" />
+    <ClCompile Include="networking\features\feature_discord-rpc.cpp" />
     <ClCompile Include="networking\features\feature_nickgen.cpp" />
     <ClCompile Include="networking\modules\module_player-sync.cpp" />
     <ClCompile Include="networking\networking.cpp" />

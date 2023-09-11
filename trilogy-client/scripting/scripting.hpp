@@ -78,7 +78,7 @@ public:
 	bool initialize();
 
 	template <typename... Args>
-	void call_opcode(sdk_script_commands command, Args... args)
+	bool call_opcode(sdk_script_commands command, Args... args)
 	{
 		sdk_running_script script;
 		script.initialize();
@@ -96,5 +96,10 @@ public:
 		opcode.store_parameters(&script);
 
 		memcpy(m_script_params, original_script_params.get(), 10 * sizeof(int32_t));
+
+		/**
+		  * TODO: Return value
+		  */
+		return true;
 	}
 };

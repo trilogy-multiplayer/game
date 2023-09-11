@@ -172,6 +172,9 @@
     <Filter Include="Source Files\memory\features">
       <UniqueIdentifier>{3a078b8b-656b-477b-a2f7-389465266f63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\vendor\discord">
+      <UniqueIdentifier>{69771c88-6b25-4e56-b91e-b6698a5f8aee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp">
@@ -588,6 +591,9 @@
     <ClInclude Include="networking\features\feature_discord-rpc.hpp">
       <Filter>Header Files\networking\features</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\discord\discord_rpc.hpp">
+      <Filter>Source Files\vendor\discord</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -823,6 +829,9 @@
     </ClCompile>
     <ClCompile Include="memory\features\feature_model-resolver.cpp">
       <Filter>Source Files\memory\features</Filter>
+    </ClCompile>
+    <ClCompile Include="networking\features\feature_discord-rpc.cpp">
+      <Filter>Source Files\networking\features</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
