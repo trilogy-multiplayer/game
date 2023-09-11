@@ -2,7 +2,7 @@
 
 void memory::features::c_model_resolver::initialize()
 {
-	m_model_resolve_thread = std::thread([this] { this->on_model_resolve_thread(); });
+	m_model_resolve_thread = std::thread([this] { this->on_model_resolve_queue(); });
 	m_model_resolve_thread.detach();
 }
 
@@ -12,7 +12,7 @@ void memory::features::c_model_resolver::add_model_to_worker(int32_t model_index
 	m_worker_items.push({ model_index, worker_callback });
 }
 
-void memory::features::c_model_resolver::on_model_resolve_thread()
+void memory::features::c_model_resolver::on_model_resolve_queue()
 {
 	while (true)
 	{

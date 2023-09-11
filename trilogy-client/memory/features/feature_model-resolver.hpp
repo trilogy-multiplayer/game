@@ -33,7 +33,7 @@ namespace memory::features {
 		  * passed pointers have to be validated before callback
 		  */
 		void add_model_to_worker(int32_t model_index, std::function<void(int32_t)> worker_callback);
-		void on_model_resolve_thread();
+		void on_model_resolve_queue();
 	};
 }
 #endif
