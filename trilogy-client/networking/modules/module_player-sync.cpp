@@ -19,7 +19,7 @@ void h_process_control(sdk_ped* this_ptr)
 		reinterpret_cast<int64_t>(this_ptr));
 
 	if (player == nullptr) return;
-	
+
 	hid::hid_mapping current_hid_state = *c_memory::instance()->sdk_hid_mapping;
 	auto current_camera_data_front = *c_memory::instance()->sdk_current_camera_data_front;
 
@@ -88,11 +88,13 @@ void networking::modules::c_module_player_sync::on_player_spawn(librg_message_t*
 		return;
 	}
 
-	memory::features::c_model_resolver::instance()->add_model_to_worker(model, [player](int32_t model_index) {
-		player->use_player_context([model_index] { 
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, SDK_CONTEXT_PLAYER, model_index); 
+	memory::features::c_model_resolver::instance()->add_model_to_worker(model, [player](int32_t model_index)
+		{
+			player->use_player_context([model_index]
+				{
+					c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, SDK_CONTEXT_PLAYER, model_index);
+				});
 		});
-	});
 
 	// sdk::api::sdk_ped_api
 	// c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, model_index);

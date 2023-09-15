@@ -42,11 +42,11 @@ uintptr_t init_main(const HMODULE h_module)
 			//int char_id;
 			//c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, 0, &char_id);
 			//c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GIVE_WEAPON_TO_CHAR, char_id, 24, 100);
-			// networking::features::c_feature_benchmark::instance()->run_benchmark();
+			networking::features::c_feature_benchmark::instance()->run_benchmark();
 
 			// sdk_ped* player = (sdk_ped*)c_memory::instance()->sdk_find_player_ped(0);
 			// position_to_look_at = player->m_matrix->m_position;
-			c_renderer::instance()->focus_browser = !c_renderer::instance()->focus_browser;
+			// c_renderer::instance()->focus_browser = !c_renderer::instance()->focus_browser;
 		}
 
 		if (GetAsyncKeyState(VK_BACK) & 0x1) {
