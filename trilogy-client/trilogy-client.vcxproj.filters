@@ -594,6 +594,9 @@
     <ClInclude Include="vendor\discord\discord_rpc.hpp">
       <Filter>Source Files\vendor\discord</Filter>
     </ClInclude>
+    <ClInclude Include="sdk\sdk_tasks.hpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

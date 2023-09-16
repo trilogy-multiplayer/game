@@ -252,6 +252,7 @@
     <ClInclude Include="sdk\api\sdk_streaming_api.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\sdk_entity.hpp" />
+    <ClInclude Include="sdk\sdk_tasks.hpp" />
     <ClInclude Include="sdk\sdk_weathers.hpp" />
     <ClInclude Include="sdk\sdk_ped.hpp" />
     <ClInclude Include="sdk\sdk_physical.hpp" />
