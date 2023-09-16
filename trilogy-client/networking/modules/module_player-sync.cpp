@@ -38,6 +38,15 @@ void h_process_control(sdk_ped* this_ptr)
 	*c_memory::instance()->sdk_hid_mapping = current_hid_state;
 }
 
+void h_set_task_unknown(int64_t this_ptr, int64_t* unk)
+{
+	auto module_player_sync = networking::modules::c_module_player_sync::instance();
+	module_player_sync->o_set_task_unknown(this_ptr, unk);
+
+	c_log::Debug(c_log::LRed, "(c_module_player_sync::h_set_task_unknown):",
+		c_log::LWhite, "Task", c_log::Cyan, this_ptr, unk);
+}
+
 void networking::modules::c_module_player_sync::on_local_accept_connection(librg_message_t* librg_event)
 {
 	int32_t network_id = librg_data_ru32(librg_event->data);
@@ -208,6 +217,13 @@ void networking::modules::c_module_player_sync::initialize(librg_ctx* librg_cont
 
 	MH_CreateHook(process_control, h_process_control, reinterpret_cast<void**>(&o_process_control));
 	MH_EnableHook(process_control);
+
+
+	auto set_task_unknown = memory::find_pattern<set_task_unknown_t>(memory::module_t(nullptr), "networking::modules::c_module_player_sync::set_task_unknown",
+		"48 89 5C 24 10 57 48 83 EC ? 48 8D 79 08 48 8B DA 48 85 D2 75 ? 48 8B 4F 20");
+
+	MH_CreateHook(set_task_unknown, h_set_task_unknown, reinterpret_cast<void**>(&o_set_task_unknown));
+	MH_EnableHook(set_task_unknown);
 
 	REGISTER_LIBRG_MESSAGE(librg_context, NETWORK_ACCEPT_CONNECTION, networking::modules::c_module_player_sync::instance()->on_local_accept_connection);
 	REGISTER_LIBRG_MESSAGE(librg_context, NETWORK_PLAYER_CONNECT, networking::modules::c_module_player_sync::instance()->on_player_connect);

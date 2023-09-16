@@ -36,8 +36,7 @@ uintptr_t init_main(const HMODULE h_module)
 
 	while (true) {
 		if (GetAsyncKeyState(VK_INSERT) & 0x8000) break;
-		//}
-
+		
 		if (GetAsyncKeyState(VK_F2) & 0x1) {
 			//int char_id;
 			//c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, 0, &char_id);
