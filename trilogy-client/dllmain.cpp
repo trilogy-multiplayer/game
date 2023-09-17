@@ -96,9 +96,8 @@ uintptr_t init_main(const HMODULE h_module)
 		}
 
 		if (GetAsyncKeyState(VK_ADD) & 0x1) {
-			int char_id;
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_GET_PLAYER_CHAR, 0, &char_id);
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_CURRENT_CHAR_WEAPON, char_id, 1.313131f);
+			c_log::Info(c_memory::instance()->sdk_find_player_ped(0));
+			c_log::Info(*(_QWORD*)(c_memory::instance()->sdk_find_player_ped(0) + 0x580));
 		}
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
