@@ -26,13 +26,15 @@ void memory::features::c_model_resolver::on_model_resolve_queue()
 			}
 		}
 
-		if (item.worker_callback) {
-			sdk::api::sdk_streaming_api::instance()->load_model(item.model_index);
+		if (item.worker_callback) {	
+			// There is something really fucked up with loading models
+			// We need a workaround for loading models asap!
+			// sdk::api::sdk_streaming_api::instance()->load_model(item.model_index);
 
 			c_log::Debug(c_log::Green, "(memory::features::c_model_resolver::on_model_resolve_thread):",
 				c_log::LWhite, "Calling worker callback");
 
-			item.worker_callback(item.model_index);
+			// item.worker_callback(item.model_index);
 		}
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));

@@ -33,7 +33,7 @@ c_player_entity::c_player_entity(int32_t network_id, std::string name, bool is_l
 	/**
 	  * Maybe replace this with member variables in player entity class.
 	  */
-	// this->player_sync_data = new packet_player_sync_data();
+	  // this->player_sync_data = new packet_player_sync_data();
 
 	GET_TARGET_SYNC_MODULE->m_players.at(network_id) = this;
 }
@@ -75,7 +75,7 @@ void c_player_entity::on_local_client_stream(librg_event* event) {
 	/**
 	  * Event is equal to last synced data.
 	  * Reject it.
-	  * 
+	  *
 	  * kinda gay rn, rework
 	  */
 	if (player->m_position == game_player->m_matrix->m_position &&
@@ -147,8 +147,9 @@ void c_player_entity::on_entity_create(librg_event* event)
 	int32_t model = librg_data_ru32(event->data);
 
 	memory::features::c_model_resolver::instance()->add_model_to_worker(model, [this](int32_t model_index) {
-		this->use_player_context([model_index] {
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, SDK_CONTEXT_PLAYER, model_index);
+		this->use_player_context([model_index]
+			{
+				c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, SDK_CONTEXT_PLAYER, model_index);
 			});
 		});
 }
@@ -187,10 +188,11 @@ void c_player_entity::on_entity_update(librg_event* event)
 
 void c_player_entity::on_entity_remove(librg_event* event)
 {
-	this->use_player_context([&] {
-		c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DELETE_PLAYER, SDK_CONTEXT_PLAYER);
+	this->use_player_context([&]
+		{
+			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_DELETE_PLAYER, SDK_CONTEXT_PLAYER);
 
-		this->m_char_id = -1;
-		this->m_game_player = nullptr;
-	});
+			this->m_char_id = -1;
+			this->m_game_player = nullptr;
+		});
 }

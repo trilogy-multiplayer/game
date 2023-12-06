@@ -3,11 +3,13 @@
 /**
   * Maybe switch benchmarking to GetTickCount
   * Is std::time(0) accurate?
+  * 
+  * edit: use cpu clock cycles
   */
 #define RUN_BENCHMARK(function)	\
-	auto start_time_##function = std::time(0);	\
-	for(int i = 0; i <= 99999; i++) function();	\
-	auto time_difference_##function = std::time(0) - start_time_##function;	\
+	auto start_time_##function = __rdtsc();	\
+	for(int i = 0; i <= 100; i++) function();	\
+	auto time_difference_##function = __rdtsc() - start_time_##function;	\
 	c_log::Info(c_log::LGreen, "(c_benchmark::run_benchmark):",	\
 		c_log::LCyan, std::string(#function), "took", c_log::Join(time_difference_##function, "ms"));	\
 

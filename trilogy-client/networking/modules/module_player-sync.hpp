@@ -29,6 +29,9 @@ namespace networking::modules {
 		using process_control_t = void(*)(sdk_ped* this_ptr);
 		process_control_t o_process_control;
 
+		using set_task_unknown_t = void(*)(int64_t this_ptr, int64_t* unk);
+		set_task_unknown_t o_set_task_unknown;
+		
 	public:
 		void initialize(librg_ctx* librg_context) override;
 		void shutdown() override;

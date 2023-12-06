@@ -19,7 +19,7 @@ void h_process_control(sdk_ped* this_ptr)
 		reinterpret_cast<int64_t>(this_ptr));
 
 	if (player == nullptr) return;
-	
+
 	hid::hid_mapping current_hid_state = *c_memory::instance()->sdk_hid_mapping;
 	auto current_camera_data_front = *c_memory::instance()->sdk_current_camera_data_front;
 
@@ -36,6 +36,15 @@ void h_process_control(sdk_ped* this_ptr)
 
 	*c_memory::instance()->sdk_current_camera_data_front = current_camera_data_front;
 	*c_memory::instance()->sdk_hid_mapping = current_hid_state;
+}
+
+void h_set_primary_task(int64_t this_ptr, int64_t* unk)
+{
+	auto module_player_sync = networking::modules::c_module_player_sync::instance();
+	module_player_sync->o_set_task_unknown(this_ptr, unk);
+
+	c_log::Debug(c_log::LRed, "(c_module_player_sync::h_set_task_unknown):",
+		c_log::LWhite, "Task", c_log::Cyan, this_ptr, unk);
 }
 
 void networking::modules::c_module_player_sync::on_local_accept_connection(librg_message_t* librg_event)
@@ -88,11 +97,13 @@ void networking::modules::c_module_player_sync::on_player_spawn(librg_message_t*
 		return;
 	}
 
-	memory::features::c_model_resolver::instance()->add_model_to_worker(model, [player](int32_t model_index) {
-		player->use_player_context([model_index] { 
-			c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, SDK_CONTEXT_PLAYER, model_index); 
+	memory::features::c_model_resolver::instance()->add_model_to_worker(model, [player](int32_t model_index)
+		{
+			player->use_player_context([model_index]
+				{
+					c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, SDK_CONTEXT_PLAYER, model_index);
+				});
 		});
-	});
 
 	// sdk::api::sdk_ped_api
 	// c_scripting::instance()->call_opcode(sdk_script_commands::COMMAND_SET_PLAYER_MODEL, model_index);
@@ -201,11 +212,21 @@ c_player_entity* networking::modules::c_module_player_sync::get_player_by_ptr(in
 
 void networking::modules::c_module_player_sync::initialize(librg_ctx* librg_context)
 {
+	/**
+	  * TODO:
+	  * Maybe split this into hooking classes
+	  */
 	auto process_control = memory::find_pattern<process_control_t>(memory::module_t(nullptr), "networking::modules::c_module_player_sync::process_control",
 		"48 8B C4 48 89 58 20 55 56 57 41 54 41 55 48 8D 68 A1");
 
 	MH_CreateHook(process_control, h_process_control, reinterpret_cast<void**>(&o_process_control));
 	MH_EnableHook(process_control);
+
+	auto set_primary_task = memory::find_pattern<set_task_unknown_t>(memory::module_t(nullptr), "networking::modules::c_module_player_sync::set_task_unknown",
+		"48 89 5C 24 10 57 48 83 EC ? 48 8D 79 08 48 8B DA 48 85 D2 75 ? 48 8B 4F 18");
+
+	MH_CreateHook(set_primary_task, h_set_primary_task, reinterpret_cast<void**>(&o_set_task_unknown));
+	MH_EnableHook(set_primary_task);
 
 	REGISTER_LIBRG_MESSAGE(librg_context, NETWORK_ACCEPT_CONNECTION, networking::modules::c_module_player_sync::instance()->on_local_accept_connection);
 	REGISTER_LIBRG_MESSAGE(librg_context, NETWORK_PLAYER_CONNECT, networking::modules::c_module_player_sync::instance()->on_player_connect);
